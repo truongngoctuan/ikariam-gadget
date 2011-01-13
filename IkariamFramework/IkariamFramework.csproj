@@ -49,6 +49,8 @@
     <Compile Include="BUSIkariamFramework\BUSAction.cs" />
     <Compile Include="BUSIkariamFramework\BUSCity.cs" />
     <Compile Include="BUSIkariamFramework\BUSEvent.cs" />
+    <Compile Include="BUSIkariamFramework\BUSMessage.cs" />
+    <Compile Include="BUSIkariamFramework\BUSResearch.cs" />
     <Compile Include="DAOIkariamFramework\DAOAccount.cs" />
     <Compile Include="DAOIkariamFramework\BaseFunction.cs" />
     <Compile Include="DAOIkariamFramework\DAOAdvisor.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="DTOIkariamFramework\DTOMessage.cs" />
     <Compile Include="DTOIkariamFramework\DTOMilitary.cs" />
     <Compile Include="DTOIkariamFramework\DTOResearch.cs" />
+    <Compile Include="DTOIkariamFramework\DTOResearchBranch.cs" />
     <Compile Include="DTOIkariamFramework\DTOTransport.cs" />
     <Compile Include="DAOIkariamFramework\Database.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />

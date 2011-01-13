@@ -16,5 +16,8 @@ namespace IkariamFramework.DTOIkariamFramework
         }
 
         public DTOEvent[] Event { get; set; }
+        public DTOResearch Research { get; set; }
+        public DTOMessage[] Message { get; set; }
     }
 }
+

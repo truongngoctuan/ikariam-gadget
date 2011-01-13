@@ -39,8 +39,6 @@ namespace IkariamFramework.DAOIkariamFramework
                     ev.Date = nodeCol[i].ChildNodes[7].InnerText;
                     ev.Message = nodeCol[i].ChildNodes[9].InnerText;
 
-                    
-
                     events.Add(ev);
                 }
             Database.accInf.Event = events.ToArray();

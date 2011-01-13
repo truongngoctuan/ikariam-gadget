@@ -134,5 +134,53 @@ namespace Test_BUS_DAO
 
             tbResult.Text = strResult.ToString();
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {//research
+            StringBuilder strResult = new StringBuilder(2000);
+            DTOResearch re = BUSResearch.Get();
+
+            strResult.Append("Scientist: " + re.Scientists);
+            strResult.Append(" ResearchPoints: " + re.ResearchPoints);
+            strResult.Append("+" + re.ResearchPointsPerHour);
+            strResult.Append("\r\n");
+
+            strResult.Append("1: " + re.Seafaring.Name);
+            strResult.Append("; " + re.Seafaring.Description);
+            strResult.Append("; " + re.Seafaring.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("2: " + re.Economic.Name);
+            strResult.Append("; " + re.Economic.Description);
+            strResult.Append("; " + re.Economic.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("3: " + re.Scientific.Name);
+            strResult.Append("; " + re.Scientific.Description);
+            strResult.Append("; " + re.Scientific.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("4: " + re.Militaristic.Name);
+            strResult.Append("; " + re.Militaristic.Description);
+            strResult.Append("; " + re.Militaristic.Need.ToString());
+            strResult.Append("\r\n");
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            StringBuilder strResult = new StringBuilder(1000);
+
+            int nMessages = BUSMessage.Count();
+            for (int i = 0; i < nMessages; i++)
+            {
+                DTOMessage mess = BUSMessage.Get(i);
+                strResult.Append("Message: " + mess.Message);
+                strResult.Append("\r\n");
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
     }
 }

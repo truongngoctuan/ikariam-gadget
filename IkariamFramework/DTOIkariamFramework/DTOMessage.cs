@@ -7,5 +7,6 @@ namespace IkariamFramework.DTOIkariamFramework
 {
     public class DTOMessage
     {
+        public string Message { get; set; }
     }
 }
