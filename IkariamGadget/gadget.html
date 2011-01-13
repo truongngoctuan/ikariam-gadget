@@ -1,0 +1,26 @@
+﻿
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Ikariam Gadget</title>
+    <script type="text/javascript" language="javascript" src="scripts/GadgetInterop.js"></script>
+    <script src="scripts/gadget.js" type="text/javascript"></script>
+    <link href="css/gadget.css"  type="text/css" rel="Stylesheet"/>    
+</head>
+<body onload="LoadGadget();">
+<div>    
+    <g:background id="backgroundImage" src="url(images/gmailbw.png)" 
+        style="position: absolute;top: 0px; left:0px; width: 130px; height: 130px;">
+        Name :
+        <label id="displayname"></label> <br />
+        ErrorMessage :
+        <label id="error"></label> <br />
+        OldView :
+        <label id="oldview"></label> <br />
+    </g:background>
+</div>
+    
+<script language="javascript" type="text/javascript">
+    GetInfo();
+</script>
+</body>
+</html>
