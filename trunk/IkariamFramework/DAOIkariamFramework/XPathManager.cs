@@ -24,9 +24,9 @@ namespace IkariamFramework.DAOIkariamFramework
         public class XPathAdvisor
         {
             public static string advCities = "//li[@id='advCities']/a";//"/html/body/div/div/div[11]/ul/li/a";
-            public static string advMilitary = "/html/body/div/div/div[11]/ul/li[2]/a";
-            public static string advResearch = "/html/body/div/div/div[11]/ul/li[3]/a";
-            public static string advDiplomacy = "/html/body/div/div/div[11]/ul/li[4]/a";
+            public static string advMilitary = "//li[@id='advMilitary']/a";
+            public static string advResearch = "//li[@id='advResearch']/a";
+            public static string advDiplomacy = "//li[@id='advDiplomacy']/a";
         }
 
         public class XPathEvent
@@ -40,10 +40,19 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public class XPathResearch
         {
+            public static string ResearchEntry = "//div[@class='researchInfo']";
+            public static string ResearchPoint = "//ul[@class='researchLeftMenu']";
         }
 
         public class XPathTransport
         {
         }
+
+        public class XPathMessage
+        {
+            public static string MessageEntry = "//td[@class='msgText']";
+        }
+
+
     }
 }
