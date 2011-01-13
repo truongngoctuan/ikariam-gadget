@@ -46,12 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="BaseFunction.cs" />
-    <Compile Include="City.cs" />
-    <Compile Include="EventInfo.cs" />
-    <Compile Include="Gadget.cs" />
-    <Compile Include="GloVal.cs" />
+    <Compile Include="BUSIkariamFramework\BUSAction.cs" />
+    <Compile Include="BUSIkariamFramework\BUSCity.cs" />
+    <Compile Include="BUSIkariamFramework\BUSEvent.cs" />
+    <Compile Include="DAOIkariamFramework\DAOAccount.cs" />
+    <Compile Include="DAOIkariamFramework\BaseFunction.cs" />
+    <Compile Include="DAOIkariamFramework\DAOAdvisor.cs" />
+    <Compile Include="DAOIkariamFramework\DAOCity.cs" />
+    <Compile Include="DAOIkariamFramework\DAOEvent.cs" />
+    <Compile Include="DTOIkariamFramework\DTOAccount.cs" />
+    <Compile Include="DTOIkariamFramework\DTOCity.cs" />
+    <Compile Include="DTOIkariamFramework\DTOEvent.cs" />
+    <Compile Include="DTOIkariamFramework\DTOMessage.cs" />
+    <Compile Include="DTOIkariamFramework\DTOMilitary.cs" />
+    <Compile Include="DTOIkariamFramework\DTOResearch.cs" />
+    <Compile Include="DTOIkariamFramework\DTOTransport.cs" />
+    <Compile Include="DAOIkariamFramework\Database.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />
     <Compile Include="HtmlAgilityPack\EncodingFoundException.cs" />
     <Compile Include="HtmlAgilityPack\HtmlAttribute.cs" />
@@ -81,12 +91,12 @@
     <Compile Include="HtmlAgilityPack\MixedCodeDocumentTextFragment.cs" />
     <Compile Include="HtmlAgilityPack\NameValuePair.cs" />
     <Compile Include="HtmlAgilityPack\NameValuePairList.cs" />
-    <Compile Include="MessageInfo.cs" />
-    <Compile Include="MilitaryInfo.cs" />
+    <Compile Include="DAOIkariamFramework\DAOMessage.cs" />
+    <Compile Include="DAOIkariamFramework\DAOMilitary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResearchInfo.cs" />
-    <Compile Include="TransportInfo.cs" />
-    <Compile Include="XPathManager.cs" />
+    <Compile Include="DAOIkariamFramework\DAOResearch.cs" />
+    <Compile Include="DAOIkariamFramework\DAOTransport.cs" />
+    <Compile Include="DAOIkariamFramework\XPathManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

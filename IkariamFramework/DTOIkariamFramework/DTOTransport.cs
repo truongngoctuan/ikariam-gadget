@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IkariamFramework
+namespace IkariamFramework.DTOIkariamFramework
 {
-    public class EventInfo
+    public class DTOTransport
     {
     }
 }
