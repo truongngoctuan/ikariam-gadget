@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace IkariamFramework
+namespace IkariamFramework.DAOIkariamFramework
 {
-    public class MilitaryInfo
+    public class DAOMilitary
     {
     }
 }

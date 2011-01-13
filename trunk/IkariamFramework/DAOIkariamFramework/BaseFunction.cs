@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Net;
 using System.IO;
+using HtmlAgilityPack;
 
-namespace IkariamFramework
+namespace IkariamFramework.DAOIkariamFramework
 {
     public class BaseFunction
     {
@@ -13,14 +14,12 @@ namespace IkariamFramework
         static String CONTENT_TYPE = "application/x-www-form-urlencoded";
         static String ACCEPT = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
 
-        public static Stream GetHtmlSite(HtmlAgilityPack.HtmlDocument Document,
-            CookieContainer cookieContainer,
-            string url)
+        public static Stream GetHtmlSite(string url)
         {//http://htmlagilitypack.codeplex.com/Thread/View.aspx?ThreadId=14255
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse webResponse;
             // need a cookie container to store cookies
-            webRequest.CookieContainer = cookieContainer;
+            webRequest.CookieContainer = Database.cookieContainer;
             webRequest.Accept = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
             webRequest.Method = "GET";
             webRequest.UserAgent = USER_AGENT;
@@ -29,16 +28,14 @@ namespace IkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Document.Load(webResponse.GetResponseStream());
-                GloVal.DocumentNode = Document.DocumentNode;
+                Database.Document.Load(webResponse.GetResponseStream());
+                Database.DocumentNode = Database.Document.DocumentNode;
                 return webResponse.GetResponseStream();
             }
             return null;
         }
 
-        public static Stream PostGetHtmlSite(HtmlAgilityPack.HtmlDocument Document, 
-            CookieContainer cookieContainer, 
-            string url, string postData)//, out bool responseOK)
+        public static Stream PostGetHtmlSite(string url, string postData)//, out bool responseOK)
         {//http://htmlagilitypack.codeplex.com/Thread/View.aspx?ThreadId=14255
             string htmlResponse = string.Empty;
             //responseOK = false;
@@ -47,7 +44,7 @@ namespace IkariamFramework
             //Our postvars
             byte[] buffer = Encoding.ASCII.GetBytes(postData);
             // need a cookie container to store cookies
-            webRequest.CookieContainer = cookieContainer;
+            webRequest.CookieContainer = Database.cookieContainer;
              webRequest.Referer = "http://en.ikariam.com/";
              webRequest.Accept = ACCEPT;
             //====================================================
@@ -69,11 +66,18 @@ namespace IkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Document.Load(webResponse.GetResponseStream());
-                GloVal.DocumentNode = Document.DocumentNode;
+                Database.Document.Load(webResponse.GetResponseStream());
+                Database.DocumentNode = Database.Document.DocumentNode;
                 return webResponse.GetResponseStream();
             }
             return null;
+        }
+
+        public static void GoToLink(string strXpath)
+        {
+            HtmlNode node = Database.Document.DocumentNode.SelectSingleNode(strXpath);
+            string strhref = node.GetAttributeValue("href", "err");
+            BaseFunction.GetHtmlSite(Database.WebUrl + strhref);
         }
     }
 }

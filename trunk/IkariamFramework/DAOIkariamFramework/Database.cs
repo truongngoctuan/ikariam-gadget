@@ -5,33 +5,40 @@ using System.Text;
 using System.Net;
 using HtmlAgilityPack;
 using System.Windows.Forms;
+using IkariamFramework.DTOIkariamFramework;
 
-namespace IkariamFramework
+namespace IkariamFramework.DAOIkariamFramework
 {
-    public class GloVal
+    public class Database
     {
+        public static DTOAccount accInf = new DTOAccount();
+        public static bool Authenticated { get; private set; }
+
         public static HtmlAgilityPack.HtmlDocument Document = new HtmlAgilityPack.HtmlDocument();
         public static HtmlAgilityPack.HtmlNode DocumentNode = null;
         public static CookieContainer cookieContainer = new CookieContainer();
-        public static Account accInf = new Account();
 
         public static string WebUrl = "http://s15.en.ikariam.com/index.php";
 
         public static string strOldView = "";
+
+        private Database()
+        {
+            Authenticated = false;
+        }
         public static void UpdateOldView()
         {
-            //HtmlNode node = DocumentNode.SelectSingleNode("//fieldset");
-            ////MessageBox.Show(node.InnerHtml);
-            //if (node == null)
-            //{
-            //    throw new Exception("lỗi: UpdateOldView");
-            //}
-            //strOldView = node.ChildNodes[6].GetAttributeValue("value", "err");
-            ////MessageBox.Show(strOldView);
-
-            HtmlNode node = GloVal.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
+            HtmlNode node = Database.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
             string strhref = node.GetAttributeValue("href", "err");
-            GloVal.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
+
+            if (strhref.IndexOf("oldView=") != -1)
+            {
+                Database.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
+            }
+            else
+            {
+                Database.strOldView = "";
+            }
             //MessageBox.Show(GloVal.strOldView);
         }
 
