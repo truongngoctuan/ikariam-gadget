@@ -120,6 +120,7 @@ namespace Test_BUS_DAO
         {
             StringBuilder strResult = new StringBuilder(1000);
 
+            BUSEvent.ForceUpdate();
             int nEvents = BUSEvent.Count();
             for (int i = 0; i < nEvents; i++)
             {
@@ -172,6 +173,7 @@ namespace Test_BUS_DAO
         {
             StringBuilder strResult = new StringBuilder(1000);
 
+            BUSMessage.ForceUpdate();
             int nMessages = BUSMessage.Count();
             for (int i = 0; i < nMessages; i++)
             {
@@ -243,6 +245,271 @@ namespace Test_BUS_DAO
                 }
             }
             
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            //gte troops unit in town
+            StringBuilder strResult = new StringBuilder(1000);
+
+            int nTroops = BUSTroops.CountUnits(BUSCity.GetCurrentCity());
+            for (int i = 0; i < nTroops; i++)
+            {
+                DTOTroops troop = BUSTroops.GetUnitsInCity(BUSCity.GetCurrentCity(), i);
+
+                strResult.Append("  " + troop.Type);
+                strResult.Append(" " + troop.Quality);
+                strResult.Append(" is unit: " + troop.IsUnits);
+                strResult.Append("\r\n");
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            BUSCity.ChangeCityTo(3);
+            tbResult.Text = BUSAction.InnerHTML();
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            BUSCity.ChangeCityTo(4);
+            tbResult.Text = BUSAction.InnerHTML();
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            BUSCity.ChangeCityTo(99);
+            tbResult.Text = BUSAction.InnerHTML();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            //all units
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " +
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+
+                int nTroops = BUSTroops.CountUnits(BUSCity.GetCurrentCity());
+                for (int j = 0; j < nTroops; j++)
+                {
+                    DTOTroops troop = BUSTroops.GetUnitsInCity(i, j);
+
+                    strResult.Append("  " + troop.Type);
+                    strResult.Append(" " + troop.Quality);
+                    strResult.Append(" is unit: " + troop.IsUnits);
+                    strResult.Append("\r\n");
+                }
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            //get ship
+            StringBuilder strResult = new StringBuilder(1000);
+
+            int nTroops = BUSTroops.CountShips(BUSCity.GetCurrentCity());
+            for (int i = 0; i < nTroops; i++)
+            {
+                DTOTroops troop = BUSTroops.GetShipsInCity(BUSCity.GetCurrentCity(), i);
+
+                strResult.Append("  " + troop.Type);
+                strResult.Append(" " + troop.Quality);
+                strResult.Append(" is unit: " + troop.IsUnits);
+                strResult.Append("\r\n");
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            //all ships
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " +
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+
+                int nTroops = BUSTroops.CountShips(BUSCity.GetCurrentCity());
+                for (int j = 0; j < nTroops; j++)
+                {
+                    DTOTroops troop = BUSTroops.GetShipsInCity(i, j);
+
+                    strResult.Append("  " + troop.Type);
+                    strResult.Append(" " + troop.Quality);
+                    strResult.Append(" is unit: " + troop.IsUnits);
+                    strResult.Append("\r\n");
+                }
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            string strResult = "";
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                DTOCity city = BUSCity.GetResourceCity(i, true);
+                strResult += " X: " + city.X;
+                strResult += " Y: " + city.Y;
+                strResult += " ID: " + city.ID;
+                strResult += " Name: " + city.Name;
+                strResult += " Type: " + city.TypeTradeGood;
+
+                strResult += " po: " + city.Population;
+                strResult += "(" + city.PopulationLimit + ")";
+                strResult += " action: " + city.ActionPoint;
+
+                strResult += " wood: " + city.Wood;
+                strResult += "+" + city.WoodPerHour;
+                strResult += " wine: " + city.Wine;
+                strResult += "+" + city.WinePerHour;
+                strResult += " mar: " + city.Marble;
+                strResult += "+" + city.MarblePerHour;
+                strResult += " crys: " + city.Crystal;
+                strResult += "+" + city.CrystalPerHour;
+                strResult += " sul: " + city.Sulphur;
+                strResult += "+" + city.SulphurPerHour;
+                strResult += "\r\n";
+            }
+
+            tbResult.Text = strResult;
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            StringBuilder strResult = new StringBuilder(2000);
+            DTOResearch re = BUSResearch.ForceUpdate();
+
+            strResult.Append("Scientist: " + re.Scientists);
+            strResult.Append(" ResearchPoints: " + re.ResearchPoints);
+            strResult.Append("+" + re.ResearchPointsPerHour);
+            strResult.Append("\r\n");
+
+            strResult.Append("1: " + re.Seafaring.Name);
+            strResult.Append("; " + re.Seafaring.Description);
+            strResult.Append("; " + re.Seafaring.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("2: " + re.Economic.Name);
+            strResult.Append("; " + re.Economic.Description);
+            strResult.Append("; " + re.Economic.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("3: " + re.Scientific.Name);
+            strResult.Append("; " + re.Scientific.Description);
+            strResult.Append("; " + re.Scientific.Need.ToString());
+            strResult.Append("\r\n");
+
+            strResult.Append("4: " + re.Militaristic.Name);
+            strResult.Append("; " + re.Militaristic.Description);
+            strResult.Append("; " + re.Militaristic.Need.ToString());
+            strResult.Append("\r\n");
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button21_Click(object sender, EventArgs e)
+        {
+            //get building all town
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " +
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+
+                BUSBuilding.ForceUpdate(i);
+                int nBuildings = BUSBuilding.Count(i);
+                for (int j = 0; j < nBuildings; j++)
+                {
+                    DTOBuilding building = BUSBuilding.GetHouseInfomationInCity(i, j);
+
+                    strResult.Append("  Building " + (j + 1).ToString() + ": " + building.Type);
+                    strResult.Append(" " + building.Lvl);
+
+                    if (building.IsBuilding)
+                    {
+                        strResult.Append(" " + building.IsBuilding);
+                        strResult.Append(" " + building.Time);
+                    }
+
+                    strResult.Append("\r\n");
+                }
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button22_Click(object sender, EventArgs e)
+        {
+            //all units
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " +
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+                BUSTroops.ForceUpdateUnits(i);
+                int nTroops = BUSTroops.CountUnits(BUSCity.GetCurrentCity());
+                for (int j = 0; j < nTroops; j++)
+                {
+                    DTOTroops troop = BUSTroops.GetUnitsInCity(i, j);
+
+                    strResult.Append("  " + troop.Type);
+                    strResult.Append(" " + troop.Quality);
+                    strResult.Append(" is unit: " + troop.IsUnits);
+                    strResult.Append("\r\n");
+                }
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button23_Click(object sender, EventArgs e)
+        {
+            //all ships
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " +
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+                BUSTroops.ForceUpdateShips(i);
+                int nTroops = BUSTroops.CountShips(BUSCity.GetCurrentCity());
+                for (int j = 0; j < nTroops; j++)
+                {
+                    DTOTroops troop = BUSTroops.GetShipsInCity(i, j);
+
+                    strResult.Append("  " + troop.Type);
+                    strResult.Append(" " + troop.Quality);
+                    strResult.Append(" is unit: " + troop.IsUnits);
+                    strResult.Append("\r\n");
+                }
+            }
+
             tbResult.Text = strResult.ToString();
         }
     }

@@ -175,6 +175,8 @@ namespace IkariamFramework.DAOIkariamFramework
                 }
             }
 
+            Database.accInf.Cities[iIndexCity].IsUpdatedResource = true;
+
             //MessageBox.Show(Database.accInf.Cities[iIndexCity].Population.ToString() + " " + Database.accInf.Cities[iIndexCity].PopulationLimit.ToString()
             //    + "/ " + Database.accInf.Cities[iIndexCity].ActionPoint.ToString()
             //+ "/ " + Database.accInf.Cities[iIndexCity].Wood.ToString() + " " + Database.accInf.Cities[iIndexCity].WoodPerHour.ToString()

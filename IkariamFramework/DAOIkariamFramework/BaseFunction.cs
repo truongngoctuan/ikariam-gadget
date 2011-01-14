@@ -30,6 +30,8 @@ namespace IkariamFramework.DAOIkariamFramework
             {
                 Database.Document.Load(webResponse.GetResponseStream());
                 Database.DocumentNode = Database.Document.DocumentNode;
+                Database.UpdateOldView();
+
                 return webResponse.GetResponseStream();
             }
             return null;
@@ -68,6 +70,8 @@ namespace IkariamFramework.DAOIkariamFramework
             {
                 Database.Document.Load(webResponse.GetResponseStream());
                 Database.DocumentNode = Database.Document.DocumentNode;
+                Database.UpdateOldView();
+
                 return webResponse.GetResponseStream();
             }
             return null;

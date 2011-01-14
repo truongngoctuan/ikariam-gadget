@@ -63,7 +63,6 @@ namespace IkariamFramework.BUSIkariamFramework
 
             if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
             {
-                //DAOCity.ChangeCity(iIndex);
                 if (Database.iCurrentCity == iIndex)
                 {
                     if (bForceUpdateSite)
@@ -98,19 +97,27 @@ namespace IkariamFramework.BUSIkariamFramework
 
             if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
             {
-                if (Database.iCurrentCity == iIndex)
+                //dung them 1 bien bool dat trogn lop de kiem tra,
+                //neu da update roi thi ko update nua
+                //tru khi dung bien forceupdate
+                if (!Database.accInf.Cities[iIndex].IsUpdatedResource)
                 {
-                    if (bForceUpdateSite)
-                    {
-                        DAOCity.ChangeCity(iIndex);
+                    if (Database.iCurrentCity == iIndex)
+                    {//chưa update, nhưng đang ở viewhiện tại nên lấy res ko request
+                        DAOCity.UpdateResourceCity(iIndex);
+                        return Database.accInf.Cities[iIndex];
                     }
-                }
-                else
-                {
-                    DAOCity.ChangeCity(iIndex);
+                    //chưa update --> buôc request
+                    Database.accInf.Cities[iIndex].IsUpdatedResource = true;
+                    bForceUpdateSite = true;
                 }
 
-                DAOCity.UpdateResourceCity(iIndex);
+                if (bForceUpdateSite)
+                {//buộc request
+                    ChangeCityTo(iIndex, bForceUpdateSite);
+                    DAOCity.UpdateResourceCity(iIndex);
+                }
+
                 return Database.accInf.Cities[iIndex];
             }
 

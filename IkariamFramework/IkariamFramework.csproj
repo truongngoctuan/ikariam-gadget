@@ -52,12 +52,14 @@
     <Compile Include="BUSIkariamFramework\BUSEvent.cs" />
     <Compile Include="BUSIkariamFramework\BUSMessage.cs" />
     <Compile Include="BUSIkariamFramework\BUSResearch.cs" />
+    <Compile Include="BUSIkariamFramework\BUSTroops.cs" />
     <Compile Include="DAOIkariamFramework\DAOAccount.cs" />
     <Compile Include="DAOIkariamFramework\BaseFunction.cs" />
     <Compile Include="DAOIkariamFramework\DAOAdvisor.cs" />
     <Compile Include="DAOIkariamFramework\DAOBuilding.cs" />
     <Compile Include="DAOIkariamFramework\DAOCity.cs" />
     <Compile Include="DAOIkariamFramework\DAOEvent.cs" />
+    <Compile Include="DAOIkariamFramework\DAOTroops.cs" />
     <Compile Include="DTOIkariamFramework\DTOAccount.cs" />
     <Compile Include="DTOIkariamFramework\DTOBuilding.cs" />
     <Compile Include="DTOIkariamFramework\DTOCity.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="DTOIkariamFramework\DTOResearchBranch.cs" />
     <Compile Include="DTOIkariamFramework\DTOTransport.cs" />
     <Compile Include="DAOIkariamFramework\Database.cs" />
+    <Compile Include="DTOIkariamFramework\DTOTroops.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />
     <Compile Include="HtmlAgilityPack\EncodingFoundException.cs" />
     <Compile Include="HtmlAgilityPack\HtmlAttribute.cs" />

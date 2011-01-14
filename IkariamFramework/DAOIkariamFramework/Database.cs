@@ -28,7 +28,7 @@ namespace IkariamFramework.DAOIkariamFramework
         }
         public static void UpdateOldView()
         {
-            HtmlNode node = Database.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
+            HtmlNode node = Database.Document.DocumentNode.SelectSingleNode("//li[@id='advCities']/a");
             string strhref = node.GetAttributeValue("href", "err");
 
             if (strhref.IndexOf("oldView=") != -1)
@@ -68,7 +68,9 @@ namespace IkariamFramework.DAOIkariamFramework
             ADVISOR_CITY,
             ADVISOR_MILITARY,
             ADVISOR_RESEARCH,
-            ADVISOR_DIPLOMACY
+            ADVISOR_DIPLOMACY,
+            TROOPS,
+            TROOPS_SHIPS
             //con` nhiều nữa...
         }
         public static SITE_VIEW CurrentView { get; set; }

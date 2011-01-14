@@ -13,10 +13,15 @@ namespace IkariamFramework.DTOIkariamFramework
     public class DTOCity
     {
         public DTOBuilding[] ListBuilding { get; set; }
+        public DTOTroops[] ListTroopsUnits { get; set; }//quan bo
+        public DTOTroops[] ListTroopsShips { get; set; }//quan thuy
+
         int _ix;
         int _iy;
         int _iID;
         string _strName;
+
+        public bool IsUpdatedResource = false;
 
         int _iWood;
         int _iWine;
