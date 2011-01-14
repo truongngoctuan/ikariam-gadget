@@ -12,7 +12,7 @@ namespace IkariamFramework.DAOIkariamFramework
     public class Database
     {
         public static DTOAccount accInf = new DTOAccount();
-        public static bool Authenticated { get; private set; }
+        public static bool Authenticated { get; set; }
 
         public static HtmlAgilityPack.HtmlDocument Document = new HtmlAgilityPack.HtmlDocument();
         public static HtmlAgilityPack.HtmlNode DocumentNode = null;
@@ -28,6 +28,10 @@ namespace IkariamFramework.DAOIkariamFramework
         }
         public static void UpdateOldView()
         {
+            if (Authenticated == false)
+            {
+                return;
+            }
             HtmlNode node = Database.Document.DocumentNode.SelectSingleNode("//li[@id='advCities']/a");
             string strhref = node.GetAttributeValue("href", "err");
 
