@@ -13,6 +13,7 @@ namespace IkariamFramework.DAOIkariamFramework
         
         public class XPathAccount
         {
+            public static string logOut = "//li[@class='logout']/a";
         }
 
         public class XPathCity

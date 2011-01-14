@@ -21,11 +21,18 @@ namespace Test_BUS_DAO
 
         private void button1_Click(object sender, EventArgs e)
         {
-            BUSAction.Login(tbUsername.Text,
+            if (BUSAction.Login(tbUsername.Text,
                 tbPassword.Text,
-                "s15.en.ikariam.com");
+                "s15.en.ikariam.com") == 0)
+            {
+                tbResult.Text = BUSAction.InnerHTML();
+            }
+            else
+            {
+                MessageBox.Show("đăng nhập thất bại!");
+            }
 
-            tbResult.Text = BUSAction.InnerHTML();
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -511,6 +518,12 @@ namespace Test_BUS_DAO
             }
 
             tbResult.Text = strResult.ToString();
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            BUSAction.Logout();
+            tbResult.Text = BUSAction.InnerHTML();
         }
     }
 }

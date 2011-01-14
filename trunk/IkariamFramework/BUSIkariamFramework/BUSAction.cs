@@ -36,6 +36,11 @@ namespace IkariamFramework.BUSIkariamFramework
             return 1;
         }
 
+        public static void Logout()
+        {
+            DAOAccount.Logout();
+        }
+
         public String btadvCities_Click()
         {
             HtmlNode node = Database.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
