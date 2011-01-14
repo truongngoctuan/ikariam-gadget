@@ -44,6 +44,7 @@
             this.button9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbResult
@@ -176,8 +177,9 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(113, 23);
             this.button9.TabIndex = 13;
-            this.button9.Text = "button9";
+            this.button9.Text = "get building in town";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button10
             // 
@@ -185,8 +187,9 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(113, 23);
             this.button10.TabIndex = 14;
-            this.button10.Text = "button10";
+            this.button10.Text = "get building all town";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button11
             // 
@@ -197,11 +200,22 @@
             this.button11.Text = "button11";
             this.button11.UseVisualStyleBackColor = true;
             // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(144, 120);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(126, 23);
+            this.button12.TabIndex = 16;
+            this.button12.Text = "ChangeCity To #3";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 465);
+            this.Controls.Add(this.button12);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.button9);
@@ -243,6 +257,7 @@
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
     }
 }
 

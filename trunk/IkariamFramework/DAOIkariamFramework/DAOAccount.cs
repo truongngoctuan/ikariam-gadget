@@ -21,6 +21,8 @@ namespace IkariamFramework.DAOIkariamFramework
                     strPassword,
                     strServerUrl));
 
+            Database.CurrentView = Database.SITE_VIEW.CITY;
+
             return true;
         }
     }

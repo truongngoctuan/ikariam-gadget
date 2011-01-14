@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUSIkariamFramework\BUSAction.cs" />
+    <Compile Include="BUSIkariamFramework\BUSBuilding.cs" />
     <Compile Include="BUSIkariamFramework\BUSCity.cs" />
     <Compile Include="BUSIkariamFramework\BUSEvent.cs" />
     <Compile Include="BUSIkariamFramework\BUSMessage.cs" />
@@ -54,9 +55,11 @@
     <Compile Include="DAOIkariamFramework\DAOAccount.cs" />
     <Compile Include="DAOIkariamFramework\BaseFunction.cs" />
     <Compile Include="DAOIkariamFramework\DAOAdvisor.cs" />
+    <Compile Include="DAOIkariamFramework\DAOBuilding.cs" />
     <Compile Include="DAOIkariamFramework\DAOCity.cs" />
     <Compile Include="DAOIkariamFramework\DAOEvent.cs" />
     <Compile Include="DTOIkariamFramework\DTOAccount.cs" />
+    <Compile Include="DTOIkariamFramework\DTOBuilding.cs" />
     <Compile Include="DTOIkariamFramework\DTOCity.cs" />
     <Compile Include="DTOIkariamFramework\DTOEvent.cs" />
     <Compile Include="DTOIkariamFramework\DTOMessage.cs" />
