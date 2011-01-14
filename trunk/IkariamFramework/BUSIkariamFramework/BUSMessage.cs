@@ -9,29 +9,29 @@ using System.Runtime.InteropServices;
 namespace IkariamFramework.BUSIkariamFramework
 {
     [ComVisible(true)]
-    public class BUSEvent
+    public class BUSMessage
     {
         public static int Count()
         {
-            if (Database.accInf.Event == null)
+            if (Database.accInf.Message == null)
             {
-                DAOEvent.GetEventEntry();
+                ForceUpdate();
             }
 
-            return Database.accInf.Event.Count();
+            return Database.accInf.Message.Count();
         }
 
-        public static DTOEvent Get(int iIndex)
+        public static DTOMessage Get(int iIndex)
         {
             //tu dong cap nhat danh sach neu chua co
-            if (Database.accInf.Event == null)
+            if (Database.accInf.Message == null)
             {
-                DAOEvent.GetEventEntry();
+                ForceUpdate();
             }
 
-            if (0 <= iIndex && iIndex < Database.accInf.Event.Count())
+            if (0 <= iIndex && iIndex < Database.accInf.Message.Count())
             {
-                return Database.accInf.Event[iIndex];
+                return Database.accInf.Message[iIndex];
             }
 
             //thong bao loi~
@@ -40,7 +40,8 @@ namespace IkariamFramework.BUSIkariamFramework
 
         public static void ForceUpdate()
         {
-            DAOEvent.GetEventEntry();
+            DAOAdvisor.GoToadvDiplomacy();
+            DAOMessage.Get10LastMessage();
         }
     }
 }

@@ -25,6 +25,11 @@ namespace IkariamFramework.DAOIkariamFramework
             public static string ShowWorld = "//li[@class='viewWorldmap']/a";
 
             public static string ListBuilding = "//ul[@id='locations']/li";
+
+            public static string ShowTroops = "//div[@id='information']/div/ul/div/a";
+            public static string ShowTroopsShips = "//a[@title='Ships']";//"//table[@id='tabz']/tbody/tr/td[2]/a";
+            public static string DivTableUnits = "//div[@class='contentBox01h']";
+            public static string DivTableShips = "//div[@class='contentBox01h']";
         }
 
         public class XPathAdvisor
