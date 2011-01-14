@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using IkariamFramework.DAOIkariamFramework;
 using IkariamFramework.DTOIkariamFramework;
+using System.Runtime.InteropServices;
 
 namespace IkariamFramework.BUSIkariamFramework
 {
+    [ComVisible(true)]
     public class BUSEvent
     {
         public static int Count()

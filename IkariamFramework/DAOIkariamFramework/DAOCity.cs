@@ -202,9 +202,35 @@ namespace IkariamFramework.DAOIkariamFramework
         }
 
         //cap nhat lvl, type cac nhà trong thành phố
-        public static void UpdateHouseInCity()
-        {
+        //public static void GetBuildingCity(int iIndexCity)
+        //{//xem nhu da vao duoc view thanh pho
+        //    HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(
+        //            XPathManager.XPathCity.ListBuilding);
 
+        //    foreach (HtmlNode node in nodeCol)
+        //    {
+        //        if (node.GetAttributeValue("class", "err") == "coords")
+        //        {
+        //            //DTOCity ct = new DTOCity();
+        //            //ct.ID = nodeCity.GetAttributeValue("value", 0);
+        //        }
+        //    }
+        //}
+
+        public static void GoToCity()
+        {
+            BaseFunction.GoToLink(XPathManager.XPathCity.ShowCity);
+            Database.CurrentView = Database.SITE_VIEW.CITY;
+        }
+        public static void GoToIsland()
+        {
+            BaseFunction.GoToLink(XPathManager.XPathCity.ShowIsland);
+            Database.CurrentView = Database.SITE_VIEW.ISLAND;
+        }
+        public static void GoToWorld()
+        {
+            BaseFunction.GoToLink(XPathManager.XPathCity.ShowWorld);
+            Database.CurrentView = Database.SITE_VIEW.WORLD;
         }
         #endregion
     }

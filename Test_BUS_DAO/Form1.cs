@@ -182,5 +182,68 @@ namespace Test_BUS_DAO
 
             tbResult.Text = strResult.ToString();
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            StringBuilder strResult = new StringBuilder(1000);
+
+            int nBuildings = BUSBuilding.Count(BUSCity.GetCurrentCity());
+            for (int i = 0; i < nBuildings; i++)
+            {
+                DTOBuilding building = BUSBuilding.GetHouseInfomationInCity(BUSCity.GetCurrentCity(), i);
+
+                strResult.Append("Building: " + building.Type);
+                strResult.Append(" " + building.Lvl);
+
+                if (building.IsBuilding)
+                {
+                    strResult.Append(" " + building.IsBuilding);
+                    strResult.Append(" " + building.Time);
+                }
+
+                strResult.Append("\r\n");
+            }
+
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            //change city to #3
+            BUSCity.ChangeCityTo(2);
+            tbResult.Text = BUSAction.InnerHTML();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {//get building all town
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                strResult.Append("---Town: " + 
+                    BUSCity.GetCity(i).Name
+                    + "---\r\n");
+
+                int nBuildings = BUSBuilding.Count(i);
+                for (int j = 0; j < nBuildings; j++)
+                {
+                    DTOBuilding building = BUSBuilding.GetHouseInfomationInCity(i, j);
+
+                    strResult.Append("  Building " + (j + 1).ToString() + ": " + building.Type);
+                    strResult.Append(" " + building.Lvl);
+
+                    if (building.IsBuilding)
+                    {
+                        strResult.Append(" " + building.IsBuilding);
+                        strResult.Append(" " + building.Time);
+                    }
+
+                    strResult.Append("\r\n");
+                }
+            }
+            
+            tbResult.Text = strResult.ToString();
+        }
     }
 }

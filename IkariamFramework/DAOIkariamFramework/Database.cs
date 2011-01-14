@@ -58,5 +58,19 @@ namespace IkariamFramework.DAOIkariamFramework
 
         //quản lý hiện đang ở thành phố nào
         public static int iCurrentCity = 0;
+
+        //quản lý hiện đang ở view nào
+        public enum SITE_VIEW
+        {
+            CITY,
+            ISLAND,
+            WORLD,
+            ADVISOR_CITY,
+            ADVISOR_MILITARY,
+            ADVISOR_RESEARCH,
+            ADVISOR_DIPLOMACY
+            //con` nhiều nữa...
+        }
+        public static SITE_VIEW CurrentView { get; set; }
     }
 }

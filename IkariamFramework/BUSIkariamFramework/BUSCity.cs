@@ -25,7 +25,7 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             if (Database.accInf.Cities == null)
             {
-                DAOCity.GetCities().Count();
+                return DAOCity.GetCities().Count();
             }
 
             return Database.accInf.Cities.Count();
@@ -48,12 +48,13 @@ namespace IkariamFramework.BUSIkariamFramework
             return null;
         }
 
-        public static void UpdateCities(int iIndex)
-        {
-            DAOCity.GetCities();
-        }
+        //public static void UpdateCities(int iIndex)
+        //{
+        //    DAOCity.GetCities();
+        //}
 
-        public static DTOCity ChangeCityTo(int iIndex)
+        public static DTOCity ChangeCityTo(int iIndex,
+            bool bForceUpdateSite)
         {
             if (Database.accInf.Cities == null)
             {
@@ -62,12 +63,29 @@ namespace IkariamFramework.BUSIkariamFramework
 
             if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
             {
-                DAOCity.ChangeCity(iIndex);
+                //DAOCity.ChangeCity(iIndex);
+                if (Database.iCurrentCity == iIndex)
+                {
+                    if (bForceUpdateSite)
+                    {
+                        DAOCity.ChangeCity(iIndex);
+                    }
+                }
+                else
+                {
+                    DAOCity.ChangeCity(iIndex);
+                }
+
                 return Database.accInf.Cities[Database.iCurrentCity];
             }
 
             //thong bao loi~
             return null;
+        }
+
+        public static DTOCity ChangeCityTo(int iIndex)
+        {
+            return ChangeCityTo(iIndex, false);
         }
 
         //nếu = true thì cập nhật lại site rùi mới lấy thông tin
@@ -102,27 +120,6 @@ namespace IkariamFramework.BUSIkariamFramework
         public static DTOCity GetResourceCity(int iIndex)
         {
             return GetResourceCity(iIndex, false);
-        }
-
-        public static DTOCity GetHouseInfomationInCity(int iIndex)
-        {
-            if (Database.accInf.Cities == null)
-            {
-                DAOCity.GetCities();
-            }
-
-            if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
-            {
-                DAOCity.ChangeCity(iIndex);
-                //DAOCity.UpdateResourceCity(iIndex);
-                //change city sau khi post chỗ list; 
-                //cần giả lập click vào chỗ xem thành phố để 
-                //vào thành phố (nếu cần lấy danh sách nhà, lính,..)
-                return Database.accInf.Cities[iIndex];
-            }
-
-            //thong bao loi~
-            return null;
         }
     }
 }

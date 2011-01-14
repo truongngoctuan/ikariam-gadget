@@ -5,11 +5,14 @@ using System.Text;
 using System.IO;
 using HtmlAgilityPack;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace IkariamFramework.DTOIkariamFramework
 {
+    [Serializable, ComVisible(true)]
     public class DTOCity
     {
+        public DTOBuilding[] ListBuilding { get; set; }
         int _ix;
         int _iy;
         int _iID;
