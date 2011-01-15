@@ -1,0 +1,90 @@
+<html>
+<head>
+<link href="anchor.css"  type="text/css" rel="Stylesheet"/>
+<link href="overview.css"  type="text/css" rel="Stylesheet"/>
+<style type="text/css">
+	.gadgetGUI_undocked #state {
+		color:red;
+	}
+	
+	.gadgetGUI_docked #state {
+		color:blue;
+	}
+</style>
+<script type="text/javascript" language="javascript">
+	function onGetCoordinate(event)
+	{
+		x=event.clientX;
+		y=event.clientY;
+		
+		alert("X coords: " + x + ", Y coords: " + y);
+	}
+	function image_event(controlId, event)	{
+		
+		if(event == 'hover')
+			document.getElementById(controlId).src = "images/" + controlId + "_hover.png";
+		else if(event == 'leave')
+			document.getElementById(controlId).src = "images/" + controlId + ".png";
+		else if(event == 'disabled')
+		{
+			document.getElementById(controlId).setAttribute("disabled", "true");
+			document.getElementById(controlId).src = "images/" + controlId + "_disabled.png";
+		}
+	}
+	function onNavigate(controlId)
+	{		
+		if(controlId == "arrow_left")
+		{
+			/*var content = "";
+			content += "<img id='towns' class='overviewItem1' src='images/Towns.png' onmousedown='javascript:onOverview(" + "'towns'" + ");'/>";
+			content += "<img id='military' class='overviewItem2' src='images/Military.png' onmousedown='javascript:onOverview(" + "'military'" + ");'/>";
+			content += "<img id='research' class='overviewItem3' src='images/Research.png' onmousedown='javascript:onOverview(" + "'research'" + ");'/>";
+			content += "<img id='diplomacy' class='overviewItem4' src='images/Diplomacy.png' onmousedown='javascript:onOverview(" + "'diplomacy'" + ");'/>";
+			document.getElementById('gadgetContent').innerHTML = content;*/			
+		}
+		if(controlId == "arrow_right")
+		{
+			var anchorClass = document.getElementById('gadgetGUI').getAttribute("class");
+			if(anchorClass == "gadgetGUI_docked")
+				document.getElementById('gadgetGUI').setAttribute("class", "gadgetGUI_undocked");
+			else
+				document.getElementById('gadgetGUI').setAttribute("class", "gadgetGUI_docked");
+				image_event('arrow_right', 'disabled');
+		}
+			
+	}
+	function onOverview(controlId)
+	{
+		/*	
+		if(controlId == "towns")
+			showTowns();
+		else if(controlId == "military")
+			showMilitary();
+		else if(controlId == "research")
+			showResearch();
+		else if(controlId == "diplomacy")
+			showDiplomacy();
+		*/
+	}
+</script>
+</head>
+
+<body style="margin:0; padding:0" >
+	<div id='gadgetGUI' class='gadgetGUI_docked'>
+		<div id='gadgetContent'>			
+			<img id="towns" class="overviewItem1" src="images/Towns.png" onmousedown="javascript:onOverview('towns');"/>
+			<img id="military" class="overviewItem2" src="images/Military.png" onmousedown="javascript:onOverview('military');"/>
+			<img id="research" class="overviewItem3" src="images/Research.png" onmousedown="javascript:onOverview('research');"/>
+			<img id="diplomacy" class="overviewItem4" src="images/Diplomacy.png" onmousedown="javascript:onOverview('diplomacy');"/>			
+		</div>
+		<div id='anchor'>
+			<img id="arrow_left"  src="images/arrow_left.png" onmouseover="javascript:image_event('arrow_left', 'hover');" onmouseout="javascript:image_event('arrow_left', 'leave');" onmousedown="javascript:onNavigate('arrow_left');"/>
+			<div id="stateBlock" >
+				<span id="state" >Welcome !!!</span>
+			</div>
+			<img id="arrow_right" src="images/arrow_right.png" onmouseover="javascript:image_event('arrow_right', 'hover');" onmouseout="javascript:image_event('arrow_right', 'leave');" onmousedown="javascript:onNavigate('arrow_right');"  />
+		</div>
+	</div>
+</body>
+
+</html>
