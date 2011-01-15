@@ -29,15 +29,11 @@ namespace IkariamFramework.DAOIkariamFramework
 
         static DTOResearchBranch GetInfoResearchBranch(HtmlNode node)
         {
-            DTOResearchBranch rb = new DTOResearchBranch();//.1.0
-            rb.Name = node.ChildNodes[1].ChildNodes[0].InnerText;
-            rb.Name = rb.Name.Trim(new char[] { '\r', '\n', '\t' });
+            DTOResearchBranch rb = new DTOResearchBranch();
 
+            rb.Name = node.ChildNodes[1].ChildNodes[0].InnerText.Trim(new char[] { '\r', '\n', '\t' });
             rb.Description = node.ChildNodes[5].InnerText;
-
-            string strTemp = node.ChildNodes[9].ChildNodes[3].ChildNodes[1].ChildNodes[0].InnerText;//SelectSingleNode("//ul/li[@class='researchPoints']").InnerText;//.1.9.1.0
-            strTemp = strTemp.Replace(",", "");
-            rb.Need = int.Parse(strTemp);
+            rb.Need = NodeParser.toInt(node.ChildNodes[9].ChildNodes[3].ChildNodes[1].ChildNodes[0].InnerText);
 
             return rb;
         }
@@ -52,18 +48,10 @@ namespace IkariamFramework.DAOIkariamFramework
 
             HtmlNode node = Gloval.Database.DocumentNode.SelectSingleNode(XPathManager.XPathResearch.ResearchPoint);
 
-            string strTemp = "";
-            strTemp = node.ChildNodes[1].InnerText.Replace("Scientists: ", "").Replace(",", "");
-            Gloval.Database.Account.Research.Scientists = int.Parse(strTemp);
+            Gloval.Database.Account.Research.Scientists = NodeParser.toInt(node.ChildNodes[1].InnerText);
+            Gloval.Database.Account.Research.ResearchPoints = NodeParser.toLong(node.ChildNodes[3].InnerText);
+            Gloval.Database.Account.Research.ResearchPointsPerHour = NodeParser.toInt(node.ChildNodes[5].InnerText);
 
-            strTemp = node.ChildNodes[3].InnerText.Replace("Research Points: ", "").Replace(",", "");
-            Gloval.Database.Account.Research.ResearchPoints = long.Parse(strTemp);
-
-            strTemp = node.ChildNodes[5].InnerText.Replace("per Hour: ", "").Replace(",", "");
-            Gloval.Database.Account.Research.ResearchPointsPerHour = int.Parse(strTemp);
-
-
-            //Gloval.Database.accInf.Research = re;
             return Gloval.Database.Account.Research;
         }
     }

@@ -100,6 +100,18 @@ namespace IkariamFramework.DAOIkariamFramework
                     case "embassy":
                         building.Type = DTOBuilding.BUILDING_TYPE.embassy;
                         break;
+                    case "buildingGround land":
+                        building.Type = DTOBuilding.BUILDING_TYPE.flag;
+                        break;
+                    case "buildingGround shore":
+                        building.Type = DTOBuilding.BUILDING_TYPE.flag;
+                        break;
+                    case "branchOffice":
+                        building.Type = DTOBuilding.BUILDING_TYPE.branchOffice;
+                        break;
+                    case "workshop":
+                        building.Type = DTOBuilding.BUILDING_TYPE.workshop;
+                        break;  
                     default:
                         building.Type = DTOBuilding.BUILDING_TYPE.UNKNOW;
                         break;
@@ -118,9 +130,9 @@ namespace IkariamFramework.DAOIkariamFramework
                 }
 
                 //lấy lvl
-                strTemp = node.ChildNodes[3].GetAttributeValue("title", "err");
-                strTemp = strTemp.Substring(strTemp.LastIndexOf(' '));
-                building.Lvl = int.Parse(strTemp);
+                //strTemp = node.ChildNodes[3].GetAttributeValue("title", "err");
+                //strTemp = strTemp.Substring(strTemp.LastIndexOf(' '));
+                building.Lvl = NodeParser.toInt(node.ChildNodes[3].GetAttributeValue("title", "err"));
                 
                 list.Add(building);
             }

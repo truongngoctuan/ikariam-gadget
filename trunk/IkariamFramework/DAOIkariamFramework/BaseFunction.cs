@@ -29,7 +29,7 @@ namespace IkariamFramework.DAOIkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Gloval.Database.Document.Load(webResponse.GetResponseStream());
+                Gloval.Database.Document.Load(webResponse.GetResponseStream(), Encoding.UTF8);
                 Gloval.Database.DocumentNode = Gloval.Database.Document.DocumentNode;
                 UpdateOldView();
 
@@ -69,7 +69,7 @@ namespace IkariamFramework.DAOIkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Gloval.Database.Document.Load(webResponse.GetResponseStream());
+                Gloval.Database.Document.Load(webResponse.GetResponseStream(), Encoding.UTF8);
                 Gloval.Database.DocumentNode = Gloval.Database.Document.DocumentNode;
                 UpdateOldView();
 

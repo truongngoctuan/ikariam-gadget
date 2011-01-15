@@ -37,6 +37,7 @@ namespace IkariamFramework.DTOIkariamFramework
 
         int _iPopulation;
         int _iPopulationLimit;
+        public int FreePopulation { get; set; }
 
         int _iActionPoint;
 
