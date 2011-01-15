@@ -13,35 +13,35 @@ namespace IkariamFramework.BUSIkariamFramework
     {
         public static int GetCurrentCity()
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            return Database.iCurrentCity;
+            return Gloval.Database.CurrentCity;
         }
 
         public static int Count()
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 return DAOCity.GetCities().Count();
             }
 
-            return Database.accInf.Cities.Count();
+            return Gloval.Database.Account.Cities.Count();
         }
 
         public static DTOCity GetCity(int iIndex)
         {
             //tu dong cap nhat danh sach neu chua co
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
+            if (0 <= iIndex && iIndex < Gloval.Database.Account.Cities.Count())
             {
-                return Database.accInf.Cities[iIndex];
+                return Gloval.Database.Account.Cities[iIndex];
             }
 
             //thong bao loi~
@@ -56,14 +56,14 @@ namespace IkariamFramework.BUSIkariamFramework
         public static DTOCity ChangeCityTo(int iIndex,
             bool bForceUpdateSite)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
+            if (0 <= iIndex && iIndex < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.iCurrentCity == iIndex)
+                if (Gloval.Database.CurrentCity == iIndex)
                 {
                     if (bForceUpdateSite)
                     {
@@ -75,7 +75,7 @@ namespace IkariamFramework.BUSIkariamFramework
                     DAOCity.ChangeCity(iIndex);
                 }
 
-                return Database.accInf.Cities[Database.iCurrentCity];
+                return Gloval.Database.Account.Cities[Gloval.Database.CurrentCity];
             }
 
             //thong bao loi~
@@ -90,25 +90,25 @@ namespace IkariamFramework.BUSIkariamFramework
         //nếu = true thì cập nhật lại site rùi mới lấy thông tin
         public static DTOCity GetResourceCity(int iIndex, bool bForceUpdateSite)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndex && iIndex < Database.accInf.Cities.Count())
+            if (0 <= iIndex && iIndex < Gloval.Database.Account.Cities.Count())
             {
                 //dung them 1 bien bool dat trogn lop de kiem tra,
                 //neu da update roi thi ko update nua
                 //tru khi dung bien forceupdate
-                if (!Database.accInf.Cities[iIndex].IsUpdatedResource)
+                if (!Gloval.Database.Account.Cities[iIndex].IsUpdatedResource)
                 {
-                    if (Database.iCurrentCity == iIndex)
+                    if (Gloval.Database.CurrentCity == iIndex)
                     {//chưa update, nhưng đang ở viewhiện tại nên lấy res ko request
                         DAOCity.UpdateResourceCity(iIndex);
-                        return Database.accInf.Cities[iIndex];
+                        return Gloval.Database.Account.Cities[iIndex];
                     }
                     //chưa update --> buôc request
-                    Database.accInf.Cities[iIndex].IsUpdatedResource = true;
+                    Gloval.Database.Account.Cities[iIndex].IsUpdatedResource = true;
                     bForceUpdateSite = true;
                 }
 
@@ -118,7 +118,7 @@ namespace IkariamFramework.BUSIkariamFramework
                     DAOCity.UpdateResourceCity(iIndex);
                 }
 
-                return Database.accInf.Cities[iIndex];
+                return Gloval.Database.Account.Cities[iIndex];
             }
 
             //thong bao loi~

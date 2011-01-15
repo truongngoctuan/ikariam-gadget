@@ -5,6 +5,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 using HtmlAgilityPack;
+using IkariamFramework.DTOIkariamFramework;
 
 namespace IkariamFramework.DAOIkariamFramework
 {
@@ -19,7 +20,7 @@ namespace IkariamFramework.DAOIkariamFramework
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse webResponse;
             // need a cookie container to store cookies
-            webRequest.CookieContainer = Database.cookieContainer;
+            webRequest.CookieContainer = Gloval.Database.cookieContainer;
             webRequest.Accept = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
             webRequest.Method = "GET";
             webRequest.UserAgent = USER_AGENT;
@@ -28,9 +29,9 @@ namespace IkariamFramework.DAOIkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Database.Document.Load(webResponse.GetResponseStream());
-                Database.DocumentNode = Database.Document.DocumentNode;
-                Database.UpdateOldView();
+                Gloval.Database.Document.Load(webResponse.GetResponseStream());
+                Gloval.Database.DocumentNode = Gloval.Database.Document.DocumentNode;
+                UpdateOldView();
 
                 return webResponse.GetResponseStream();
             }
@@ -46,7 +47,7 @@ namespace IkariamFramework.DAOIkariamFramework
             //Our postvars
             byte[] buffer = Encoding.ASCII.GetBytes(postData);
             // need a cookie container to store cookies
-            webRequest.CookieContainer = Database.cookieContainer;
+            webRequest.CookieContainer = Gloval.Database.cookieContainer;
              webRequest.Referer = "http://en.ikariam.com/";
              webRequest.Accept = ACCEPT;
             //====================================================
@@ -68,9 +69,9 @@ namespace IkariamFramework.DAOIkariamFramework
             //Let's show some information about the response
             if (webResponse.StatusCode == HttpStatusCode.OK)
             {
-                Database.Document.Load(webResponse.GetResponseStream());
-                Database.DocumentNode = Database.Document.DocumentNode;
-                Database.UpdateOldView();
+                Gloval.Database.Document.Load(webResponse.GetResponseStream());
+                Gloval.Database.DocumentNode = Gloval.Database.Document.DocumentNode;
+                UpdateOldView();
 
                 return webResponse.GetResponseStream();
             }
@@ -79,9 +80,43 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public static void GoToLink(string strXpath)
         {
-            HtmlNode node = Database.Document.DocumentNode.SelectSingleNode(strXpath);
+            HtmlNode node = Gloval.Database.Document.DocumentNode.SelectSingleNode(strXpath);
             string strhref = node.GetAttributeValue("href", "err");
-            BaseFunction.GetHtmlSite(Database.WebUrl + strhref);
+            BaseFunction.GetHtmlSite(Gloval.Database.WebUrl + strhref);
+        }
+
+        public static void UpdateOldView()
+        {
+            if (Gloval.Database.Authenticated == false)
+            {
+                return;
+            }
+            HtmlNode node = Gloval.Database.Document.DocumentNode.SelectSingleNode("//li[@id='advCities']/a");
+            string strhref = node.GetAttributeValue("href", "err");
+
+            if (strhref.IndexOf("oldView=") != -1)
+            {
+                Gloval.Database.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
+            }
+            else
+            {
+                Gloval.Database.strOldView = "";
+            }
+            //MessageBox.Show(GloVal.strOldView);
+        }
+
+        //phục vụ cho hàm thay đổi thành phố
+        public static string GetactionRequest()
+        {
+            HtmlNode node = Gloval.Database.DocumentNode.SelectSingleNode("//fieldset");
+
+            node = node.ChildNodes[4];
+            if (node == null)
+            {
+                throw new Exception("lỗi: GetactionRequest");
+            }
+            //MessageBox.Show(node.GetAttributeValue("value", "err"));
+            return node.GetAttributeValue("value", "err");
         }
     }
 }

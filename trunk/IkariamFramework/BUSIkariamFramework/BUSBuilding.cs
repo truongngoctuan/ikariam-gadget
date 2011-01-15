@@ -13,24 +13,24 @@ namespace IkariamFramework.BUSIkariamFramework
     {
         public static int Count(int iIndexCity)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListBuilding == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListBuilding == null)
                 {
                     BUSCity.ChangeCityTo(iIndexCity);
-                    if (Database.CurrentView != Database.SITE_VIEW.CITY)
+                    if (Gloval.Database.CurrentView != Data.SITE_VIEW.CITY)
                     {
                         DAOCity.GoToCity();
                     }
                     DAOBuilding.GetBuildingCity(iIndexCity);
                 }
 
-                return Database.accInf.Cities[iIndexCity].ListBuilding.Count();
+                return Gloval.Database.Account.Cities[iIndexCity].ListBuilding.Count();
             }
 
             return -1;            
@@ -38,15 +38,15 @@ namespace IkariamFramework.BUSIkariamFramework
 
         public static void ForceUpdate(int iIndexCity)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
                 BUSCity.ChangeCityTo(iIndexCity);
-                if (Database.CurrentView != Database.SITE_VIEW.CITY)
+                if (Gloval.Database.CurrentView != Data.SITE_VIEW.CITY)
                 {
                     DAOCity.GoToCity();
                 }
@@ -57,21 +57,21 @@ namespace IkariamFramework.BUSIkariamFramework
         public static DTOBuilding GetHouseInfomationInCity(int iIndexCity,
             int iIndexBuilding)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 ForceUpdate(iIndexCity);
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListBuilding == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListBuilding == null)
                 {
                     ForceUpdate(iIndexCity);
                 }
 
-                if (0 <= iIndexBuilding && iIndexBuilding < Database.accInf.Cities[iIndexCity].ListBuilding.Count())
+                if (0 <= iIndexBuilding && iIndexBuilding < Gloval.Database.Account.Cities[iIndexCity].ListBuilding.Count())
                 {
-                    return Database.accInf.Cities[iIndexCity].ListBuilding[iIndexBuilding];
+                    return Gloval.Database.Account.Cities[iIndexCity].ListBuilding[iIndexBuilding];
                 }
             }
 

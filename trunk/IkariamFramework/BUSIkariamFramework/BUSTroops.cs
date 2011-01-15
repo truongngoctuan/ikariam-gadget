@@ -13,19 +13,19 @@ namespace IkariamFramework.BUSIkariamFramework
     {
         public static int CountUnits(int iIndexCity)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListTroopsUnits == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits == null)
                 {
                     ForceUpdateUnits(iIndexCity);
                 }
 
-                return Database.accInf.Cities[iIndexCity].ListTroopsUnits.Count();
+                return Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits.Count();
             }
 
             return -1;
@@ -34,9 +34,9 @@ namespace IkariamFramework.BUSIkariamFramework
         public static void ForceUpdateUnits(int iIndexCity)
         {
             BUSCity.ChangeCityTo(iIndexCity, true);
-            if (Database.CurrentView != Database.SITE_VIEW.TROOPS)
+            if (Gloval.Database.CurrentView != Data.SITE_VIEW.TROOPS)
             {
-                if (Database.CurrentView != Database.SITE_VIEW.CITY)
+                if (Gloval.Database.CurrentView != Data.SITE_VIEW.CITY)
                 {
                     DAOCity.GoToCity();
                 }
@@ -52,22 +52,22 @@ namespace IkariamFramework.BUSIkariamFramework
         public static DTOTroops GetUnitsInCity(int iIndexCity,
             int iIndexTroops)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
 
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListTroopsUnits == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits == null)
                 {
                     ForceUpdateUnits(iIndexCity);
                 }
 
-                if (0 <= iIndexTroops && iIndexTroops < Database.accInf.Cities[iIndexCity].ListTroopsUnits.Count())
+                if (0 <= iIndexTroops && iIndexTroops < Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits.Count())
                 {
-                    return Database.accInf.Cities[iIndexCity].ListTroopsUnits[iIndexTroops];
+                    return Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits[iIndexTroops];
                 }
             }
 
@@ -79,19 +79,19 @@ namespace IkariamFramework.BUSIkariamFramework
         //ships
         public static int CountShips(int iIndexCity)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListTroopsShips == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips == null)
                 {
                     ForceUpdateShips(iIndexCity);
                 }
 
-                return Database.accInf.Cities[iIndexCity].ListTroopsShips.Count();
+                return Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips.Count();
             }
 
             return -1;
@@ -100,11 +100,11 @@ namespace IkariamFramework.BUSIkariamFramework
         public static void ForceUpdateShips(int iIndexCity)
         {
             BUSCity.ChangeCityTo(iIndexCity, true);
-            if (Database.CurrentView != Database.SITE_VIEW.TROOPS_SHIPS)
+            if (Gloval.Database.CurrentView != Data.SITE_VIEW.TROOPS_SHIPS)
             {
-                if (Database.CurrentView != Database.SITE_VIEW.TROOPS)
+                if (Gloval.Database.CurrentView != Data.SITE_VIEW.TROOPS)
                 {
-                    if (Database.CurrentView != Database.SITE_VIEW.CITY)
+                    if (Gloval.Database.CurrentView != Data.SITE_VIEW.CITY)
                     {
                         DAOCity.GoToCity();
                     }
@@ -123,21 +123,21 @@ namespace IkariamFramework.BUSIkariamFramework
         public static DTOTroops GetShipsInCity(int iIndexCity,
             int iIndexTroops)
         {
-            if (Database.accInf.Cities == null)
+            if (Gloval.Database.Account.Cities == null)
             {
                 DAOCity.GetCities();
             }
 
-            if (0 <= iIndexCity && iIndexCity < Database.accInf.Cities.Count())
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
             {
-                if (Database.accInf.Cities[iIndexCity].ListTroopsShips == null)
+                if (Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips == null)
                 {
                     ForceUpdateShips(iIndexCity);
                 }
 
-                if (0 <= iIndexTroops && iIndexTroops < Database.accInf.Cities[iIndexCity].ListTroopsShips.Count())
+                if (0 <= iIndexTroops && iIndexTroops < Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips.Count())
                 {
-                    return Database.accInf.Cities[iIndexCity].ListTroopsShips[iIndexTroops];
+                    return Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips[iIndexTroops];
                 }
             }
 

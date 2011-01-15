@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using HtmlAgilityPack;
+using IkariamFramework.DTOIkariamFramework;
 
 namespace IkariamFramework.DAOIkariamFramework
 {
@@ -11,25 +12,25 @@ namespace IkariamFramework.DAOIkariamFramework
         public static void GoToadvCities()
         {
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advCities);
-            Database.CurrentView = Database.SITE_VIEW.ADVISOR_CITY;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_CITY;
         }
 
         public static void GoToadvMilitary()
         {
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advMilitary);
-            Database.CurrentView = Database.SITE_VIEW.ADVISOR_MILITARY;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_MILITARY;
         }
 
         public static void GoToadvResearch()
         {
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advResearch);
-            Database.CurrentView = Database.SITE_VIEW.ADVISOR_RESEARCH;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_RESEARCH;
         }
 
         public static void GoToadvDiplomacy()
         {
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advDiplomacy);
-            Database.CurrentView = Database.SITE_VIEW.ADVISOR_DIPLOMACY;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_DIPLOMACY;
         }
     }
 }

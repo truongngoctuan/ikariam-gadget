@@ -13,7 +13,7 @@ namespace IkariamFramework.DAOIkariamFramework
         public static DTOMessage[] Get10LastMessage()
         {//xem nhu chuyen trang roi`
 
-            HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageEntry);
+            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageEntry);
 
             List<DTOMessage> list = new List<DTOMessage>();
             foreach (HtmlNode node in nodeCol)
@@ -23,9 +23,9 @@ namespace IkariamFramework.DAOIkariamFramework
                 list.Add(mess);
             }
 
-            Database.accInf.Message = list.ToArray();
+            Gloval.Database.Account.Message = list.ToArray();
 
-            return Database.accInf.Message;
+            return Gloval.Database.Account.Message;
         }
     }
 }

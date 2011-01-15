@@ -12,7 +12,7 @@ namespace IkariamFramework.DAOIkariamFramework
     {
         public static void GetBuildingCity(int iIndexCity)
         {//xem nhu da vao duoc view thanh pho
-            HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(
+            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(
                     XPathManager.XPathCity.ListBuilding);
 
             List<DTOBuilding> list = new List<DTOBuilding>();
@@ -125,7 +125,7 @@ namespace IkariamFramework.DAOIkariamFramework
                 list.Add(building);
             }
 
-            Database.accInf.Cities[iIndexCity].ListBuilding = list.ToArray();
+            Gloval.Database.Account.Cities[iIndexCity].ListBuilding = list.ToArray();
         }
     }
 }

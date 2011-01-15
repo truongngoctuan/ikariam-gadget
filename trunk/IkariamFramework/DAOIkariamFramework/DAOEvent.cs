@@ -14,8 +14,8 @@ namespace IkariamFramework.DAOIkariamFramework
         {
             DAOAdvisor.GoToadvCities();
             //tradeAdvisor
-            HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(XPathManager.XPathEvent.EventsEntry);
-            //HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes("//table[@id='inboxCity']/tr");
+            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathEvent.EventsEntry);
+            //HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes("//table[@id='inboxCity']/tr");
             List<DTOEvent> events = new List<DTOEvent>();
 
             //bo cai node cuoi do no la cai chuyen trang
@@ -41,9 +41,9 @@ namespace IkariamFramework.DAOIkariamFramework
 
                     events.Add(ev);
                 }
-            Database.accInf.Event = events.ToArray();
+            Gloval.Database.Account.Event = events.ToArray();
 
-            return Database.accInf.Event;
+            return Gloval.Database.Account.Event;
         }
     }
 }

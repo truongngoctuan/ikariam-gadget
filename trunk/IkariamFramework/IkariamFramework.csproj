@@ -60,6 +60,10 @@
     <Compile Include="DAOIkariamFramework\DAOCity.cs" />
     <Compile Include="DAOIkariamFramework\DAOEvent.cs" />
     <Compile Include="DAOIkariamFramework\DAOTroops.cs" />
+    <Compile Include="DTOIkariamFramework\Gloval.cs" />
+    <Compile Include="DAOIkariamFramework\NodeParser.cs" />
+    <Compile Include="DAOIkariamFramework\StringProcessing.cs" />
+    <Compile Include="InterfaceToGadget\XmlHelper.cs" />
     <Compile Include="DTOIkariamFramework\DTOAccount.cs" />
     <Compile Include="DTOIkariamFramework\DTOBuilding.cs" />
     <Compile Include="DTOIkariamFramework\DTOCity.cs" />
@@ -69,7 +73,7 @@
     <Compile Include="DTOIkariamFramework\DTOResearch.cs" />
     <Compile Include="DTOIkariamFramework\DTOResearchBranch.cs" />
     <Compile Include="DTOIkariamFramework\DTOTransport.cs" />
-    <Compile Include="DAOIkariamFramework\Database.cs" />
+    <Compile Include="DTOIkariamFramework\Data.cs" />
     <Compile Include="DTOIkariamFramework\DTOTroops.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />
     <Compile Include="HtmlAgilityPack\EncodingFoundException.cs" />
@@ -102,10 +106,16 @@
     <Compile Include="HtmlAgilityPack\NameValuePairList.cs" />
     <Compile Include="DAOIkariamFramework\DAOMessage.cs" />
     <Compile Include="DAOIkariamFramework\DAOMilitary.cs" />
+    <Compile Include="InterfaceToGadget\Gadget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAOIkariamFramework\DAOResearch.cs" />
     <Compile Include="DAOIkariamFramework\DAOTransport.cs" />
     <Compile Include="DAOIkariamFramework\XPathManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lang\en.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

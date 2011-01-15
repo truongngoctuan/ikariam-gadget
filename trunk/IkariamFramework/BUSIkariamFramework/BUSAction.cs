@@ -5,6 +5,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using IkariamFramework.DAOIkariamFramework;
 using HtmlAgilityPack;
+using IkariamFramework.DTOIkariamFramework;
 
 namespace IkariamFramework.BUSIkariamFramework
 {
@@ -17,12 +18,12 @@ namespace IkariamFramework.BUSIkariamFramework
 
         public static string InnerHTML()
         {
-            return Database.DocumentNode.InnerHtml;
+            return Gloval.Database.DocumentNode.InnerHtml;
         }
 
         public static string InnerText()
         {
-            return Database.DocumentNode.InnerText;
+            return Gloval.Database.DocumentNode.InnerText;
         }
 
         public static int Login(string username, string password, string server)
@@ -43,12 +44,12 @@ namespace IkariamFramework.BUSIkariamFramework
 
         public String btadvCities_Click()
         {
-            HtmlNode node = Database.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
+            HtmlNode node = Gloval.Database.Document.DocumentNode.SelectNodes("html/body/div/div/div[13]/ul/li/a")[0];
             string strhref = node.GetAttributeValue("href", "err");
             BaseFunction.GetHtmlSite("http://s15.en.ikariam.com/index.php" + strhref);
             //cap nhat oldview
-            Database.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
-            return Database.strOldView;
+            Gloval.Database.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
+            return Gloval.Database.strOldView;
         }
 
         public string GetErrorMessage(int errMessageCode)
