@@ -1,0 +1,13 @@
+﻿.townsoverview {
+	background-color : #FFEECA
+}
+.townsoverview td {
+	text-align : center; 
+	padding : 0 .1em;		
+	width : 4em;
+	border : 1px solid #7E4A21;
+}
+.townsoverview img {
+	height:20px;
+	margin:5px;
+}

@@ -1,13 +1,8 @@
-﻿body 
-{
-	margin: 0;
-	padding: 0;
-	width: 275px;
-	height: 200px;
-	border: solid 1px #c0c0c0;
-	font-family:Calibri;
-	font-size:11px;  
-	text-align:center;  
+﻿body {
+    margin: 0px;
+    width: 275px;
+    height: 200px;
+    border: solid 1px #c0c0c0;
 }
 
 #settingsDiv

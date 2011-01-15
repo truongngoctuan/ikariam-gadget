@@ -29,12 +29,30 @@
                     image_event("right_arrow", "disabled");
             }
         }
+        function onOverview(controlId) {
+            /*	
+            if(controlId == "towns")
+            showTowns();
+            else if(controlId == "military")
+            showMilitary();
+            else if(controlId == "research")
+            showResearch();
+            else if(controlId == "diplomacy")
+            showDiplomacy();
+            */
+        }
     </script>
 </head>
 <body onload="javascript:LoadGadget();" onunload="javascript:UnloadGadget();">
     <div id="gadgetGUI" class="gadgetGUI_docked">  
         <g:background id='backgroundImage' src='url(images/Welcome_undocked.png)' style='position: absolute;top: 0px; left:0px; width: 130px; height: 100px;'>        
         <div id='gadgetContent'>
+        <!--
+            <img id="towns" class="overviewItem1" src="images/Towns.png" onmousedown="javascript:onOverview('towns');"/>
+			<img id="military" class="overviewItem2" src="images/Military.png" onmousedown="javascript:onOverview('military');"/>
+			<img id="research" class="overviewItem3" src="images/Research.png" onmousedown="javascript:onOverview('research');"/>
+			<img id="diplomacy" class="overviewItem4" src="images/Diplomacy.png" onmousedown="javascript:onOverview('diplomacy');"/>
+        -->
         </div>
         <div id='anchor'>
 		    <img id="arrow_left" src="images/arrow_left.png" onmouseover="javascript:image_event('arrow_left', 'hover');" onmouseout="javascript:image_event('arrow_left', 'leave');" onmousedown="javascript:onNavigate('arrow_left');"  />

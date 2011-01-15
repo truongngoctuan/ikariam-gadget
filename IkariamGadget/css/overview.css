@@ -1,0 +1,66 @@
+﻿.gadgetGUI_docked .overviewItem1
+{
+	position : absolute;
+    left : 10;
+    top : 10;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem2
+{
+	position : absolute;
+    left : 60;
+    top : 10;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem3
+{
+	position : absolute;
+    left : 10;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem4
+{
+	position : absolute;
+    left : 60;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+
+.gadgetGUI_undocked .overviewItem1
+{
+	position : absolute;
+    left : 10;
+    top : 10;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem2
+{
+	position : absolute;
+    left : 100;
+    top : 10;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem3
+{
+	position : absolute;
+    left : 10;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem4
+{
+	position : absolute;
+    left : 100;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+

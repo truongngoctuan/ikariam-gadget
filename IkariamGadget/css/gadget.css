@@ -1,11 +1,19 @@
-﻿body 
+﻿body
 {
 	width: 130px;
 	height: 130px;
 	margin: 0px;
 	padding: 0px;
-	font-family:Calibri;
-	font-size:11px;  
-	text-align:center;  
 }
 
+a, a:hover, a:visited
+{
+	color: White; 
+	font-size: 18pt;
+	text-decoration: none;
+}
+
+a:hover
+{
+	text-decoration: underline;	
+}

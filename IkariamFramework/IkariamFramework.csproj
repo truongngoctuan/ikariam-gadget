@@ -75,6 +75,8 @@
     <Compile Include="DTOIkariamFramework\DTOTransport.cs" />
     <Compile Include="DTOIkariamFramework\Data.cs" />
     <Compile Include="DTOIkariamFramework\DTOTroops.cs" />
+    <Compile Include="Gadget.cs" />
+    <Compile Include="PresentationUnit\EmpireOverviewUnit.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />
     <Compile Include="HtmlAgilityPack\EncodingFoundException.cs" />
     <Compile Include="HtmlAgilityPack\HtmlAttribute.cs" />

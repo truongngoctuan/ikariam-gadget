@@ -97,7 +97,7 @@ function GadgetBuilder() {
     //
     ////////////////////////////////////////////////////////////////////////////////
     function RegisterGadgetInterop() {
-        try {
+        try {            
             // Full path to the Gadget.Interop.dll assembly
             var fullPath = System.Gadget.path + assemblyStore;
             var asmPath = fullPath + assemblyName;
