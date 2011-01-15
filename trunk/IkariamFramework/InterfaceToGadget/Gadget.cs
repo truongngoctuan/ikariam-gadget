@@ -29,10 +29,10 @@ namespace IkariamFramework.InterfaceToGadget
                 Gloval.Dict = XmlHelper.LoadFile(string.Format("Lang\\{0}.xml", split[1]));
 
                 //test 
-                string strout = "";
-                Gloval.Dict.TryGetValue("test3", out strout);
+                //string strout = "";
+                //Gloval.Dict.TryGetValue("test3", out strout);
                 //return strout;
-                MessageBox.Show(strout);
+                //MessageBox.Show(strout);
                 return 0;
             }
             return 1;
@@ -42,6 +42,8 @@ namespace IkariamFramework.InterfaceToGadget
 
         public string Test()
         {
+            Gloval.Dict = XmlHelper.LoadFile("Lang\\en.xml");
+
             //test 
             string strout = "";
             Gloval.Dict.TryGetValue("test3", out strout);
