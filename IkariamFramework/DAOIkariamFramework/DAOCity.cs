@@ -60,70 +60,63 @@ namespace IkariamFramework.DAOIkariamFramework
         //4 loai tai nguyen cua tp
         public static void UpdateResourceCity(int iIndexCity)
         {
-            //cityResources
-            HtmlNode node = Gloval.Database.DocumentNode.SelectSingleNode(
+            HtmlNodeCollection nodeLi = Gloval.Database.DocumentNode.SelectNodes(
                     XPathManager.XPathCity.cityResources);
-            //MessageBox.Show(node.InnerHtml);
-
-            HtmlNodeCollection nodeLi = node.ChildNodes;
             foreach (HtmlNode nodeLiChild in nodeLi)
             {
+
                 switch (nodeLiChild.GetAttributeValue("class", "err"))
                 {
                     case "population":
-                        {
-                            string strpolulation = "Population:  ";
+                        {//population: 966 (1,627)
                             string str = nodeLiChild.InnerText;
-                            string strPo = str.Substring(strpolulation.Length, str.IndexOf('(') - 1 - strpolulation.Length);
-                            strPo = strPo.Replace(",", "");
-                            Gloval.Database.Account.Cities[iIndexCity].Population = int.Parse(strPo);
+                            string strFreePo = str.Substring(0, str.IndexOf('(') - 1);
+                            Gloval.Database.Account.Cities[iIndexCity].FreePopulation = NodeParser.toInt(strFreePo);
 
-                            string strPoLimit = str.Substring(str.IndexOf('(') + 1, str.IndexOf(')') - 1 - str.IndexOf('('));
-                            strPoLimit = strPoLimit.Replace(",", "");
-
-                            Gloval.Database.Account.Cities[iIndexCity].PopulationLimit = int.Parse(strPoLimit);
-                            
+                            string strPo = str.Substring(str.IndexOf('(') + 1);
+                            Gloval.Database.Account.Cities[iIndexCity].Population = NodeParser.toInt(strPo);
                             break;
                         }
                     case "actions":
                         {
-                            string strTemp = "Action Points: ";
-                            string strActionPoint = nodeLiChild.InnerText.Replace(strTemp, "");
-                            Gloval.Database.Account.Cities[iIndexCity].ActionPoint = int.Parse(strActionPoint);
+                            Gloval.Database.Account.Cities[iIndexCity].ActionPoint = NodeParser.toInt(nodeLiChild.InnerText);
                             break;
                         }
                     case "wood":
                         {
-                            Gloval.Database.Account.Cities[iIndexCity].Wood = GetResource(nodeLiChild);
-                            Gloval.Database.Account.Cities[iIndexCity].WoodPerHour = GetResourcePerHour(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].Wood = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wood']").InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].WoodPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+
+                            //Gloval.Database.Account.Cities[iIndexCity].Wood = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wood']").InnerText);//nodeLiChild.ChildNodes[3].InnerText);
+                            //Gloval.Database.Account.Cities[iIndexCity].WoodPerHour = NodeParser.toInt(nodeLiChild.ChildNodes[5].ChildNodes[2].InnerText);
                             break;
                         }
                     case "wine":
                         {
-                            Gloval.Database.Account.Cities[iIndexCity].Wine = GetResource(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].Wine = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wine']").InnerText);
                             if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
-                            Gloval.Database.Account.Cities[iIndexCity].WinePerHour = GetResourcePerHour(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].WinePerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
                             break;
                         }
                     case "marble":
                         {
-                            Gloval.Database.Account.Cities[iIndexCity].Marble = GetResource(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].Marble = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_marble']").InnerText);
                             if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
-                            Gloval.Database.Account.Cities[iIndexCity].MarblePerHour = GetResourcePerHour(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].MarblePerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
                             break;
                         }
                     case "glass":
                         {
-                            Gloval.Database.Account.Cities[iIndexCity].Crystal = GetResource(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].Crystal = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_crystal']").InnerText);
                             if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
-                            Gloval.Database.Account.Cities[iIndexCity].CrystalPerHour = GetResourcePerHour(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].CrystalPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
                             break;
                         }
                     case "sulfur":
                         {
-                            Gloval.Database.Account.Cities[iIndexCity].Sulphur = GetResource(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].Sulphur = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_sulfur']").InnerText);
                             if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
-                            Gloval.Database.Account.Cities[iIndexCity].SulphurPerHour = GetResourcePerHour(nodeLiChild);
+                            Gloval.Database.Account.Cities[iIndexCity].SulphurPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
                             break;
                         }
                 }
@@ -139,39 +132,6 @@ namespace IkariamFramework.DAOIkariamFramework
             //+ "/ " + Gloval.Database.accInf.Cities[iIndexCity].Crystal.ToString() + " " + Gloval.Database.accInf.Cities[iIndexCity].CrystalPerHour.ToString()
             //+ "/ " + Gloval.Database.accInf.Cities[iIndexCity].Sulphur.ToString() + " " + Gloval.Database.accInf.Cities[iIndexCity].SulphurPerHour.ToString());
         }
-
-        static int GetResource(HtmlNode node)
-        {
-            string strRes = node.ChildNodes[3].InnerText;
-            strRes = strRes.Replace(",", "");
-            return int.Parse(strRes);
-        }
-
-        static int GetResourcePerHour(HtmlNode node)
-        {
-            //perhour 5 - 2
-            string strRes;strRes = node.ChildNodes[5].ChildNodes[2].InnerText;
-            strRes = strRes.Replace("\n", "");
-            strRes = strRes.Replace(",", "");
-            strRes = strRes.Trim();
-            return int.Parse(strRes);
-        }
-
-        //cap nhat lvl, type cac nhà trong thành phố
-        //public static void GetBuildingCity(int iIndexCity)
-        //{//xem nhu da vao duoc view thanh pho
-        //    HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(
-        //            XPathManager.XPathCity.ListBuilding);
-
-        //    foreach (HtmlNode node in nodeCol)
-        //    {
-        //        if (node.GetAttributeValue("class", "err") == "coords")
-        //        {
-        //            //DTOCity ct = new DTOCity();
-        //            //ct.ID = nodeCity.GetAttributeValue("value", 0);
-        //        }
-        //    }
-        //}
 
         public static void GoToCity()
         {

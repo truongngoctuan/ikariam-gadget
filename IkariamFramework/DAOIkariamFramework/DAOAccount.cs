@@ -29,6 +29,7 @@ namespace IkariamFramework.DAOIkariamFramework
                 return false;
             }
 
+            Gloval.Database.Authenticated = true;
             return true;
         }
 

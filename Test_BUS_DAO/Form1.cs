@@ -76,8 +76,8 @@ namespace Test_BUS_DAO
             strResult += " Name: " + city.Name;
             strResult += " Type: " + city.TypeTradeGood;
 
-            strResult += " po: " + city.Population;
-            strResult += "(" + city.PopulationLimit + ")";
+            strResult += " po: " + city.FreePopulation;
+            strResult += "(" + city.Population + ")";
             strResult += " action: " + city.ActionPoint;
 
             strResult += " wood: " + city.Wood;
@@ -109,8 +109,8 @@ namespace Test_BUS_DAO
                 strResult += " Name: " + city.Name;
                 strResult += " Type: " + city.TypeTradeGood;
 
-                strResult += " po: " + city.Population;
-                strResult += "(" + city.PopulationLimit + ")";
+                strResult += " po: " + city.FreePopulation;
+                strResult += "(" + city.Population + ")";
                 strResult += " action: " + city.ActionPoint;
 
                 strResult += " wood: " + city.Wood;
@@ -534,8 +534,8 @@ namespace Test_BUS_DAO
 
         private void button25_Click(object sender, EventArgs e)
         {
-            if (BUSAction.Login("thegioi",
-                "tkpm2011",
+            if (gg.Login("green",
+                "22551325",
                 "s5.vn.ikariam.com") == 0)
             {
                 tbResult.Text = BUSAction.InnerHTML();

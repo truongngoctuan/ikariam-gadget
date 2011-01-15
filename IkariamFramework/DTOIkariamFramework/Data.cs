@@ -17,7 +17,7 @@ namespace IkariamFramework.DTOIkariamFramework
         {
             Authenticated = false;
             CurrentCity = 0;
-            Account = null;
+            Account = new DTOAccount();
         }
 
         public static Data getInstance() 

@@ -45,7 +45,11 @@ namespace IkariamFramework.DTOIkariamFramework
             glassblowing,
             optician,
             alchemist,
-            embassy
+            embassy,
+            branchOffice,
+            workshop,
+
+            flag
 
         }
         public BUILDING_TYPE Type { get; set; }

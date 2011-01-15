@@ -1,7 +1,6 @@
 ﻿<res>
-	<item key="test" value="test-en"></item>
-	<item key="test2" value="test1-en"></item>
-	<item key="test3" value="test2-en"></item>
-	<item key="test4" value="test3-en"></item>
-	<item key="test5" value="test4-en"></item>
+	<item key="Wine" value="Wine"></item>
+	<item key="Marble" value="Marble"></item>
+	<item key="Crystal Glass" value="Crystal Glass"></item>
+	<item key="Sulphur" value="Sulphur"></item>
 </res>

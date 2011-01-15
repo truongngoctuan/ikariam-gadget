@@ -19,7 +19,7 @@ namespace IkariamFramework.DAOIkariamFramework
         public class XPathCity
         {
             public static string ListCities = "//select[@id='citySelect']/option[@class='coords']";
-            public static string cityResources = "/html/body/div/div/div[12]/ul";
+            public static string cityResources = "//ul[@class='resources']/li";
 
             public static string ShowCity = "//li[@class='viewCity']/a";
             public static string ShowIsland = "//li[@class='viewIsland']/a";
@@ -28,7 +28,7 @@ namespace IkariamFramework.DAOIkariamFramework
             public static string ListBuilding = "//ul[@id='locations']/li";
 
             public static string ShowTroops = "//div[@id='information']/div/ul/div/a";
-            public static string ShowTroopsShips = "//a[@title='Ships']";//"//table[@id='tabz']/tbody/tr/td[2]/a";
+            public static string ShowTroopsShips = "//table[@id='tabz']/tr/td[2]/a";//"//a[@title='Ships']";//"//table[@id='tabz']/tbody/tr/td[2]/a";
             public static string DivTableUnits = "//div[@class='contentBox01h']";
             public static string DivTableShips = "//div[@class='contentBox01h']";
         }
