@@ -9,11 +9,13 @@ using System.Windows.Forms;
 using IkariamFramework;
 using IkariamFramework.BUSIkariamFramework;
 using IkariamFramework.DTOIkariamFramework;
+using IkariamFramework.InterfaceToGadget;
 
 namespace Test_BUS_DAO
 {
     public partial class Form1 : Form
     {
+        Gadget gg = new Gadget();
         public Form1()
         {
             InitializeComponent();
@@ -21,9 +23,11 @@ namespace Test_BUS_DAO
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (BUSAction.Login(tbUsername.Text,
+            if (gg.Login(tbUsername.Text,
                 tbPassword.Text,
-                "s15.en.ikariam.com") == 0)
+                //"s15.en.ikariam.com") == 0)
+                //"s5.vn.ikariam.com") == 0)
+                tbServer.Text) == 0)
             {
                 tbResult.Text = BUSAction.InnerHTML();
             }
@@ -524,6 +528,20 @@ namespace Test_BUS_DAO
         {
             BUSAction.Logout();
             tbResult.Text = BUSAction.InnerHTML();
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            if (BUSAction.Login("thegioi",
+                "tkpm2011",
+                "s5.vn.ikariam.com") == 0)
+            {
+                tbResult.Text = BUSAction.InnerHTML();
+            }
+            else
+            {
+                MessageBox.Show("đăng nhập thất bại!");
+            }
         }
     }
 }

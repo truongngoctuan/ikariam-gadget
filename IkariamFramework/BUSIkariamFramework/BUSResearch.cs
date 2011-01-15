@@ -13,12 +13,12 @@ namespace IkariamFramework.BUSIkariamFramework
     {
         public static DTOResearch Get()
         {
-            if (Database.accInf.Research == null)
+            if (Gloval.Database.Account.Research == null)
             {
                 return ForceUpdate();
             }
 
-            return Database.accInf.Research;
+            return Gloval.Database.Account.Research;
         }
 
 
@@ -33,7 +33,7 @@ namespace IkariamFramework.BUSIkariamFramework
             //lay cac thong tin 4 truong phai kia
             DAOResearch.GetInfomation4BrandOfResearch();
 
-            return Database.accInf.Research;
+            return Gloval.Database.Account.Research;
         }
     }
 }

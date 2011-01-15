@@ -13,25 +13,25 @@ namespace IkariamFramework.BUSIkariamFramework
     {
         public static int Count()
         {
-            if (Database.accInf.Message == null)
+            if (Gloval.Database.Account.Message == null)
             {
                 ForceUpdate();
             }
 
-            return Database.accInf.Message.Count();
+            return Gloval.Database.Account.Message.Count();
         }
 
         public static DTOMessage Get(int iIndex)
         {
             //tu dong cap nhat danh sach neu chua co
-            if (Database.accInf.Message == null)
+            if (Gloval.Database.Account.Message == null)
             {
                 ForceUpdate();
             }
 
-            if (0 <= iIndex && iIndex < Database.accInf.Message.Count())
+            if (0 <= iIndex && iIndex < Gloval.Database.Account.Message.Count())
             {
-                return Database.accInf.Message[iIndex];
+                return Gloval.Database.Account.Message[iIndex];
             }
 
             //thong bao loi~

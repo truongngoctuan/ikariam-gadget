@@ -13,18 +13,18 @@ namespace IkariamFramework.DAOIkariamFramework
         public static DTOResearch GetInfomation4BrandOfResearch()
         {//xem nhu chuyen trang roi`
 
-            if (Database.accInf.Research == null)
+            if (Gloval.Database.Account.Research == null)
             {
-                Database.accInf.Research = new DTOResearch();
+                Gloval.Database.Account.Research = new DTOResearch();
             }
-            HtmlNodeCollection noderesearchinfoCol = Database.DocumentNode.SelectNodes(XPathManager.XPathResearch.ResearchEntry);
+            HtmlNodeCollection noderesearchinfoCol = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathResearch.ResearchEntry);
 
-            Database.accInf.Research.Seafaring = GetInfoResearchBranch(noderesearchinfoCol[0]);
-            Database.accInf.Research.Economic = GetInfoResearchBranch(noderesearchinfoCol[1]);
-            Database.accInf.Research.Scientific = GetInfoResearchBranch(noderesearchinfoCol[2]);
-            Database.accInf.Research.Militaristic = GetInfoResearchBranch(noderesearchinfoCol[3]);
+            Gloval.Database.Account.Research.Seafaring = GetInfoResearchBranch(noderesearchinfoCol[0]);
+            Gloval.Database.Account.Research.Economic = GetInfoResearchBranch(noderesearchinfoCol[1]);
+            Gloval.Database.Account.Research.Scientific = GetInfoResearchBranch(noderesearchinfoCol[2]);
+            Gloval.Database.Account.Research.Militaristic = GetInfoResearchBranch(noderesearchinfoCol[3]);
             
-            return Database.accInf.Research;
+            return Gloval.Database.Account.Research;
         }
 
         static DTOResearchBranch GetInfoResearchBranch(HtmlNode node)
@@ -45,26 +45,26 @@ namespace IkariamFramework.DAOIkariamFramework
         public static DTOResearch GetCurrentResearchScientists()
         {//xem nhu chuyen trang roi`
             ////ul[@class='researchLeftMenu']
-            if (Database.accInf.Research == null)
+            if (Gloval.Database.Account.Research == null)
             {
-                Database.accInf.Research = new DTOResearch();
+                Gloval.Database.Account.Research = new DTOResearch();
             }
 
-            HtmlNode node = Database.DocumentNode.SelectSingleNode(XPathManager.XPathResearch.ResearchPoint);
+            HtmlNode node = Gloval.Database.DocumentNode.SelectSingleNode(XPathManager.XPathResearch.ResearchPoint);
 
             string strTemp = "";
             strTemp = node.ChildNodes[1].InnerText.Replace("Scientists: ", "").Replace(",", "");
-            Database.accInf.Research.Scientists = int.Parse(strTemp);
+            Gloval.Database.Account.Research.Scientists = int.Parse(strTemp);
 
             strTemp = node.ChildNodes[3].InnerText.Replace("Research Points: ", "").Replace(",", "");
-            Database.accInf.Research.ResearchPoints = long.Parse(strTemp);
+            Gloval.Database.Account.Research.ResearchPoints = long.Parse(strTemp);
 
             strTemp = node.ChildNodes[5].InnerText.Replace("per Hour: ", "").Replace(",", "");
-            Database.accInf.Research.ResearchPointsPerHour = int.Parse(strTemp);
+            Gloval.Database.Account.Research.ResearchPointsPerHour = int.Parse(strTemp);
 
 
-            //Database.accInf.Research = re;
-            return Database.accInf.Research;
+            //Gloval.Database.accInf.Research = re;
+            return Gloval.Database.Account.Research;
         }
     }
 }

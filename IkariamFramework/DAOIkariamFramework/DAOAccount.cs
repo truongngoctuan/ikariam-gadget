@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IkariamFramework.DTOIkariamFramework;
 
 namespace IkariamFramework.DAOIkariamFramework
 {
@@ -13,7 +14,7 @@ namespace IkariamFramework.DAOIkariamFramework
             string strServerUrl)
         {
             //s15.en.ikariam.com
-            Database.WebUrl = string.Format("http://{0}/index.php", strServerUrl);
+            Gloval.Database.WebUrl = string.Format("http://{0}/index.php", strServerUrl);
 
             BaseFunction.PostGetHtmlSite(string.Format("http://{0}/index.php?action=loginAvatar&function=login", strServerUrl),
                 string.Format("uni_url={2}&name={0}&password={1}&kid=", 
@@ -21,9 +22,9 @@ namespace IkariamFramework.DAOIkariamFramework
                     strPassword,
                     strServerUrl));
 
-            Database.CurrentView = Database.SITE_VIEW.CITY;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.CITY;
 
-            if (Database.DocumentNode.SelectSingleNode("//h1").InnerText == "Error!")
+            if (Gloval.Database.DocumentNode.SelectSingleNode("//h1").InnerText == "Error!")
             {
                 return false;
             }
@@ -33,13 +34,13 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public static void Logout()
         {
-            Database.Authenticated = false;
+            Gloval.Database.Authenticated = false;
             BaseFunction.GoToLink(XPathManager.XPathAccount.logOut);
-            Database.accInf = new IkariamFramework.DTOIkariamFramework.DTOAccount();
-            Database.cookieContainer = new System.Net.CookieContainer();
-            Database.CurrentView = Database.SITE_VIEW.CITY;
-            Database.iCurrentCity = 0;
-            Database.WebUrl = "";
+            Gloval.Database.Account = new IkariamFramework.DTOIkariamFramework.DTOAccount();
+            Gloval.Database.cookieContainer = new System.Net.CookieContainer();
+            Gloval.Database.CurrentView = Data.SITE_VIEW.CITY;
+            Gloval.Database.CurrentCity = 0;
+            Gloval.Database.WebUrl = "";
         }
     }
 }

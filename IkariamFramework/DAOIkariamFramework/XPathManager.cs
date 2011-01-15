@@ -18,7 +18,7 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public class XPathCity
         {
-            public static string ListCities = "//select[@id='citySelect']";
+            public static string ListCities = "//select[@id='citySelect']/option[@class='coords']";
             public static string cityResources = "/html/body/div/div/div[12]/ul";
 
             public static string ShowCity = "//li[@class='viewCity']/a";

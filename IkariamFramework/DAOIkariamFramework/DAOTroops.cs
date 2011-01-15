@@ -11,7 +11,7 @@ namespace IkariamFramework.DAOIkariamFramework
     {
         public static void GetUnits(int iIndexCity)
         {//xem nhu da vao duoc view troops
-            HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(
+            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(
                     XPathManager.XPathCity.DivTableUnits);
 
             List<DTOTroops> list = new List<DTOTroops>();
@@ -37,12 +37,12 @@ namespace IkariamFramework.DAOIkariamFramework
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[6], DTOTroops.TROOPS_TYPE.Cook, true));
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[7], DTOTroops.TROOPS_TYPE.Doctor, true));
 
-            Database.accInf.Cities[iIndexCity].ListTroopsUnits = list.ToArray();
+            Gloval.Database.Account.Cities[iIndexCity].ListTroopsUnits = list.ToArray();
         }
 
         public static void GetShipss(int iIndexCity)
         {//xem nhu da vao duoc view troops  -> tab ships
-            HtmlNodeCollection nodeCol = Database.DocumentNode.SelectNodes(
+            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(
                     XPathManager.XPathCity.DivTableShips);
 
             List<DTOTroops> list = new List<DTOTroops>();
@@ -61,7 +61,7 @@ namespace IkariamFramework.DAOIkariamFramework
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[2], DTOTroops.TROOPS_TYPE.Mortar_Ship, false));
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[3], DTOTroops.TROOPS_TYPE.Diving_boat, false));
 
-            Database.accInf.Cities[iIndexCity].ListTroopsShips = list.ToArray();
+            Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips = list.ToArray();
         }
 
         static DTOTroops GetUnitAndTroop(HtmlNode node,
@@ -82,13 +82,13 @@ namespace IkariamFramework.DAOIkariamFramework
         public static void GoToTroops()
         {
             BaseFunction.GoToLink(XPathManager.XPathCity.ShowTroops);
-            Database.CurrentView = Database.SITE_VIEW.TROOPS;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.TROOPS;
         }
 
         public static void GoToShips()
         {
             BaseFunction.GoToLink(XPathManager.XPathCity.ShowTroopsShips);
-            Database.CurrentView = Database.SITE_VIEW.TROOPS_SHIPS;
+            Gloval.Database.CurrentView = Data.SITE_VIEW.TROOPS_SHIPS;
         }
     }
 }
