@@ -23,7 +23,7 @@
 .gadgetGUI_docked #stateBlock
 {
 	float : left;
-	width : 75;
+	width : 80;
     height : 15;
 	text-align : center;
     background-image : url(images/state.png);

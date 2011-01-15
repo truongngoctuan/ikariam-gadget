@@ -2,7 +2,7 @@
 {
 	width : 130;
 	height : 100;
-	background-image : url(images/Welcome.png);
+	background-image : url(images/Overview.png);
 }
 .gadgetGUI_docked .overviewItem1
 {
@@ -40,7 +40,7 @@
 {
 	width : 400;
 	height : 300;
-	background-image : url(images/Welcome_undocked.png);
+	background-image : url(images/Overview_undocked.png);
 }
 .gadgetGUI_undocked .overviewItem1
 {
