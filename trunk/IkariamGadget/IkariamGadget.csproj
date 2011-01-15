@@ -58,11 +58,37 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\townsoverview.css" />
+    <Content Include="gadget.html" />
+    <Content Include="css\anchor.css" />
+    <Content Include="css\overview.css" />
+    <Content Include="flyout_gmail.html" />
+    <Content Include="css\flyout.css" />
     <Content Include="css\gadget.css" />
     <Content Include="css\settings.css" />
-    <Content Include="gadget.html" />
+    <Content Include="flyout.html" />
+    <Content Include="gadget_overview.html" />
     <Content Include="gadget.xml" />
+    <Content Include="images\animated_loading_gallery.gif" />
+    <Content Include="images\arrow_left.png" />
+    <Content Include="images\arrow_left_disabled.png" />
+    <Content Include="images\arrow_left_hover.png" />
+    <Content Include="images\arrow_right.png" />
+    <Content Include="images\arrow_right_disabled.png" />
+    <Content Include="images\arrow_right_hover.png" />
+    <Content Include="images\Diplomacy.png" />
+    <Content Include="images\Gadget_undocked.png" />
+    <Content Include="images\gmail.png" />
     <Content Include="images\gmailbw.png" />
+    <Content Include="images\gmailNew.png" />
+    <Content Include="images\gmailNo.png" />
+    <Content Include="images\Military.png" />
+    <Content Include="images\Research.png" />
+    <Content Include="images\state.png" />
+    <Content Include="images\state_undocked.png" />
+    <Content Include="images\Towns.png" />
+    <Content Include="images\Welcome.png" />
+    <Content Include="images\Welcome_undocked.png" />
     <Content Include="scripts\gadget.js" />
     <Content Include="scripts\GadgetInterop.js" />
     <Content Include="scripts\settings.js" />

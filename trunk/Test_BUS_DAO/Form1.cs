@@ -34,10 +34,9 @@ namespace Test_BUS_DAO
             else
             {
                 MessageBox.Show("đăng nhập thất bại!");
-            }
-
-            
+            }            
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {//get list city
@@ -54,6 +53,9 @@ namespace Test_BUS_DAO
                 strResult += "\r\n";
             }
 
+            DTOCity cityFF = BUSCity.GetCity(0);
+
+
             tbResult.Text = strResult;
         }
 
@@ -66,8 +68,8 @@ namespace Test_BUS_DAO
         private void button4_Click(object sender, EventArgs e)
         {//get inf current city
             string strResult = "";
-
-            DTOCity city = BUSCity.GetResourceCity(BUSCity.GetCurrentCity());
+            DTOCity city = BUSCity.GetResourceCity(0);
+            //DTOCity city = BUSCity.GetResourceCity(BUSCity.GetCurrentCity());
             strResult += " X: " + city.X;
             strResult += " Y: " + city.Y;
             strResult += " ID: " + city.ID;
