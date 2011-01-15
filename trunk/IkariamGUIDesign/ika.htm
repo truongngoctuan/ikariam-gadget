@@ -1,0 +1,918 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns="http://www.w3.org/1999/xhtml"><head>
+
+
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="language" content="de">
+        <meta name="author" content="Gameforge AG">
+        <meta name="publisher" content="Gameforge AG">
+        <meta name="copyright" content="Gameforge AG">
+        <meta name="page-type" content="Game trình duyệt, Game trình duyệt">
+        <meta name="page-topic" content="Game trình duyệt, game chiến lược, game online">
+        <meta name="audience" content="all">
+        <meta name="Expires" content="never">
+        <meta name="Keywords" content="Ikariam, thế giới cổ, game chiến thuật, chơi miễn phí, game trực tuyến, game nhiệm vụ, game.">
+        <meta name="Description" content="Ikariam là một game trình duyệt miễn phí. Nhiệm vụ của bạn là lãnh đạo một đế quốc trong thế giới cổ đại, xây dựng thành phố, buôn bán và chinh phục các hòn đảo.">
+        <meta name="robots" content="index,follow">
+        <meta name="Revisit" content="After 14 days">
+        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7">         <title>
+        	Ikariam - 
+        	Thế giới Epsilon		</title>
+		<link rel="shortcut icon" href="http://s5.vn.ikariam.com/favicon.ico" type="image/x-icon">
+        <link href="ika_files/ik_common_0.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="ika_files/ik_townHall_0.css" rel="stylesheet" type="text/css" media="screen">
+		<script type="text/javascript" src="ika_files/complete-0.js"></script>
+        
+				<script type="text/javascript">
+		/* <![CDATA[ */
+	    
+		var Event = YAHOO.util.Event,
+		Dom   = YAHOO.util.Dom,
+		lang  = YAHOO.lang;
+        
+	    var MyTutorial = new Tutorial();
+	    
+		var LocalizationStrings = {};
+		LocalizationStrings['timeunits'] = {};
+		LocalizationStrings['timeunits']['short'] = {};
+		LocalizationStrings['timeunits']['short']['day'] = 'D';
+		LocalizationStrings['timeunits']['short']['hour'] = 'h';
+		LocalizationStrings['timeunits']['short']['minute'] = 'm';
+		LocalizationStrings['timeunits']['short']['second'] = 's';
+		LocalizationStrings['language']                     = 'vn';
+		LocalizationStrings['decimalPoint']               = '.';
+		LocalizationStrings['thousandSeperator']     = ',';
+		
+		LocalizationStrings['resources'] = {};
+		LocalizationStrings['resources']['wood'] = 'Vật liệu xây dựng';
+		LocalizationStrings['resources']['wine'] = 'Rượu';
+		LocalizationStrings['resources']['marble'] = 'Cẩm thạch';
+		LocalizationStrings['resources']['crystal'] = 'Thủy tinh pha lê';
+		LocalizationStrings['resources']['sulfur'] = 'Lưu huỳnh';
+		LocalizationStrings['resources'][0] = LocalizationStrings['resources']['wood'];
+		LocalizationStrings['resources'][1] = LocalizationStrings['resources']['wine'];
+		LocalizationStrings['resources'][2] = LocalizationStrings['resources']['marble'];
+		LocalizationStrings['resources'][3] = LocalizationStrings['resources']['crystal'];
+		LocalizationStrings['resources'][4] = LocalizationStrings['resources']['sulfur'];
+
+
+		LocalizationStrings['warnings'] = {};
+		LocalizationStrings['warnings']['premiumTrader_lackingStorage'] = "Für folgende Rohstoffe fehlt dir Speicherplatz: $res";
+		LocalizationStrings['warnings']['premiumTrader_negativeResource'] = "Du hast zuwenig $res für diesen Handel";
+		LocalizationStrings['warnings']['tolargeText'] = 'Có lỗi! Nội dung của bạn dài hơn được phép!';
+
+		IKARIAM = {
+				phpSet : {
+						serverTime : "1295006108",
+						currentView : "townHall"
+						},
+				currentCity : {
+						resources : {
+								wood: 450,
+								wine: 0,
+								marble: 0,
+								crystal: 0,
+								sulfur: 0						},
+						maxCapacity : {
+								wood: 1500,
+								wine: 1500,
+								marble: 1500,
+								crystal: 1500,
+								sulfur: 1500						}
+				},
+				view : {
+						get : function() {
+								return IKARIAM.phpSet.currentView;
+								},
+						is : function(viewName) {
+								return (IKARIAM.phpSet.currentView == viewName)? true : false;
+								}
+						}
+				};
+				IKARIAM.time = {
+						serverTimeDiff : IKARIAM.phpSet.serverTime*1000-(new Date()).getTime()
+				};
+
+		
+		
+		/**
+		* switches one item on and the other off.. but only if they share the same groupname.
+		*/
+		selectGroup = {
+			groups:new Array(), //[groupname]=item
+			getGroup:function(group) {
+				if(typeof(this.groups[group]) == "undefined") {
+					this.groups[group] = new Object();
+					this.groups[group].activeItem = "undefined";
+					this.groups[group].onActivate = function(obj) {};
+					this.groups[group].onDeactivate = function(obj) {};
+					}
+				return this.groups[group];
+			},
+			activate:function(obj, group) {
+				g = this.getGroup(group);
+				if(typeof(g.activeItem) != "undefined") {
+					g.onDeactivate(g.activeItem);
+					}
+				g.activeItem=obj;
+				g.onActivate(obj);
+			}
+		};
+		selectGroup.getGroup('cities').onActivate = function(obj) {
+			YAHOO.util.Dom.addClass(obj.parentNode, "selected");
+		}
+		selectGroup.getGroup('cities').onDeactivate = function(obj) {
+			YAHOO.util.Dom.removeClass(obj.parentNode, "selected");
+		}
+
+		/**
+		 * - will COPY all child nodes of the source-node that are marked with a CSS class to be child nodes of the target.
+		 * - will purge all children of the TARGET element that are marked the same special CSS class at each call, so previously copied will be deleted before copying new
+		 * - expects either an Id or an object.
+		 */
+		function showInContainer(source, target, exchangeClass) {
+			//objects or Id-strings, i don't care
+			if(typeof source == "string") { source = Dom.get(source); }
+			if(typeof target == "string") {target = Dom.get(target); }
+			if(typeof exchangeClass != "string") { alert("Error: IKARIAM.showInContainer -> Forgot to add an exchangeClass?"); }
+			//removal
+			for(i=0; i<target.childNodes.length; i++) {
+				if(typeof(target.childNodes[i].className) != "undefined" && target.childNodes[i].className==exchangeClass) {
+					target.removeChild(target.childNodes[i]);
+				}
+			}
+			//clone new
+			for(i=0; i<source.childNodes.length; i++) {
+				if(typeof(source.childNodes[i].className) != "undefined" && source.childNodes[i].className==exchangeClass) {
+					clone = source.childNodes[i].cloneNode(true);
+					target.insertBefore(clone, target.firstChild.nextSibling);
+				}
+			}
+		}
+
+		selectedCity = -1;
+		function selectCity(cityNum, cityId, viewAble) {
+		    if(selectedCity == cityNum) {
+		        if(viewAble) document.location.href="?view=city&id="+cityId;
+		        else document.location.href="#";
+		    } else {
+		        selectedCity = cityNum;
+		    }
+			showInContainer("cityLocation"+cityNum,"information", "cityinfo");
+			showInContainer("cityLocation"+cityNum,"actions", "cityactions");
+			var container = document.getElementById("cities");
+			var citySelectedClass = "selected";
+		}
+		function selectBarbarianVillage() {
+		    showInContainer("barbarianVilliage","information", "cityinfo");
+            showInContainer("barbarianVilliage","actions", "cityactions");
+            selectedCity = 0;
+            if (MyTutorial.getCurrentQuest() == 120) {
+                clearInterval(MyTutorial.interval);
+                MyTutorial.setArrowPosition(20,270);
+                MyTutorial.animateArrow();
+            }
+		}
+
+		//IE6 CSS Background-Flicker fix
+		(function(){
+			/*Use Object Detection to detect IE6*/
+			var  m = document.uniqueID /*IE*/
+			&& document.compatMode  /*>=IE6*/
+			&& !window.XMLHttpRequest /*<=IE6*/
+			&& document.execCommand ;
+			try{
+				if(!!m){
+					m("BackgroundImageCache", false, true) /* = IE6 only */
+				}
+			}catch(oh){};
+		})();
+		/* ]]> */
+
+		function myConfirm(message, target) {
+		    bestaetigt = window.confirm (message);
+		    if (bestaetigt == true)
+              window.location.href = target;
+		}
+		</script>
+	<style type="text/css">					#IkaOptionsDropdown { position:absolute; }					#IkaOptionsDropdown:hover { padding-bottom:20px; }					#IkaOptionsDropdown #IkaOptionsDropdownLinks { display:none !important; }					#IkaOptionsDropdown:hover #IkaOptionsDropdownLinks { display:block !important;  }					#IkaOptionsDropdownLinks { background-color:#FFF5E1; padding:.5em; padding-bottom:0; border:1px solid #666; position:absolute; right:-80px; margin-top:2px; width:170px; }					#IkaOptionsDropdownLinks a { color:#666; cursor:pointer; margin-left:0; padding-left:.2em; display:block; margin-bottom:.5em; }				</style><style type="text/css">.PlunderQuickLink { margin-right:5px; }.PlunderQuickLink img { width:20px; height:15px; }</style><style type="text/css">#facebook_button { display:none; }</style><style type="text/css">#avatarNotes .button2 { display:none !important; }			 #avatarNotes #messageBox { padding-top:5px !important; }			 #avatarNotes .ft { margin-top:-5px !important; } #yui-gen0 { bottom:5px !important; }</style><style type="text/css">.premiumExchange, .premium, .ambrosia, .plusteaser { display:none !important; }								#globalResources li.transporters, #globalResources li.gold { position:relative; top:-28px; }</style><style type="text/css">#cityResources ul.resources li .tooltip td { padding:2px !important; width: auto !important; }					 		#cityResources ul.resources li div.capacity { border:1px inset #906646; height:3px; position:relative; top:-6px; left:1px; width:95%; }					 		#cityResources ul.resources li div.onhand { position:absolute; top:0; left:0; height:inherit; background-color:#a00; }					 		#cityResources ul.resources li div.safe { position:absolute; top:0;  height:inherit; background-color:#690; }				</style><style type="text/css">.ikaSearchIcon { opacity:.3; } .ikaSearchIcon:hover { opacity:1; } </style><style type="text/css">.alliesHighlighterSelector { position:relative; display:inline; margin-left:5px; }						.alliesHighlighterSelector a { display:block; margin-bottom:.5em; }						.alliesHighlighterSelector img { display:inline !important; vertical-align:middle; height:14px; cursor:pointer; }						.alliesHighlighterSelector div { display:none; position:absolute; background-color:#F6EBBA; border:1px solid #DCA354; top:15px; left:0; padding:1em 1em .5em 1em; left:-5px;  z-index:11000 !important; }						.alliesHighlighterSelector:hover div { display:block; }						</style><style type="text/css">#exMachBuildingResReq { margin-top:1em; } #exMachBuildingResReq td { padding-bottom:.5em; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style><style type="text/css">#ikaEmpireTradeMovements th { text-align:center; font-weight:bold; padding:.5em 0; }#ikaEmpireTradeMovements td { padding:.25em; text-align:center; }#ikaEmpireTradeMovements a { background:none !important; padding:0 !important; width:auto !important; height:auto !important; font-size:inherit !important; text-decoration:underline !important; color:#000099 !important; display:inline !important; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style><style type="text/css">div.autoUpgradeBuilding { font-size:.8em; width:205px; float:left; padding:0 5px 0 7px !important; min-height:2.3em; line-height:2.3em; text-align:left !important; }					div.autoUpgradeBuilding:hover { background-color:#fff; }div.autoUpgradeBuildingEven { background-color:#faf2d1; }img.autoBuildDelete { float:right; height:13px; opacity:.6; cursor:pointer; margin:0 1px 0 2px; position:relative; top:5px; }					img.autoBuildDelete:hover { opacity:1; }					img.autoBuildResourceIcon { height:9px; position:relative; top:-1px; margin-right:2px !important; display:inline !important; }					img.autoBuildDownArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:11px; }					img.autoBuildDownArrow:hover { opacity:1; }					img.autoBuildUpArrow { float:right; width:13px; opacity:.5; cursor:pointer; position:relative; top:4px; left:13px; }					img.autoBuildUpArrow:hover { opacity:1; }					img.autoBuildHidden { visibility:hidden; }</style></head><body id="townHall">
+		<div id="container">
+			<div id="container2">
+							<div id="header">
+					<h1>Ikariam</h1>
+					<h2>Hãy làm sống lại thế giới cổ!</h2>
+				</div>
+				<div id="avatarNotes"></div>
+<div id="breadcrumbs"><div style="width: 1px; float: right; margin-right: 23px;">&nbsp;</div><img src="data:image/png;base64,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%3D" title="World Map Overview" style="float: right; padding: 5px; cursor: pointer; position: relative; top: -1px;"><h3>Bạn đang ở đây:</h3><a href="http://s5.vn.ikariam.com/index.php?view=worldmap_iso&amp;islandX=48&amp;islandY=78" title="Trở về Bản đồ thế giới"><img src="ika_files/icon-world.gif" alt="Thế giới"></a><span>&nbsp;&gt;&nbsp;</span><a class="" href="http://s5.vn.ikariam.com/index.php?view=island&amp;id=1440" title="Trở về hòn đảo"><img src="ika_files/icon-island.gif" alt="Tijios"> [48:78]</a><span>&nbsp;&gt;&nbsp;</span><a href="http://s5.vn.ikariam.com/index.php?view=city&amp;id=161684" class="city" title="Trở về thành phố">Polis</a><span>&nbsp;&gt;&nbsp;</span><span class="building">Tòa thị chính</span></div>
+<!---------------------------------------------------------------------------------------
+     ////////////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////// dynamic side-boxes. //////////////////////////////////
+     //////////////////////////////////////////////////////////////////////////////////// -->
+<div id="buildingUpgrade" class="dynamic">
+	<h3 class="header">Nâng cấp công trình <a class="help" href="http://s5.vn.ikariam.com/index.php?view=buildingDetail&amp;buildingId=0" title="Giúp đỡ"><span class="textLabel">Cần giúp đỡ?</span></a></h3>
+	<div class="content">
+		<div class="buildingLevel"><span class="textLabel">Cấp độ </span>1</div>
+        
+                
+
+
+		<h4><table style="width: auto ! important;" align="center" border="0" cellpadding="0" cellspacing="0"><tbody><tr><td style="padding: 0.25em 0pt 0pt; text-align: right;">158</td><td style="text-align: left;">&nbsp; total for level 2</td></tr><tr></tr></tbody></table></h4><table id="exMachBuildingResReq" style="width: auto ! important;" align="center" border="0" cellpadding="0" cellspacing="5"><tbody><tr><td style="text-align: right;"><img src="ika_files/icon_wood.gif" style="height: 14px; margin-right: 0.5em; display: inline; float: left;"></td><td style="text-align: left;"> &nbsp; 158</td><td style="text-align: left;"></td></tr><tr><td style="text-align: right;"><img src="ika_files/icon_time.gif" style="height: 14px; margin-right: 0.5em; display: inline; float: left;"></td><td style="text-align: left;"> &nbsp; 59m 4s</td><td style="text-align: left;"></td></tr></tbody></table>        
+		<ul class="actions">
+						<li class="upgrade">
+				 					<a class="" href="http://s5.vn.ikariam.com/index.php?action=CityScreen&amp;function=upgradeBuilding&amp;id=161684&amp;position=0&amp;level=1&amp;actionRequest=6e3dc8ccf23d198c92feaebc6274799d" title="Đang chờ xây dựng"><span class="textLabel">Nâng cấp</span></a>
+			   			</li>
+						<li class="downgrade">
+					 						 <a class="" href="http://s5.vn.ikariam.com/index.php?view=buildings_demolition&amp;id=161684&amp;position=0&amp;actionRequest=6e3dc8ccf23d198c92feaebc6274799d" title="Phá hủy công trình"><span class="textLabel">Phá hủy</span></a>
+			     			</li>
+		</ul>
+        
+					
+	<input class="button" id="autoBuildAddToQueue" title="Add this building to the automatic build queue." value="Add To Queue" type="button"><p>auto upgrade <input style="display: inline; position: relative; top: 2px; margin-left: 0.5em;" id="autoUpgradeCheckbox" type="checkbox"></p></div>
+	<div class="footer"></div>
+</div>
+
+
+<!--Link zur Gesamtbilanz -->
+ <div class="dynamic" id="finances">
+	<h3 class="header">Xem tổng quan tài chính</h3>
+		<div class="content">
+			<p>Bạn có thể xem thông tin toàn bộ về tài chính ở đây.</p>
+			<a href="http://s5.vn.ikariam.com/index.php?view=finances" class="button">Xem tổng quan tài chính</a>
+		</div>
+	<div class="footer"></div>
+</div>
+
+<!--Link zum Aufgeben der Kolonie -->
+
+
+<!---------------------------------------------------------------------------------------
+     ////////////////////////////////////////////////////////////////////////////////////
+     ///////////////// the main view. take care that it stretches. //////////////////////
+     //////////////////////////////////////////////////////////////////////////////////// -->
+				<div class="dynamic"><h3 class="header"><a class="" id="isExpanded" style="background: none repeat scroll 0% 0% red;"><img style="cursor: pointer; float: right; padding: 5px 5px 0pt 0pt;" title="Expand or collapse auto build" id="autoBuildExpandImg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAQAAAC1+jfqAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABhSURBVCjPY/jPgB8y0FHBkb37/+/6v+X/+v8r/y/ei0XB3v+H4HDWfywKtgAl1oLhof8TsClYA5SAgEP/27EpWIxkQj02BbOQ3FCGTcGEdV3/W4B6K/+X/M9fNzAhSbYCAMiTH3pTNa+FAAAAAElFTkSuQmCC"></a><div style="cursor: pointer; width: 65px; float: left; font-size: 0.85em; font-weight: normal; margin-left: 10px; text-align: left;" id="autoBuildCountdown" title="Time until next auto build check (click to now)">&nbsp;</div><span style="padding-left: 0pt; position: relative; left: -2em; cursor: move;">Auto Build (beta) <input style="position: relative; top: 0.2em; margin-left: 0.5em; cursor: pointer;" id="autoBuildEnabledCheckbox" title="Enable auto build" checked="checked" type="checkbox"></span></h3><div style="text-align: left; display: block;" class="content" id="IkaAutoBuildQueue"><div style="height: 0.5em; width: 100%; float: left;">&nbsp;</div><p style="text-align: center; margin-top: 1.5em;">The auto build queue is empty.</p><p style="margin-top: 1.5em; text-align: center; font-size: 0.8em;">Showing all cities<a style="cursor: pointer; padding-left: 0.5em;">[change]</a></p></div><div style="display: block;" class="footer"></div></div><div style="position: relative;" id="mainview">
+						
+						
+						 					        	<h1 style="text-align: center;">Tòa thị chính</h1>
+					     	
+					<div id="CityOverview" class="contentBox">
+                        <h3 class="header">
+                            Thủ đô "Polis"                            <a href="http://s5.vn.ikariam.com/index.php?view=renameCity&amp;id=161684&amp;position=0" title="Đổi tên thành phố">Đặt tên lại</a>
+                        </h3>
+						<div class="content">
+							<img class="citizen" src="ika_files/y100_citizen_faceright.gif" title="" alt="" height="100" width="42">
+							<ul class="stats">
+								<li class="space"><span class="textLabel">Không gian cư trú: </span><span class="value occupied">40</span>/<span class="value total">60</span></li>
+								<li class="growth growth_positive">
+								<span class="textLabel">Phát triển: </span>
+								<span class="value">3.12 Mỗi giờ</span>
+								</li>
+								<li class="actions"><span class="textLabel">Điểm hoạt động: </span>3/3</li>
+								<li class="incomegold incomegold_positive">
+									<span class="textLabel">Biểu đồ vàng: </span><span class="value">121</span>
+                                </li>
+                                <li class="garrisonLimit"><span class="textLabel">Giới hạn đóng quân: <span style="" class="value occupied">0 / </span></span><span style="" class="value occupied">300</span></li>
+								<li class="corruption">
+                                    <span class="textLabel">Tham nhũng: </span>
+                                    <span class="value positive">
+                                        <span title="Tình trạng tham nhũng">0%</span> 
+                                    </span>
+                                </li>
+								<li class="happiness happiness_happy">Full in: 6h 54m</li>									
+							</ul>
+							
+							<div id="PopulationGraph">
+								<h4>Dân số và sản xuất:</h4>
+								<div class="citizens" style="left: 20px; width: 380px;"><span class="type"><span class="count">40</span> <img src="ika_files/citizen_r.gif" title="Người dân" alt="Người dân"></span> <span class="production"><span class="textLabel">Sản phẩm </span><img src="ika_files/icon_gold.gif" alt="Vàng"> +121</span></div>
+								<div class="woodworkers" style="left: 400px; width: 60px;"><span class="type"><span class="count">0</span> <img src="ika_files/woodworker_r.gif" title="Công nhân" alt="Công nhân"></span> <span class="production"><span class="textLabel">Sản phẩm </span><img src="ika_files/icon_wood.gif" alt="Vật liệu xây dựng"> +0</span></div>
+								<div class="specialworkers" style="left: 460px; width: 60px;">
+                                    <span class="type">
+                                        <span class="count">0</span>
+                                        <img src="ika_files/luxuryworker_r.gif" title="Công nhân" alt="Công nhân">
+                                    </span>
+                                    <span class="production">
+                                        <span class="textLabel">Sản phẩm </span>
+<img src="ika_files/icon_glass.gif">                                        +0                                    </span>
+                                </div>
+								<div class="scientists" style="left: 520px; width: 60px;"><span class="type"><span class="count">0</span> <img src="ika_files/scientist_r.gif" title="Các nhà khoa học" alt="Các nhà khoa học"></span> <span class="production"><span class="textLabel">Sản phẩm </span><img src="ika_files/icon_research.gif" alt="Điểm nghiên cứu"> +0</span></div>
+								<div class="priests" style="left: 580px; width: 60px;"><span class="type"><span class="count">0</span> <img src="ika_files/templer_r.gif" title="Tu sỹ" alt="Tu sỹ"></span> </div>
+							</div>
+							
+							<div id="notices">
+								<h4>Lưu ý:</h4>
+								<p>Không có rắc rối nào! Chúc mừng bạn, mọi chuyện trong thành phố đều ổn!</p>
+							</div>
+						</div>
+						<div class="footer"></div>
+					</div>
+					<div class="contentBox">
+						<h3 class="header">Hài lòng</h3>
+						<div class="content">
+							<p>Cảm xúc trong thành phố phụ thuộc vào rất nhiều yếu tố. Biểu 
+đồ này có thể giúp bạn chỉ ra những vấn đề và tình trạng trong thành 
+phố.</p>
+							<div id="SatisfactionOverview">
+							
+								<div class="positives">
+									<h4>Phần thưởng</h4>
+																			<div class="cat basic">
+											<h5>Phần thưởng cơ bản</h5>
+																									<div class="base" style="left: 100px; width: 279px;"><span class="value">+196</span> <img src="ika_files/city_30x30.gif" title="Phần thưởng cơ bản" alt="Phần thưởng cơ bản" height="30" width="30"></div>
+																									<div class="research1" style="left: 379px; width: 60px;"><span class="value">+0</span> <img src="ika_files/researchbonus_30x30.gif" title="Thông qua nghiên cứu" alt="Thông qua nghiên cứu" height="30" width="30"></div>
+																									<div class="capital" style="left: 439px; width: 60px;"><span class="value">+0</span> <img src="ika_files/crown.gif" title="Phần thưởng của thủ đô" alt="Phần thưởng của thủ đô" height="20" width="20"></div>
+																					</div>
+																			<div class="cat wine">
+											<h5>Rượu</h5>
+											                                                	<p>Không có quán rượu nào trong thành phố!</p>
+                                            										</div>
+																			<div class="cat culture">
+											<h5>Văn hóa</h5>
+											                                                	<p>Không có Viện bảo tàng nào trong thành phố!</p>
+                                            										</div>
+																	</div>
+								
+								<div class="negatives">
+									<h4>Khấu trừ</h4>
+																					<div class="cat overpopulation">
+													<h5>Dân số:</h5>
+													<div class="bar" style="left: 100px; width: 82px;"><span class="value">-40</span></div>
+												</div>
+																	</div>
+								
+								<div class="happiness happiness_happy">
+									<h4>Cảm xúc tổng cộng:</h4>
+									<div class="value">155</div>
+									<div class="text">Vui vẻ</div>
+								</div>
+								
+							</div>
+
+						</div><!--end .content -->
+						<div class="footer"></div>
+					</div><!-- end .contentBox -->
+
+
+
+				<div><form style="position: absolute; top: 0pt; background: url(&quot;/skin/layout/bg_stone.jpg&quot;) repeat scroll 0% 0% transparent; left: 0pt; border: medium none; width: 100%; z-index: 20000; overflow-x: hidden; display: none;" id="ikaSearchForm" method="post" target="ikaSearchResults" action="http://www.ika-world.com/suche.php?view=suche_stadt&amp;land=en&amp;tool=ikaSearch" onsubmit="IkaSearch.hideForm(); IkaSearch.showResults()">					<table style="margin: 50px auto;"><tbody><tr align="center"><td>Country</td><td colspan="2">					<select name="land" id="ikaSearchSelectServer" style="width: 200px;">					<option selected="selected" value="de">ikariam.de</option><option value="en">ikariam.org</option><option value="ae">ae.ikariam.com</option><option value="ar">ar.ikariam.com</option><option value="ba">ba.ikariam.com</option><option value="bg">ikariam.bg</option><option value="br">ikariam.com.br</option><option value="by">ikariam.by</option><option value="cl">cl.ikariam.com</option><option value="cn">ikariam.cn</option><option value="co">co.ikariam.com</option><option value="cz">ikariam.cz</option><option value="dk">ikariam.dk</option><option value="ee">ee.ikariam.com</option><option value="eg">eg.ikariam.org</option><option value="es">ikariam.es</option><option value="fi">fi.ikariam.com</option><option value="fr">ikariam.fr</option><option value="gr">ikariam.gr</option><option value="hr">hr.ikariam.org</option><option value="hk">ikariam.hk</option><option value="hu">ikariam.hu</option><option value="id">id.ikariam.com</option><option value="ih">ih.ikariam.org</option><option value="il">ikariam.co.il</option><option value="in">in.ikariam.org</option><option value="ir">ir.ikariam.com</option><option value="it">ikariam.it</option><option value="jp">jp.ikariam.org</option><option value="kr">ikariam.kr</option><option value="lt">ikariam.lt</option><option value="lv">ikariam.lv</option><option value="me">me.ikariam.org</option><option value="mx">ikariam.com.mx</option><option value="nl">ikariam.nl</option><option value="no">ikariam.no</option><option value="pe">ikariam.pe</option><option value="ph">ikariam.ph</option><option value="pk">ikariam.pk</option><option value="pl">ikariam.pl</option><option value="pt">ikariam.com.pt</option><option value="ro">ikariam.ro</option><option value="rs">ikariam.rs</option><option value="ru">ikariam.ru</option><option value="sa">sa.ikariam.org</option><option value="se">ikariam.se</option><option value="si">ikariam.si</option><option value="sk">ikariam.sk</option><option value="tr">ikariam.net</option><option value="tw">ikariam.tw</option><option value="ua">ikariam.com.ua</option><option value="us">ikariam.com</option><option value="ve">ikariam.com.ve</option><option value="vn">ikariam.vn</option>  				  </select>				</td>				<td>Wonder</td>				<td colspan="2">				  <select name="wunder" style="width: 200px;">					<option selected="selected" value="0">-</option><option value="1">Hephaistos</option><option value="2">Temple of Gaia</option><option value="3">Garden of Dionysus</option><option value="4">Temple of Athene</option><option value="5">Temple of Hermes</option><option value="6">Ares</option><option value="7">Temple of Poseidon</option><option value="8">Colossus</option>      </select>				</td> 				  </tr>  			  <tr align="center">				<td>World</td>				<td colspan="2">	  				  <select name="welt" id="ikaSearchServer" style="width: 200px;">					<option selected="selected" value="1">Alpha</option><option value="2">Beta</option><option value="3">Gamma</option><option value="4">Delta</option><option value="5">Epsilon</option><option value="6">Zeta</option><option value="7">Eta</option><option value="8">Theta</option><option value="9">Iota</option><option value="10">Kappa</option><option value="11">Lambda</option><option value="12">My</option><option value="13">Ny</option><option value="14">Xi</option><option value="15">Omikron</option><option value="16">Pi</option><option value="99">Speedserver</option><option value="666">Test-Server</option>      </select>				</td>				<td>				</td><td>				</td><td>			  </td></tr> 			  <tr align="center">				<td>Player-name</td>				<td colspan="2"><input name="spieler" style="width: 200px;" id="ikaSearchPlayerName" type="text"></td>  				<td>Ally</td>				<td colspan="2"><input name="allianz" style="width: 200px;" id="ikaSearchAllianceName" type="text"></td>  			  </tr>	    			  <tr align="center">				<td>Island-name</td>				<td colspan="2"><input name="insel_name" style="width: 200px;" type="text"></td>  				<td>Town-name</td>				<td colspan="2"><input name="stadt" style="width: 200px;" type="text"></td>  			  </tr>  			  <tr> 				<td>X</td>				<td>	  				  <select name="x_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>				<td><input name="x" style="width: 100px;" type="text"></td> 				<td>X</td>				<td>	  				  <select name="x2_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>				<td><input name="x2" style="width: 100px;" type="text"></td> 				  </tr>			  <tr> 				<td>Y</td>				<td>				  <select name="y_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option> 				  </select>				</td>				<td><input name="y" style="width: 100px;" type="text"></td> 				<td>Y</td>				<td>				  <select name="y2_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option> 	  				  </select>				</td>				<td><input name="y2" style="width: 100px;" type="text"></td> 			  </tr>			  <tr>				<td>Wood</td>				<td>				  <select name="holz_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>				<td><input name="holz_level" style="width: 100px;" type="text"></td> 	  					<td>				  <select name="luxus">					<option selected="selected" value="0">Luxury Goods</option><option value="1">Marble</option><option value="2">Wine</option><option value="3">Crystall</option><option value="4">Sulphur</option>      </select>	  				</td>				<td>				  <select name="luxus_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>				<td><input name="luxusgut_level" style="width: 100px;" type="text"></td>  			  </tr>						  <tr>  	  				<td>Town Hall</td>				<td>				  <select name="rathaus_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>				<td><input name="rathaus" style="width: 100px;" type="text"></td>  	  				<td>Towns</td>				<td>				  <select name="besiedelt_sc" style="width: 100px;">					<option selected="selected" value="0">=</option><option value="1">&gt;</option><option value="2">&gt;=</option><option value="3">&lt;</option><option value="4">&lt;=</option><option value="5">!=</option>      </select>				</td>			  <td><input name="besiedelt" style="width: 100px;" type="text"></td> 			  </tr>  			  <tr>				<td>Start</td>				<td>X: <input value="0" name="x_start" maxlength="3" style="width: 50px;" type="text"></td>				<td>Y: <input value="0" name="y_start" maxlength="3" style="width: 50px;" type="text"></td>				<td>Status</td>				<td><select name="xxx" style="width: 100px;"><option selected="selected" value="">=</option></select></td>				<td>				  <select name="status" style="width: 100px;">					<option selected="selected" value="0">All the same</option><option value="1">Normal</option><option value="2">Vacation</option><option value="3">Inactive</option>      </select>				</td></tr><tr><td>1. sort</td><td>				  <select name="asc_desc_1" style="width: 100px;">					<option selected="selected" value="0">ASC</option><option value="1">DESC</option>      </select>				</td><td>				  <select name="sortierung_1" style="width: 100px;">					<option selected="selected" value="0">Player</option><option value="1">Ally</option><option value="2">Status</option><option value="3">Town-name</option><option value="4">Town Hall</option><option value="5">X</option><option value="6">Y</option><option value="7">Island-name</option><option value="8">Wonder</option><option value="9">Wood</option><option value="10">Towns</option>      </select>				</td><td>2. sort</td><td>				  <select name="asc_desc_2" style="width: 100px;">					<option selected="selected" value="0">ASC</option><option value="1">DESC</option>      </select>				</td><td>				  <select name="sortierung_2" style="width: 100px;">					<option value="0">Player</option><option selected="selected" value="1">Ally</option><option value="2">Status</option><option value="3">Town-name</option><option value="4">Town Hall</option><option value="5">X</option><option value="6">Y</option><option value="7">Island-name</option><option value="8">Wonder</option><option value="9">Wood</option><option value="10">Towns</option>      </select>				</td></tr><tr><td colspan="6" align="center"><input value="Search" class="button" type="submit"></td></tr></tbody></table>					</form></div><div style="display: none; position: absolute; top: 0pt; right: 0pt; background-color: rgb(255, 255, 255); padding: 0.5em 1em; font-weight: bold; z-index: 25000; cursor: pointer; border-style: solid; border-color: rgb(86, 60, 47); border-width: 0pt 0pt 1px 1px;" id="ikaSearchButtonClose">close</div><iframe style="position: absolute; top: 0pt; left: 0pt; border: medium none; width: 100%; z-index: 20000; overflow-x: hidden; display: none;" src="" id="ikaSearchResults" name="ikaSearchResults"></iframe></div><!-- end #mainview -->
+<!-- Navigational elements for changing the city or the view. May perform different actions on every screen. -->
+<div style="height: 10px;" id="cityNav">
+<form id="changeCityForm" action="index.php" method="POST">
+<fieldset style="display: none;"><input name="action" value="header" type="hidden"> <input name="function" value="changeCurrentCity" type="hidden"> <input name="actionRequest" value="6e3dc8ccf23d198c92feaebc6274799d" type="hidden"> <input name="oldView" value="townHall" type="hidden"> <input name="id" value="161684" type="hidden"></fieldset>
+
+<!-- Navigation -->
+<h3>Giao thông thành phố</h3>
+<ul>
+	<li><label for="citySelect">Thành phố hiện tại:</label> <div class="citySelect smallFont jsSelect"><div class="coords dropbutton" title="Hàng giao dịch: Pha lê"><span class="citytype"></span><span class="cityresource"></span>[48:78]&nbsp;Polis</div><ul class="optionList"><li class="coords first last active" title="Hàng giao dịch: Pha lê"><span class="citytype"></span><span class="cityresource"></span>[48:78]&nbsp;Polis</li></ul></div><select id="citySelect" class="citySelect smallFont replaced" name="cityId" tabindex="1" onchange="this.form.submit()">
+		<option class="coords" value="161684" selected="selected" title="Hàng giao dịch: Pha lê">[48:78]&nbsp;Polis</option>	</select></li>
+	<li class="previousCity"><a href="#changeCityPrevious" tabindex="2" title="Chuyển về thành phố vừa rồi"><span class="textLabel">Thành phố trước</span></a></li>
+	<li class="nextCity"><a href="#changeCityNext" tabindex="3" title="Chuyển sang thành phố kế tiếp"><span class="textLabel">Thành phố kế tiếp</span></a></li>
+	<li class="viewWorldmap"><a class="" href="http://s5.vn.ikariam.com/index.php?view=worldmap_iso" tabindex="4" title="Tập trung vào thành phố đã chọn trên bản đồ thế giới"><span class="textLabel">Thế giới</span></a><div style="display: none; background-color: rgb(254, 232, 200); border: 1px solid rgb(157, 131, 106); text-align: left; width: 950px; margin-left: -320px; position: relative;" id="buildingLinksWorldLinks"><table style="width: 100%;"><tbody><tr style="background-image: url(&quot;/skin/input/button.gif&quot;);" valign="bottom"><td><div style="width: 80px; padding-left: 1em;"></div></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/constructionSite.gif" style="height: 12px; margin-top: 5px;" title="Building under construction"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_citizen.gif" style="height: 12px; margin-top: 5px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_wood.gif" style="height: 12px; margin-top: 5px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_wine.gif" style="height: 12px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_marble.gif" style="height: 12px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_glass.gif" style="height: 12px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/icon_sulfur.gif" style="height: 12px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><img src="ika_files/bulb-on.gif" style="height: 12px; margin-top: 5px;"></td>								  <td style="text-align: center; padding: 0pt 0.05em;"><a href="http://s5.vn.ikariam.com/index.php?view=finances" style="background: none repeat scroll 0% 0% transparent; padding: 0pt; display: inline; height: auto; width: auto;"><img src="ika_files/icon_gold.gif" style="height: 12px; margin-top: 5px;"></a></td>								<td></td></tr></tbody><tr style="background-color: inherit; border-top: 1px dotted rgb(157, 131, 106);"><td style="border-right: 1px dotted rgb(157, 131, 106);"><a name="161684" rev="/index.php?view=city&amp;id=161684" style="display: block; cursor: pointer; height: auto; background: none repeat scroll 0% 0% transparent; width: auto; padding: 0.8em 1em; font-weight: bold; text-decoration: none;">[48:78]&nbsp;Polis (1)</a><div style="display: none; background-color: rgb(254, 232, 200); border: 1px solid rgb(157, 131, 106); text-align: left; width: 400px; padding: 1em 0pt 0.2em 1em; position: absolute; z-index: 1000; left: 100px; margin-top: -2.7em;" class="buildingLinks"><a title="Tòa thị chính (1)" rev="/index.php?view=townHall&amp;position=0&amp;id=161684" name="161684" style="display: block; margin-bottom: 0.8em; font-size: 0.9em; cursor: pointer; height: auto; background: none repeat scroll 0% 0% transparent; line-height: 1em; padding: 0pt; width: 100%; color: rgb(0, 153, 0); text-decoration: none;"><img src="ika_files/building_townhall.gif" style="margin-right: 0.5em; width: 24px;" align="absmiddle">Tòa thị chính (1) &nbsp; &nbsp;</a></div></td><td id="ikaEmpireLinksBuildTime161684" style="border-right: 1px dotted rgb(157, 131, 106); font-size: 0.9em; text-align: center;">-</td><td title="Capacity: 60 (66%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);"><a style="display: inline; padding: 0pt; width: auto; height: auto; background: none repeat scroll 0% 0% transparent;" href="http://s5.vn.ikariam.com/index.php?view=townHall&amp;position=0&amp;id=161684" name="161684">40</a><div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 66%; opacity: 0.66;">&nbsp;</div></div></td><td title="Capacity: 1,500 (30%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);"><a style="display: inline; padding: 0pt; width: auto; height: auto; background: none repeat scroll 0% 0% transparent;" href="http://s5.vn.ikariam.com/index.php?view=resource&amp;type=resource&amp;id=1440" name="161684">450</a><div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 30%; opacity: 0.3;">&nbsp;</div></div></td><td title="Capacity: 1,500 (0%) - Wine consumption: 0 per hour" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0<div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 0%; opacity: 0;">&nbsp;</div></div></td><td title="Capacity: 1,500 (0%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0<div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 0%; opacity: 0;">&nbsp;</div></div></td><td title="Capacity: 1,500 (0%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0<div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 0%; opacity: 0;">&nbsp;</div></div></td><td title="Capacity: 1,500 (0%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0<div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; width: 0%; opacity: 0;">&nbsp;</div></div></td><td title="Capacity: 0 (NaN%)" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);">-<div style="border: 1px outset rgb(254, 232, 200); width: 50px; height: 2px; margin: 5px auto auto;"><div style="background-color: rgb(170, 0, 0); line-height: 2px; height: 2px; opacity: 1;">&nbsp;</div></div></td><td title="" style="text-align: center; font-size: 0.9em; padding: 0pt 0.2em; border-right: 1px dotted rgb(157, 131, 106);"><a style="display: inline; padding: 0pt; width: auto; height: auto; background: none repeat scroll 0% 0% transparent;" href="http://s5.vn.ikariam.com/index.php?view=finances" name="161684">+121</a></td><td><img style="float: right; height: 14px; margin: 1px 10px 0pt 0pt; opacity: 0.3;" src="ika_files/transport.gif"><img name="161684" title="Level ?" style="float: right; height: 14px; margin: 1px 4px 0pt 0pt; cursor: pointer;" src="ika_files/icon_wood.gif"><img src="ika_files/icon-island.gif" style="cursor: pointer; height: 16px; margin-right: 2px; float: right;" name="index.php?view=island&amp;cityId=161684&amp;islandId=1440" title="View city on island"></td></tr><tr style="border-top: 1px dotted rgb(157, 131, 106); height: 2em; background-color: rgb(247, 228, 175);" valign="top">&nbsp;<td style="border-right: 1px dotted rgb(157, 131, 106);"></td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">40</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">450</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">0</td><td title="" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);">+0</td><td title="121 - 0 upkeep (+2,904 per day)" id="empireOverviewfinanceTotal" style="text-align: center; font-size: 0.9em; padding: 0.5em 0.2em; border-right: 1px dotted rgb(157, 131, 106);"><a href="http://s5.vn.ikariam.com/index.php?view=finances" style="display: inline; height: auto; background: none repeat scroll 0% 0% transparent;">+121</a></td><td></td></tr></table></div></li>
+	<li class="viewIsland"><a class="" href="http://s5.vn.ikariam.com/index.php?view=island&amp;id=1440" tabindex="5" title="Chuyển sang bản đồ hòn đảo của thành phố đã chọn"><span class="textLabel">Hòn đảo</span></a><div style="display: none; background-color: rgb(254, 232, 200); border: 1px solid rgb(157, 131, 106); text-align: left; width: 950px; margin-left: -405px; z-index: 9000; position: relative;"><div id="ikaEmpireMilitaryOverviewTransport"><table id="ikaEmpireTradeMovements" style="width: 100%;" border="0" cellpadding="0" cellspacing="0"><tbody><tr style="background-image: url(&quot;/skin/input/button.gif&quot;); border-bottom: 1px dotted rgb(157, 131, 106); vertical-align: middle;"><th>Time</th><th>Units</th><th>Origin</th><th>&nbsp;</th><th>Mission</th><th>&nbsp;</th><th>Destination</th><th>Action</th></tr></tbody></table></div></div></li>
+			<li class="viewCity"><a class="" href="http://s5.vn.ikariam.com/index.php?view=city&amp;id=161684" tabindex="6" title="Xem xét thành phố đã chọn"><span class="textLabel">Thành phố</span></a><div style="display: none; background-color: rgb(254, 232, 200); border: 1px solid rgb(157, 131, 106); text-align: left; width: 400px; padding: 1em 0pt 0.2em 1em; position: absolute; z-index: 1000;" class="buildingLinks"><a title="Tòa thị chính (1)" rev="/index.php?view=townHall&amp;position=0&amp;id=161684" name="161684" style="display: block; margin-bottom: 0.8em; font-size: 0.9em; cursor: pointer; height: auto; background: none repeat scroll 0% 0% transparent; line-height: 1em; padding: 0pt; width: 100%; color: rgb(0, 153, 0);"><img src="ika_files/building_townhall.gif" style="margin-right: 0.5em; width: 24px;" align="absmiddle">Tòa thị chính (1) &nbsp; &nbsp;</a></div></li>
+		</ul>
+</form>
+</div>
+
+
+    <div id="facebook_button">
+        <a href="https://www.facebook.com/login.php?api_key=359942453443&amp;cancel_url=http%3A%2F%2Fs5.vn.ikariam.com%2Findex.php%3Fview%3DtownHall%26id%3D161684%26position%3D0&amp;display=page&amp;fbconnect=1&amp;next=http%3A%2F%2Fs5.vn.ikariam.com%2Findex.php%3FmakeFbWallPost%3D1%26view%3DmilitaryAdvisorMilitaryMovements%26&amp;return_session=1&amp;session_version=3&amp;v=1.0&amp;req_perms=email" alt="Chia sẻ" title="Chia sẻ"></a>
+    </div>
+
+
+<!-- TODO Goldbalance... -->
+<div id="globalResources">
+<h3>Tài nguyên của thể chế</h3>
+<ul>
+	<li class="ambrosia" title="0 Ambrosia"><a href="http://s5.vn.ikariam.com/index.php?view=premium"><span class="textLabel">Ambrosia:
+	</span><span>0</span></a></li>	
+	<li class="transporters" title="Tàu giao thương sẵn có / Tổng cộng"><a class="" href="http://s5.vn.ikariam.com/index.php?view=merchantNavy"><span class="textLabel">Tàu giao thương:
+	</span><span>0 (0)</span></a></li>
+	
+	<li class="gold" title="450 Vàng"><a class="" href="http://s5.vn.ikariam.com/index.php?view=finances"><span class="textLabel">Vàng:
+	</span><span id="value_gold">450</span></a></li>
+</ul>
+</div>
+
+
+<!-- Resources of the city. Finished. Identical on every page. -->
+<div id="cityResources"><h3>Tài nguyên của thành phố</h3>
+<ul class="resources">
+	<li style="cursor: pointer;" class="population" title="Dân số"><span class="textLabel">Dân số: </span> <span id="value_inhabitants" style="display: block; width: 80px; white-space: nowrap; text-shadow: none; color: inherit;">40 (40)</span>
+	</li>
+	<li class="actions" title="Điểm hoạt động">
+	<span class="textLabel">Điểm hoạt động: </span>
+	<span id="value_maxActionPoints">3</span>
+	</li>
+	<li style="cursor: pointer;" class="wood">
+	    <span class="textLabel">Vật liệu xây dựng: </span>
+	    <span style="font-size: 12px; position: relative; top: -3px; white-space: nowrap; text-shadow: none; color: inherit;" id="value_wood" class="">450</span><div class="capacity"><div class="onhand" style="">&nbsp;</div><div class="safe" style="">&nbsp;</div></div>
+    	<div style="top: 30px; display: none;" class="tooltip"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>Capacity: &nbsp;</td><td>0 (Infinity%)</td></tr><tr><td>Safe:  &nbsp;</td><td> 0 (0%)</td></tr><tr><td style="color: rgb(170, 0, 0); font-weight: bold;">Lootable:  &nbsp;</td><td style="color: rgb(170, 0, 0); font-weight: bold;"> 450 (100%)</td></tr></tbody></table></div>
+	</li>
+	<li style="cursor: pointer;" class="wine disabled">
+            <span class="textLabel">Rượu: </span>
+            <span style="font-size: 12px; position: relative; top: -3px; white-space: nowrap; text-shadow: none; color: inherit;" id="value_wine" class="">
+                0</span><div class="capacity"><div class="onhand" style="opacity: 0; width: 0%;">&nbsp;</div><div class="safe" style="width: 0%;">&nbsp;</div></div>
+            <div class="tooltip" style="line-height: 13px; top: 30px; display: none;"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>Capacity: &nbsp;</td><td>1,500 (0%)</td></tr></tbody></table></div>
+        </li><li style="cursor: pointer;" class="marble disabled">
+            <span class="textLabel">Cẩm thạch: </span>
+            <span style="font-size: 12px; position: relative; top: -3px; white-space: nowrap; text-shadow: none; color: inherit;" id="value_marble" class="">
+                0</span><div class="capacity"><div class="onhand" style="opacity: 0; width: 0%;">&nbsp;</div><div class="safe" style="width: 0%;">&nbsp;</div></div>
+            <div class="tooltip" style="line-height: 13px; top: 30px; display: none;"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>Capacity: &nbsp;</td><td>1,500 (0%)</td></tr></tbody></table></div>
+        </li><li style="cursor: pointer;" class="glass disabled">
+            <span class="textLabel">Pha lê: </span>
+            <span style="font-size: 12px; position: relative; top: -3px; white-space: nowrap; text-shadow: none; color: inherit;" id="value_crystal" class="">
+                0</span><div class="capacity"><div class="onhand" style="">&nbsp;</div><div class="safe" style="">&nbsp;</div></div>
+            <div class="tooltip" style="line-height: 13px; top: 30px; display: none;"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>Capacity: &nbsp;</td><td>0 (NaN%)</td></tr></tbody></table></div>
+        </li><li style="cursor: pointer;" class="sulfur disabled">
+            <span class="textLabel">Lưu huỳnh: </span>
+            <span style="font-size: 12px; position: relative; top: -3px;" id="value_sulfur" class="">
+                0</span><div class="capacity"><div class="onhand" style="opacity: 0; width: 0%;">&nbsp;</div><div class="safe" style="width: 0%;">&nbsp;</div></div>
+            <div class="tooltip" style="line-height: 13px; top: 30px; display: none;"><table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td>Capacity: &nbsp;</td><td>1,500 (0%)</td></tr></tbody></table></div>
+        </li></ul>
+	</div>
+
+<!-----------------------------------------------------
+  ////////////////////// ADVISORS /////////////////////
+  ---------------------------------------------------->
+<div id="advisors">
+<h3>Tổng quan</h3>
+<ul>
+	<li id="advCities"><a href="http://s5.vn.ikariam.com/index.php?view=tradeAdvisor&amp;oldView=townHall" title="Tổng quan về thành phố và tài chính" class="normal"> <span class="textLabel">Các thành phố</span> </a> 
+			<a class="plusteaser" href="http://s5.vn.ikariam.com/index.php?view=premiumDetails" title="Đến tổng quan"><span class="textLabel">Đến tổng quan</span></a>	</li>
+	<li id="advMilitary"><a href="http://s5.vn.ikariam.com/index.php?view=militaryAdvisorCombatReports&amp;oldView=townHall" title="Tổng quan về quân đội (Combat Reports)" class="normal"> <span class="textLabel">Quân sự</span> </a> 
+			<a class="plusteaser" href="http://s5.vn.ikariam.com/index.php?view=premiumDetails" title="Đến tổng quan"><span class="textLabel">Đến tổng quan</span></a>	<a style="width: 51px; height: 108px; position: absolute; background: none repeat scroll 0% 0% transparent; top: 0pt; left: 0pt;" href="http://s5.vn.ikariam.com/index.php?view=militaryAdvisorMilitaryMovements&amp;oldView=townHall" title="Tổng quan về quân đội (Troop Movements)" class="normal"></a></li>
+	
+	<li id="advResearch"><a href="http://s5.vn.ikariam.com/index.php?view=researchAdvisor&amp;oldView=townHall" title="Tổng quan về nghiên cứu" class="normal"> <span class="textLabel">Nghiên cứu</span> </a> 
+		<a class="plusteaser" href="http://s5.vn.ikariam.com/index.php?view=premiumDetails" title="Đến tổng quan"><span class="textLabel">Đến tổng quan</span></a>	</li>
+	
+	<li id="advDiplomacy"><a href="http://s5.vn.ikariam.com/index.php?view=diplomacyAdvisorAlly" title="Tổng quan về thông điệp và ngoại giao (Alliance)" class="normal"> <span class="textLabel">Ngoại giao</span> </a> 
+		<a class="plusteaser" href="http://s5.vn.ikariam.com/index.php?view=premiumDetails" title="Đến tổng quan"><span class="textLabel">Đến tổng quan</span></a>	<a style="width: 51px; height: 108px; position: absolute; background: none repeat scroll 0% 0% transparent; top: 0pt; left: 0pt;" href="http://s5.vn.ikariam.com/index.php?view=diplomacyAdvisor&amp;oldView=townHall" title="Tổng quan về thông điệp và ngoại giao (Inbox)" class="normal"></a></li>
+	
+</ul>
+</div>
+<!-- ADVISORS END -->
+
+<!-- Quests -->
+<div style="left: 400px; top: 71.4368px; display: block;" id="arrow">
+</div>
+<div id="tutorialAdvisor">
+    <div id="advisorImage" class="cityAdvisor mini "><a class="" href="javascript:;" id="tutorialAdvisorLink" title="Hướng dẫn"></a></div>
+</div>
+<div id="tutorialMessage">
+    <h3>Hướng dẫn</h3>
+    <a href="javascript:;" id="tutorialAdvisorCloseLink"></a>
+    <div class="content">
+    <img class="tutorialAdvisorInMessage" src="ika_files/alladvisors_city.jpg">
+    <div class="floatingAdvisor">
+        <p>Kế đến chúng ta sẽ bảo nguồn cung cấp vật liệu xây dựng cơ bản.</p><ul class="questSteps"><li>Nhấp vào `Hòn đảo` và đến xưởng cưa</li><li>Thuê 10 người dân làm nhân công tại đó để sản xuất vật liệu xây dựng.</li><li>Trở về trang tổng quan thành phố</li></ul>
+                    
+            <div class="rewardContainer">
+                <div class="rewardHeader">Bạn nhận được phần thưởng</div>
+                <ul class="questReward"><li class="wood">+ 400 Vật liệu xây dựng</li></ul>
+                <div style="clear: both;"></div>
+                    </div>
+        
+            </div>
+    <div style="clear: both;"></div>
+            <div class="centerButton">
+            <input class="invisible" name="TutorialCheckbox" id="disableTutorial" value="1" type="checkbox"><img id="TutorialCheckboxImg" class="checkbox, jsCheckboxImage" src="ika_files/checkbox_off.gif" alt="" onclick="jsCheckbox(document.getElementById('disableTutorial'),this);toggleTutorial();" onmouseover="jsCheckbox_Hover(document.getElementById('disableTutorial'), this)" onmouseout="jsCheckbox_rollOut(document.getElementById('disableTutorial'), this)">    
+        Tôi không cần chỉ dẫn.</div>
+        <div class="centerButton"><a href="javascript:;" id="okButton" class="button">OK</a>
+        </div>
+    <div class="footer"></div>
+    </div>
+</div>
+
+<script language="javascript">
+var counter = 0;
+var startX = 400;
+var startXOld = startX;
+var startY = 70;
+var startYOld = startY;
+var startId = '';
+
+var nextPositionX = 0;
+var nextPositionY = 0;
+
+
+/* Tutorial-deaktivieren-Checkbox */
+var showDisableCheckbox = true;
+
+var defaultClass = "cityAdvisor mini ";
+var lightenedClass = defaultClass + ' minilighten';
+
+    Dom.get("advisorImage").onmouseover = function() {
+        Dom.get("advisorImage").className = lightenedClass;
+    };
+    
+    Dom.get("advisorImage").onmouseout = function() {
+        Dom.get("advisorImage").className = defaultClass;
+    };
+
+toggleTutorial = function() {
+    ajaxRequest("?action=TutorialOperations&function=toggleTutorial", function(response){
+        /*alert(response);*/
+    });
+};
+
+Event.onDOMReady(function() {
+    
+    MyTutorial.setArrow();
+    MyTutorial.setCurrentQuest(20);
+    MyTutorial.setCurrentView('townHall');
+    MyTutorial.setLanguageDirection('ltr');
+    MyTutorial.setCurrentQuestMessageDisplayed(1);
+    MyTutorial.setTutorialAdvisorCoordinates(237,224);
+    MyTutorial.activateTutorialAdvisor(1);
+    MyTutorial.setAdvisorClass('cityAdvisor mini ');
+    MyTutorial.setCapitalId(161684);
+    
+    MyTutorial.importDataFromPHP('{"positionOfBuildingsInCity":{"ltr":{"1":[460,500],"2":[780,500],"3":[850,420],"4":[720,420],"5":[560,430],"6":[370,410],"7":[250,380],"8":[320,290],"9":[460,340],"10":[700,300],"11":[820,270],"12":[610,220],"13":[510,220],"14":[740,160]},"rtl":{"1":[435,500],"2":[123,500],"3":[50,420],"4":[177,420],"5":[341,430],"6":[526,410],"7":[650,380],"8":[577,290],"9":[435,340],"10":[195,300],"11":[84,270],"12":[290,220],"13":[420,220],"14":[160,160]}},"orderOfGroundPositions":[9,5,4,6,12,11,10,8,7,3,13],"orderOfPortPositions":[1,2],"positionsOnIslandView":{"ltr":{"resource":{"1":[530,360],"2":[710,300],"3":[690,480],"4":[560,410],"0":[370,450]},"barbarianVillage":{"1":[420,310],"2":[370,470],"3":[610,340],"4":[620,490],"0":[700,460]}},"rtl":{"resource":{"1":[380,360],"2":[210,300],"3":[230,480],"4":[360,410],"0":[545,450]},"barbarianVillage":{"1":[475,310],"2":[524,470],"3":[280,340],"4":[270,490],"0":[190,460]}}},"positionsOnScreen":{"ltr":{"city":{"tutorialAdvisor":[237,224]},"island":{"barbarianPlunderButton":[20,270]},"resource":{"slider":[490,420]},"academy":{"slider":[490,420]},"warehouse":{"upgrade":[7,200]},"barracks":{"firstSlider":[580,570]},"buildingGround":{"firstBuildingBuildButton":[785,365],"secondBuildingBuildButton":[785,570]},"port":{"buyTransporterButton":[790,370]},"plunder":{"firstUnitType":[610,340],"transporters":[355,470],"submit":[850,470]},"endPage":{"islandLink":[400,70],"cityLink":[480,70],"researchAdvisorLink":[800,110],"premiumLink":[20,40]},"researchAdvisor":{"researchConservationLink":[795,505],"researchLibraryLink":[60,660]}},"rtl":{"city":{"tutorialAdvisor":[685,227]},"island":{"barbarianPlunderButton":[868,270]},"resource":{"slider":[470,420]},"academy":{"slider":[470,420]},"warehouse":{"upgrade":[870,200]},"barracks":{"firstSlider":[365,570]},"buildingGround":{"firstBuildingBuildButton":[144,365],"secondBuildingBuildButton":[104,500]},"port":{"buyTransporterButton":[130,370]},"plunder":{"firstUnitType":[300,340],"transporters":[590,470],"submit":[48,470]},"endPage":{"islandLink":[510,70],"cityLink":[449,70],"researchAdvisorLink":[135,110],"premiumLink":[884,40]},"researchAdvisor":{"researchConservationLink":[50,410],"researchLibraryLink":[810,625]}}},"questData":{"10":{"textKeys":{"description":{"name":"TUTORIAL_TASK00"},"steps":[{"name":"TUTORIAL_TASK00_STEP01"},{"name":"TUTORIAL_TASK00_STEP02"}]},"advisor":"allAdvisors","reward":[],"previousQuest":null,"nextQuest":20,"startingConditions":["True"],"endingConditions":["WelcomeTextRead"]},"20":{"textKeys":{"description":{"name":"TUTORIAL_TASK01"},"steps":[{"name":"TUTORIAL_TASK01_STEP01"},{"name":"TUTORIAL_TASK01_STEP02"},{"name":"TUTORIAL_TASK01_STEP03"}],"reward":{"name":"TUTORIAL_REWARD01_TEXT"},"hint":{"name":"TUTORIAL_REWARD01_HINTTEXT"}},"advisor":"cityAdvisor","reward":{"resources":[400]},"previousQuest":10,"nextQuest":30,"startingConditions":["WelcomeTextRead"],"endingConditions":["ResourceWorkersWorking"],"startingArrowPosition":{"island":["getPositionOnIslandView","resource"],"resource":["getPositionOnScreen","resource","slider"],"default":["getPositionOnScreen","endPage","islandLink"]}},"30":{"textKeys":{"description":{"name":"TUTORIAL_TASK02"},"steps":[{"name":"TUTORIAL_TASK02_STEP01"},{"name":"TUTORIAL_TASK02_STEP02"}],"reward":{"name":"TUTORIAL_REWARD02_TEXT"},"hint":{"name":"TUTORIAL_REWARD02_HINTTEXT"}},"advisor":"cityAdvisor","reward":{"researchPoints":12},"previousQuest":20,"nextQuest":50,"startingConditions":["NoAcademyExists","ResourceWorkersWorking"],"endingConditions":["AcademyExists"],"startingArrowPosition":{"city":["getNextFreeBuildingPositionGround"],"buildingGround":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"50":{"textKeys":{"description":{"name":"TUTORIAL_TASK03"},"steps":[{"name":"TUTORIAL_TASK03_STEP01"},{"name":"TUTORIAL_TASK03_STEP02"},{"name":"TUTORIAL_TASK03_STEP03"}],"reward":{"name":"TUTORIAL_REWARD03_TEXT"},"hint":{"name":"TUTORIAL_REWARD03_HINTTEXT"}},"advisor":"researchAdvisor","reward":{"upgrade":4},"previousQuest":30,"nextQuest":40,"startingConditions":["AcademyExists"],"endingConditions":["ConservationResearched","LibraryWasVisited"],"startingArrowPosition":{"researchAdvisor":["getPositionOnScreen","researchAdvisor","researchConservationLink"],"default":["getPositionOnScreen","endPage","researchAdvisorLink"]}},"40":{"textKeys":{"description":{"name":"TUTORIAL_TASK04"},"steps":[{"name":"TUTORIAL_TASK04_STEP01"},{"name":"TUTORIAL_TASK04_STEP02"}],"reward":{"name":"TUTORIAL_REWARD04_TEXT"},"hint":{"name":"TUTORIAL_REWARD04_HINTTEXT"}},"advisor":"researchAdvisor","reward":{"researchPoints":22},"previousQuest":50,"nextQuest":60,"startingConditions":["ConservationResearched"],"endingConditions":["ScientistsWorking"],"startingArrowPosition":{"academy":["getPositionOnScreen","academy","slider"],"city":["getBuildingPositionByType",4],"default":["getPositionOnScreen","endPage","cityLink"]}},"60":{"textKeys":{"description":{"name":"TUTORIAL_TASK05"},"steps":[{"name":"TUTORIAL_TASK05_STEP01"},{"name":"TUTORIAL_TASK05_STEP02"}],"reward":{"name":"TUTORIAL_REWARD05_TEXT"},"hint":{"name":"TUTORIAL_REWARD05_HINTTEXT"}},"textKeyParams":["linkIkipedia1"],"advisor":"cityAdvisor","reward":{"upgrade":7},"previousQuest":40,"nextQuest":70,"startingConditions":["ScientistsWorking"],"endingConditions":["WarehouseExists"],"startingArrowPosition":{"city":["getNextFreeBuildingPositionGround"],"buildingGround":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"70":{"textKeys":{"description":{"name":"TUTORIAL_TASK06"},"steps":[{"name":"TUTORIAL_TASK06_STEP01"},{"name":"TUTORIAL_TASK06_STEP02"}],"reward":{"name":"TUTORIAL_REWARD06_TEXT"},"hint":{"name":"TUTORIAL_REWARD06_HINTTEXT"}},"advisor":"cityAdvisor","reward":{"upgrade":6,"resources":[250]},"previousQuest":60,"nextQuest":80,"startingConditions":["WarehouseExists","NoBarracksExist"],"endingConditions":["BarracksExist"],"startingArrowPosition":{"city":["getNextFreeBuildingPositionGround"],"buildingGround":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"80":{"textKeys":{"description":{"name":"TUTORIAL_TASK07"},"steps":[{"name":"TUTORIAL_TASK07_STEP01"},{"name":"TUTORIAL_TASK07_STEP02"},{"name":"TUTORIAL_TASK07_STEP03"},{"name":"TUTORIAL_TASK07_STEP04"},{"name":"TUTORIAL_TASK07_STEP05"}],"reward":{"name":"TUTORIAL_REWARD07_TEXT"},"hint":{"name":"TUTORIAL_REWARD07_HINTTEXT"}},"advisor":"militaryAdvisor","reward":{"military":{"315":3}},"previousQuest":70,"nextQuest":90,"startingConditions":["AcademyExists","WarehouseExists","BarracksExist"],"endingConditions":["UnitsCreationInProgressOrUnitsBuilt","WallExists"],"startingArrowPosition":{"city":["getBuildingPositionByType",6],"barracks":["getPositionOnScreen","barracks","firstSlider"],"buildingGround":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"90":{"textKeys":{"description":{"name":"TUTORIAL_TASK08"},"steps":[{"name":"TUTORIAL_TASK08_STEP01"},{"name":"TUTORIAL_TASK08_STEP02"}],"reward":{"name":"TUTORIAL_REWARD08_TEXT"},"hint":{"name":"TUTORIAL_REWARD08_HINTTEXT"}},"advisor":"diplomacyAdvisor","reward":{"gold":480},"previousQuest":80,"nextQuest":100,"startingConditions":["AcademyExists","WarehouseExists","BarracksExist","WallExists"],"endingConditions":["TradePortExists"],"startingArrowPosition":{"city":["getNextFreeBuildingPositionPort"],"buildingGround":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"100":{"textKeys":{"description":{"name":"TUTORIAL_TASK09"},"steps":[{"name":"TUTORIAL_TASK09_STEP01"},{"name":"TUTORIAL_TASK09_STEP02"}],"reward":{"name":"TUTORIAL_REWARD09_TEXT"},"hint":{"name":"TUTORIAL_REWARD09_HINTTEXT"}},"advisor":"diplomacyAdvisor","reward":{"transporter":1},"previousQuest":90,"nextQuest":110,"startingConditions":["AcademyExists","WarehouseExists","BarracksExist","WallExists","TradePortExists"],"endingConditions":["FirstTransporterBought"],"startingArrowPosition":{"city":["getBuildingPositionByType",3],"port":["getPositionOnScreen","buildingGround","firstBuildingBuildButton"],"default":["getPositionOnScreen","endPage","cityLink"]}},"110":{"textKeys":{"description":{"name":"TUTORIAL_TASK10"},"steps":[{"name":"TUTORIAL_TASK10_STEP01"},{"name":"TUTORIAL_TASK10_STEP02"}],"reward":{"name":"TUTORIAL_REWARD10_TEXT"},"hint":{"name":"TUTORIAL_REWARD10_HINTTEXT"}},"advisor":"cityAdvisor","reward":{"upgrade":8},"previousQuest":100,"nextQuest":120,"startingConditions":["AcademyExists","WarehouseExists","BarracksExist","WallExists","TradePortExists","TutorialQuest9Done"],"endingConditions":["BuildingUpgradeInProgress"],"startingArrowPosition":{"city":["getBuildingPositionByType",7],"warehouse":["getPositionOnScreen","warehouse","upgrade"],"default":["getPositionOnScreen","endPage","cityLink"]}},"120":{"textKeys":{"description":{"name":"TUTORIAL_TASK11"},"steps":[{"name":"TUTORIAL_TASK11_STEP01"},{"name":"TUTORIAL_TASK11_STEP02"},{"name":"TUTORIAL_TASK11_STEP03"},{"name":"TUTORIAL_TASK11_STEP04"},{"name":"TUTORIAL_TASK11_STEP05"}],"reward":{"name":"TUTORIAL_REWARD11_TEXT"},"hint":{"name":"TUTORIAL_REWARD11_HINTTEXT"}},"advisor":"militaryAdvisor","reward":{"premiumCurrency":10},"previousQuest":110,"nextQuest":130,"startingConditions":["WallExists","TradePortExists","UnitInGarrison"],"endingConditions":["AttackOnBarbariansStarted"],"startingArrowPosition":{"island":["getPositionOnIslandView","barbarianVillage"],"plunder":["getPositionOnScreen","plunder","firstUnitType"],"default":["getPositionOnScreen","endPage","islandLink"]}},"130":{"textKeys":{"description":{"name":"TUTORIAL_TASK12"},"steps":[{"name":"TUTORIAL_TASK12_STEP01"},{"name":"TUTORIAL_TASK12_STEP02"}],"reward":{"name":"TUTORIAL_REWARD12_TEXT"},"hint":{"name":"TUTORIAL_REWARD12_HINTTEXT","params":["linkIkipedia2","boardLink"]}},"advisor":"allAdvisors","reward":{"upgrade":0,"resources":{"0":500,"2":500},"gold":1500},"previousQuest":120,"nextQuest":0,"startingConditions":["TutorialQuest11Done"],"endingConditions":["PremiumScreenWasVisited"],"startingArrowPosition":{"premium":["getPositionOnScreen","endPage","premiumLink"],"default":["getPositionOnScreen","endPage","premiumLink"]}}},"questsThatRequirePageReload":[10,130],"keyOfBarbarianQuest":120}');
+    
+    MyTutorial.registerDefaultBehavior();
+
+    MyTutorial.animateArrow();       
+});
+</script><!-- Friends -->
+<div id="friends">
+    <h3>Bạn bè</h3>
+    <ul class="friends">
+    	    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		    				
+		       
+    <li class="slot slot0">
+        		<div class="slotnum">1</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li><li class="slot slot1">
+        		<div class="slotnum">2</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li><li class="slot slot2">
+        		<div class="slotnum">3</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li><li class="slot slot3">
+        		<div class="slotnum">4</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li><li class="slot slot4">
+        		<div class="slotnum">5</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li><li class="slot slot5">
+        		<div class="slotnum">6</div>
+            	<a title="Mời bạn bè" href="http://s5.vn.ikariam.com/index.php?view=friendListEdit" class="image"></a>
+        	</li></ul>
+    <div id="toggleShowFriends" class="showfriends"><!-- JS powered button--></div>
+    <a title="Bạn cũ" href="#up" class="pageup pageup_deactivated"><span class="textLabel">Bạn cũ</span></a>
+    <a title="Xem thêm bạn" href="#down" class="pagedown"><span class="textLabel">Xem thêm bạn</span></a>
+</div>
+<script>
+Event.onDOMReady( function() {
+	var myfriendslist = new friendsList('friends');
+	var mainview=Dom.get('mainview');
+	var height = Dom.getRegion(mainview);
+	height = height.bottom - height.top;
+	if(height<400) Dom.setStyle(mainview, 'height', '440px');
+});
+</script>
+<!-- END Friends  -->
+
+<!--
+<div id="inviteFriend">
+	<h3>Freund einladen</h3>
+    <p>Wenn du einen Freund in deine Freundesliste einl?dst, seht ihr beide jederzeit euren Onlinestatus und k?nnt euch Nachrichten zukommen lassen.</p>
+    <ul>
+    	<li>Wenn dein Freund ?ber deine Einladung neu ins Spiel kommt, wird seine Hauptstadt in deiner N?he platziert. </li>
+    	<li>F?r jede Forschung die dein Freund fertigstellt, wird deine eigene Forschung beschleunigt!</li>
+        <li>F?r jede zus?tzliche Stadt die dein Freund gr?ndet, erh?ltst du Bonusressourcen!</li>
+    </ul>
+</div>
+-->
+
+<!-- Page footer  -->
+<div id="footer"><span class="copyright">© 2008 by <a id="gflink" target="_blank" href="http://www.gameforge.de/">Gameforge Productions GmbH</a><a href="http://s5.vn.ikariam.com/index.php?view=credits" style="margin: 0px;">.</a> Đã đăng ký bản quyền.</span><a target="_blank" href="http://vn.ikariam.com/rules.php" title="&lt;B&gt;&lt;font color=red&gt;LUẬT LỆ&lt;/font&gt;&lt;/b&gt;"><b><font color="red">LUẬT LỆ</font></b></a> 
+<a target="_blank" href="http://agb.gameforge.de/index.php?lang=vn&amp;art=tac&amp;special=&amp;&amp;f_text=000000&amp;f_text_hover=804000&amp;f_text_h=9ebde4&amp;f_text_hr=DED3B9&amp;f_text_hrbg=DED3B9&amp;f_text_hrborder=804000&amp;f_text_font=verdana%2C+arial%2C+helvetica%2C+sans-serif&amp;f_bg=DED3B9" title="T&amp;Cs">T&amp;Cs</a>
+<a target="_blank" href="http://agb.gameforge.de/index.php?lang=vn&amp;art=impressum&amp;special=&amp;&amp;f_text=000000&amp;f_text_hover=804000&amp;f_text_h=9ebde4&amp;f_text_hr=DED3B9&amp;f_text_hrbg=DED3B9&amp;f_text_hrborder=804000&amp;f_text_font=verdana%2C+arial%2C+helvetica%2C+sans-serif&amp;f_bg=DED3B9" title="Dấu vết">Dấu vết</a>
+<a target="_blank" href="http://agb.gameforge.de/index.php?lang=vn&amp;art=datenschutz&amp;special=&amp;&amp;f_text=000000&amp;f_text_hover=804000&amp;f_text_h=9ebde4&amp;f_text_hr=DED3B9&amp;f_text_hrbg=DED3B9&amp;f_text_hrborder=804000&amp;f_text_font=verdana%2C+arial%2C+helvetica%2C+sans-serif&amp;f_bg=DED3B9" title="Chính sách bảo mật">Chính sách bảo mật</a></div>
+<!-- END page footer -->
+
+<!-- Generic Divs for styling purposes. -->
+<div id="conExtraDiv1"><span></span></div>
+<div id="conExtraDiv2"><span></span></div>
+<div id="conExtraDiv3"><span></span></div>
+<div id="conExtraDiv4"><span></span></div>
+<div id="conExtraDiv5"><span></span></div>
+<div id="conExtraDiv6"><span></span></div>
+<!-- END generic Divs -->
+
+</div>
+</div>
+
+<!-- Top-toolbar with extragame options. -->
+<div id="GF_toolbar">
+<h3>Tùy chọn khác</h3>
+<ul>
+	<li class="help"><a class="" href="http://s5.vn.ikariam.com/index.php?view=informations&amp;articleId=10000&amp;mainId=10000" title="Giúp đỡ"><span class="textLabel">Giúp đỡ</span></a></li>
+		<li class="premium"><a href="http://s5.vn.ikariam.com/index.php?view=premium" title="Ikariam PLUS"><span class="textLabel">Ikariam PLUS (0)</span></a></li>	<li class="highscore"><a class="" href="http://s5.vn.ikariam.com/index.php?view=highscore&amp;showMe=1" title="Bảng xếp hạng"><span class="textLabel">Bảng xếp hạng</span></a></li>
+	<li class="options"><a href="http://s5.vn.ikariam.com/index.php?view=options" title="Tùy chọn"><span class="textLabel">Tùy chọn</span></a></li>
+	<li class="notes"><a href="javascript:switchNoteDisplay()" title="Ghi chú"><span class="textLabel">Ghi chú</span></a></li>
+	<li class="forum"><a href="http://board.vn.ikariam.com/" title="Diễn đàn đã hoạt động trở lại" target="_blank"><span class="textLabel">Diễn đàn</span></a></li>
+	<li class="logout"><a href="http://s5.vn.ikariam.com/index.php?action=loginAvatar&amp;function=logout" title="Kết thúc lượt chơi"><span class="textLabel">Đăng xuất</span></a></li>
+			<li class="version"><a href="http://s5.vn.ikariam.com/index.php?view=version" title="Version"><span class="textLabel" title="">v0.4.1</span></a></li>
+	<li class="serverTime"><a><span class="textLabel" id="servertime">14.01.2011 13:29:48</span></a></li>
+<li id="IkaOptionsDropdown"><a href="javascript:void(0);" id="IkaOptionsDropdownMenuItem" style="color: gold;">Scripts <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALvSURBVBgZBcFNaNUFAADw3//jbe/t6d6cc2/kUpeXsEgUsSSiKIzAQxDdvCgdulgagmBXLx4K7BgRWamnOgSDIj3EusRangwlbVvOyba25tvH23v/z36/oCxLcOr7uaO48sxA9Vg7LbTTQloUtrKihXUsI8cqVvAtfo4Biix78eDItmPnX90FADaTotFOisZqJx9NUta7udnlDT/+vXkc52KAIsua/T0BmHuSqwSBOCCK6a2E9vSGojBUiTg0WvNUoz74xeTjT0OAPE376zFZwXoSaKU86dLq0OqwssXSRg4uXn/o2Fjd80OVXTFAnqaD23tCm102O7kwDMSIIsKISCAKKBDka36bXnX7YetxDJAnSbNRi7S2Mu1uKQxLUUiYB6KQSCmKUEYW17o+u/lgDadigCxJ9jb7K1qdUgYlUR4IS+RsPfhFliaeGzkhr+SyJBv74aOX/wsB8qS7d6TRazMpBSFREAjWH0lmflV21lR7e/T19fl3acmbAw+9MzT7CQRlWXrr0k+1OArb3104bvKfVKEE6fSEffv2mZ+f12w2hWFodnbW6Oio8fFxRVHUY8i6ya56vSoMKKAkCAi279bpdCwvL5uYmFCr1Rw4cEC73Vav1786c+ZMO4Q86fbFCnFIFAYEoY17tzSiTcPDw+7fv+/1kxe9e/q8R/PzRkZG7N+///Tly5fL+JVz14dw6eizeyyslWYXc/UqnVZLFEWazabh4WG1Kv19lGVgfX3d3Nyc6elpcZ4kb+DEH3dnrG7FNrqlNC8V2UEjG/MGBxeMjY2ZHP/aVFDa8/RuKysr7ty58yUuxHmaHn77tRdqH598CQDkJde+mcKAhYUFRw4f1Ol0zMzMaDQa8F6tVns/ztN0ZmG55drNuwa21Qz0Vw3UezXqvQYGh1y9etUHH5419fukxcVFy2XTrVufl1mW3bxx40YeHDp5ZQjnsBc7sRM7sAONak+lUq1WHKrds7S05M/yyF84efva2Sn4HxcNUm7wsX3qAAAAAElFTkSuQmCC" align="absmiddle"></a> <div id="IkaOptionsDropdownLinks"><img title="Install updates or view version history" style="vertical-align: middle; height: 14px; float: right; cursor: pointer; margin-left: 1em;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAALZSURBVBgZBcFLiFVlAADg7zzuPLzjzDjOMINMitIie5gF+UAkIZSgRQuXLZIWrY021dYIggJdJURElJsoqlWRYA9GshGFCNQeOjoTk6bjeOd5zzn/f07flzRNA459ObcHJ3cM9+1fq2prVa2qa+uh7mAZ9xCxiAV8iu9zgDqEvU9ODOx//dkxALBa1kNrZT202I2TZcVyEd28t+Lb66uHcTwHqEMYH+xJwNyDqJUk8oQsp7eV2tqbytJUK+OpyX5bhtojH07Pv58CxKoabOeEmuUy0al4UNDp0umysM5/KxG8eWbW/u1tj4+2xnKAWFUjG3tSqwWr3ShNEzmyjDQjk8gSaiRxyYUbiy7PduZzgFiW40P9mc56sFY00rSRpaQxkaVkGlmGJnNnqXDq7N9LOJYDhLLcNj7Y0uk2AjRkMZE2iGQaeZOqG2IrCmXY/s1rB+6nALEstk0M9VotG0lKliRSpEjw+YUjPjq3RxkKoSjEsoiQwvMnvusXQ09vK1VGUg1qjVrUqDWKUJoc3emVj3dbWeuEUJZLkEMoyrF2u0+aUEPD19OHNXVQ1kEZgy2bHrZzYq/l7qr766/m3VC0ub+SQyyLDXm7R56SpYlYJ0JdOvzYy2JTi3VUa8x35jwxecBKue7S7E+dXW+nI/nB42dGcWLPI1vdXmrcvBO1++iGUmxqtxb+UtVBqCtVrCwVy3Y/dNBKtZb+OjO1kMeyfA4vXLo6Y3E9t1I0qtjo6goxGB/cKtRRbGr/dmaNDEy4PHfe+etTd8vgSB6r6ukXD+3qf+ulfQDg6OnCJ7+8p6xL3VDaMfqofTuOuHhryrk/fl4tokPz7zRX8lhVM7fvdXx29qrhgX7Dg32G271OHv3dxg09entSvXnqmXcHJGm/6Ru/ad89dmrm9AdXIK9D+GLq4rXJqYvXtmEzNmMTNmGor6fV6utr6YxWfvjzR0P/vDGTh7GvAP4H2uh1wse2x/0AAAAASUVORK5CYII%3D"><a style="color: rgb(204, 0, 0);" id="IkaScriptSettings_Ikariam_CR_Converter">Ikariam CR Converter</a><a id="IkaScriptSettings_Ikariam_ExMachina">Ikariam ExMachina</a></div></li><li style="display: inline;" id="IkaNotifyTimerWrapper"><a href="http://s5.vn.ikariam.com/index.php?view=options#ikaNotify">Notifier <span id="ikaNotifyTimer">2:20</span> </a></li></ul>
+</div>
+<!-- END Top-toolbar -->
+
+		
+<!-- Even more generic Divs for styling purposes. -->
+<div id="extraDiv1"><span></span></div>
+<div id="extraDiv2"><span></span></div>
+<div id="extraDiv3"><span></span></div>
+<div id="extraDiv4"><span></span></div>
+<div id="extraDiv5"><span></span></div>
+<div id="extraDiv6"><span></span></div>
+<!-- END even more generic Divs -->
+
+
+<!-----------------------------------------------------
+  /////////////// JAVASCRIPT (obviously) ////////////// 
+  ---------------------------------------------------->
+<script type="text/javascript">
+kickListmember = function(friendId) {
+    ajaxRequest("?action=Diplomacy&function=kickFriend&friendId="+friendId, function(response){
+        alert(response);
+    });
+};
+// Adds a "down" css-class to a supplied element.
+function makeButton(ele) {
+    var Event = YAHOO.util.Event;
+    var Dom = YAHOO.util.Dom;
+    Event.addListener(ele, "mousedown", function() {
+        YAHOO.util.Dom.addClass(ele, "down");
+    });
+    Event.addListener(ele, "mouseup", function() {
+        YAHOO.util.Dom.removeClass(ele, "down");
+    });
+    Event.addListener(ele, "mouseout", function() {
+        YAHOO.util.Dom.removeClass(ele, "down");
+    });
+}
+
+//removed "childTooltip"-code. Don't duplicate code, just nest normal tooltips!
+function ToolTips() {
+    var tooltips = Dom.getElementsByClassName("tooltip", "div" ,document);
+    for(var i=0, l=tooltips.length;i<l;i++) {
+        Dom.setStyle(tooltips[i], "display", "none");
+        Event.addListener ( tooltips[i].parentNode , "mouseover" , function() {
+			Dom.setStyle(this, "display", "block");
+        }, tooltips[i], true);
+        Event.addListener ( tooltips[i].parentNode , "mouseout" , function() {
+			Dom.setStyle(this, "display", "none");
+        }, tooltips[i], true);
+    }
+}
+
+Event.onDOMReady( function() {
+    var links = document.getElementsByTagName("a");
+    for(i=0; i<links.length; i++) {
+        makeButton(links[i]);
+    }
+    ToolTips();
+    replaceSelect(Dom.get("citySelect"));
+});
+
+/* One for the wood... */
+var woodCounter = getResourceCounter({
+	startdate: 1295006108,
+	interval: 2000,
+	available: 450,
+	limit: [0, 1500],
+	production: 0,
+	valueElem: "value_wood"
+	});
+if(woodCounter) {
+	woodCounter.subscribe("update", function() {
+		IKARIAM.currentCity.resources.wood = woodCounter.currentRes;
+		});
+	}
+
+/* ...one for the tradegood... */
+var tradegoodCounter = getResourceCounter({
+	startdate: 1295006108,
+	interval: 2000,
+	available: 0,
+	limit: [0, 1500],
+	production: 0,
+		valueElem: "value_crystal"
+	});
+if(tradegoodCounter) {
+	tradegoodCounter.subscribe("update", function() {
+		IKARIAM.currentCity.resources.crystal = tradegoodCounter.currentRes;
+		});
+	}
+
+
+var localTime = new Date();
+var startServerTime = localTime.getTime() - (3600000) - localTime.getTimezoneOffset()*60*1000; // GMT+1+Sommerzeit - offset
+
+var obj_ServerTime = 0;
+Event.onDOMReady(function() {
+    var ev_updateServerTime = setInterval("updateServerTime()", 500);
+    obj_ServerTime = document.getElementById('servertime');
+});
+function updateServerTime() {
+    var currTime = new Date();
+    currTime.setTime((1295006108000-startServerTime)+ currTime.getTime()) ;
+    str = getFormattedDate(currTime.getTime(), 'd.m.Y G:i:s');
+    obj_ServerTime.innerHTML = str;
+}
+
+function jsTitleTag(nextETA) {
+    this.nextETA = nextETA;
+    var thisObj = this;
+    
+    var cnt = new Timer(nextETA, 1295006108, 1);
+    //cnt.currentdate *= 1000; <- obsolete?
+    
+    //top.document.title = "Ikariam - Thế giới Epsilon";
+    
+    cnt.subscribe("update", function() {
+        var timeargs = this.enddate - Math.floor(this.currenttime/1000) *1000;
+        var title = "Ikariam - ";
+        
+        if (timeargs != "")
+            title += getTimestring(timeargs, 3, undefined, undefined, undefined, true) + " - ";
+
+        title += "Thế giới Epsilon";
+
+        top.document.title = title;
+    })
+    
+    cnt.subscribe("finished", function() {
+        top.document.title = "Ikariam" + " - Thế giới Epsilon";
+    });
+    
+    cnt.startTimer();
+    return cnt;
+}
+
+
+/*
+    Notizzettel
+*/
+
+var avatarNotes = null;
+
+function switchNoteDisplay() {
+    document.cookie = 'notes=0; expires=Thu, 01-Jan-70 00:00:01 GMT;';
+    var noteLayer = Dom.get("avatarNotes");
+    if (noteLayer.style.display == "block") {
+        avatarNotes.save();
+        noteLayer.style.display = "none";
+    } else {
+        if (noteLayer.innerHTML == "") { // nur AjaxRequest starten, wenn Notizen noch nicht geladen sind
+            ajaxRequest('?view=avatarNotes', updateNoteLayer);
+            document.cookie = 'notes=1;';
+        }
+        noteLayer.style.display = "block";
+   }   
+}
+
+// Notizzettel automatisch einblenden bei reload...
+if (getCookie('notes') == 1) {
+    switchNoteDisplay(); 
+}
+
+function updateNoteLayer(responseText) {
+    var noteLayer = Dom.get("avatarNotes");
+    noteLayer.innerHTML = responseText;
+  
+    // Create a panel Instance, from the 'resizablepanel' DIV standard module markup
+            var panel = new YAHOO.widget.Panel("resizablepanel", {
+                draggable: true,
+                width: getCookie("ikariam_notes_width", "470px"), 
+                height: getCookie("ikariam_notes_height", "320px"), 
+                autofillheight: "body", // default value, specified here to highlight its use in the example
+                constraintoviewport:true,
+                context: ["tl", "bl"]
+            });
+            panel.render();
+
+            // Create Resize instance, binding it to the 'resizablepanel' DIV 
+            var resize = new YAHOO.util.Resize("resizablepanel", {
+                handles: ["br"],
+                autoRatio: false,
+                minWidth: 220,
+                minHeight: 110,
+                status: false 
+            });
+
+            // Setup startResize handler, to constrain the resize width/height
+            // if the constraintoviewport configuration property is enabled.
+            resize.on("startResize", function(args) {
+
+                if (this.cfg.getProperty("constraintoviewport")) {
+                    var D = YAHOO.util.Dom;
+
+                    var clientRegion = D.getClientRegion();
+                    var elRegion = D.getRegion(this.element);
+
+                    resize.set("maxWidth", clientRegion.right - elRegion.left - YAHOO.widget.Overlay.VIEWPORT_OFFSET);
+                    resize.set("maxHeight", clientRegion.bottom - elRegion.top - YAHOO.widget.Overlay.VIEWPORT_OFFSET);
+                } else {
+                    resize.set("maxWidth", null);
+                    resize.set("maxHeight", null);
+                }
+
+            }, panel, true);
+
+            // Setup resize handler to update the Panel's 'height' configuration property 
+            // whenever the size of the 'resizablepanel' DIV changes.
+
+            // Setting the height configuration property will result in the 
+            // body of the Panel being resized to fill the new height (based on the
+            // autofillheight property introduced in 2.6.0) and the iframe shim and 
+            // shadow being resized also if required (for IE6 and IE7 quirks mode).
+            resize.on("resize", function(args) {
+                
+                var panelHeight = args.height;
+                this.cfg.setProperty("height", panelHeight + "px");
+                Dom.get("message").style.height = (panelHeight-75) + "px";
+            }, panel, true);
+            
+        
+            avatarNotes = new Notes();
+            avatarNotes.setMaxChars(200);
+            avatarNotes.init(Dom.get("message"), Dom.get("chars"));
+            
+            Dom.get("resizablepanel_c").style.top = getCookie("ikariam_notes_y", "80px");
+            Dom.get("resizablepanel_c").style.left = getCookie("ikariam_notes_x", "375px");
+            Dom.get("message").style.height = (parseInt(getCookie("ikariam_notes_height", "320px")) - 75 ) + "px";            
+}
+
+window.onunload = function() { 
+    if (avatarNotes instanceof Notes) {
+        setCookie( 'ikariam_notes_x', Dom.get("resizablepanel_c").style.left, '9999', '', '', '' );
+        setCookie( 'ikariam_notes_y', Dom.get("resizablepanel_c").style.top, '9999', '', '', '' );
+        setCookie( 'ikariam_notes_width', Dom.get("resizablepanel").style.width, '9999', '', '', '' );
+        setCookie( 'ikariam_notes_height', Dom.get("resizablepanel").style.height, '9999', '', '', '' );
+        avatarNotes.save();
+    }
+}
+
+function setCookie(name, value, expires, path, domain, secure)
+{
+	var today = new Date();
+	today.setTime( today.getTime() );
+
+    if ( expires ) {
+        expires = expires * 1000 * 60 * 60 * 24;
+    }
+    var expires_date = new Date( today.getTime() + (expires) );
+    document.cookie = name + "=" +escape( value ) + ((expires) ? ";expires=" + expires_date.toGMTString() : "" ) + ((path) ? ";path=" + path : "" ) + ((domain) ? ";domain=" + domain : "" ) + ((secure) ? ";secure" : "" );
+}
+
+function getCookie ( check_name, def_val ) {
+    var a_all_cookies = document.cookie.split( ';' );
+    var a_temp_cookie = '';
+    var cookie_name = '';
+    var cookie_value = '';
+    var b_cookie_found = false;
+
+    for (i=0; i<a_all_cookies.length; i++) {
+        a_temp_cookie = a_all_cookies[i].split( '=' );
+        cookie_name = a_temp_cookie[0].replace(/^\s+|\s+$/g, '');
+        if ( cookie_name == check_name ) {
+            b_cookie_found = true;
+            if ( a_temp_cookie.length > 1 ) {
+                cookie_value = unescape( a_temp_cookie[1].replace(/^\s+|\s+$/g, '') );
+            }
+            return cookie_value;
+            break;
+        }
+        a_temp_cookie = null;
+        cookie_name = '';
+    }
+    if (!b_cookie_found ) {
+        return def_val;
+    }
+}
+
+</script>
+
+
+      <div id="fb-root"></div>
+      <script type="text/javascript">
+
+        
+      </script>
+
+<input id="allianceColorSetValue" type="hidden"></body><growleventelement data="{&quot;appName&quot;:&quot;Ikariam ExMachina&quot;,&quot;icon&quot;:&quot;http://i763.photobucket.com/albums/xx278/PhasmaExMachina/icon.png&quot;,&quot;notificationTypes&quot;:[{&quot;name&quot;:&quot;attack&quot;,&quot;displayName&quot;:&quot;Incoming Attack&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;movements&quot;,&quot;displayName&quot;:&quot;Troop/Resource Movements&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;advCities&quot;,&quot;displayName&quot;:&quot;Town Adviser&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;advMilitary&quot;,&quot;displayName&quot;:&quot;Military Adviser&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;advResearch&quot;,&quot;displayName&quot;:&quot;Research Adviser&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;advDiplomacy&quot;,&quot;displayName&quot;:&quot;Diplomacy Adviser&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;construction&quot;,&quot;displayName&quot;:&quot;Building Completion&quot;,&quot;enabled&quot;:true},{&quot;name&quot;:&quot;test&quot;,&quot;displayName&quot;:&quot;Test Notice&quot;,&quot;enabled&quot;:false}]}"></growleventelement></html>

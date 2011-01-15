@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="anchor.css"  type="text/css" rel="Stylesheet"/>
+<style type="text/css">
+	.anchor_undock #state {
+		color:red;
+	}
+	
+	.anchor_dock #state {
+		color:blue;
+	}
+</style>
+<script type="text/javascript" language="javascript">
+	function onClick(event)
+	{
+		x=event.clientX;
+		y=event.clientY;
+		var anchorClass = document.getElementById('anchor').getAttribute("class");
+		if(anchorClass == "anchor_dock")
+			document.getElementById('anchor').setAttribute("class", "anchor_undock");
+		else
+			document.getElementById('anchor').setAttribute("class", "anchor_dock");
+		//alert("X coords: " + x + ", Y coords: " + y);
+	}
+	function image_event(controlId, event)
+	{
+		if(event == 'hover')
+			document.getElementById(controlId).src = "images/" + controlId + "_hover.png";
+		else if(event == 'leave')
+			document.getElementById(controlId).src = "images/" + controlId + ".png";
+		else if(event == 'disabled')
+			document.getElementById(controlId).src = "images/" + controlId + "_disabled.png";
+	}
+	function onNavigate(controlId)
+	{
+		//if(controlId == "left_arrow")
+		//	stateBackward();
+		//if(controlId == "right_arrow")
+		//	stateForward();
+	}
+</script>
+</head>
+
+<body style="margin:0; padding:0" onmousedown="onClick(event)" >
+	<div id='gadgetGUI' style="width:400; height:300; background-image:url(images/Welcome.png)">	
+		
+		<div id='anchor' class='anchor_undock' style="position:absolute; left:75; top:267;" >
+			<img id="arrow_left" src="images/arrow_left.png" onmouseover="javascript:image_event('arrow_left', 'hover');" onmouseout="javascript:image_event('arrow_left', 'leave');" onmousedown="javascript:onNavigate('arrow_left');" style="float:left; height:20" />
+			<div id="stateBlock" style="float:left; width:200; height:20; background-image:url(images/state.png); text-align:center">
+				<span id="state">Welcome !!!</span>
+			</div>
+			<img id="arrow_right" src="images/arrow_right.png" onmouseover="javascript:image_event('arrow_right', 'hover');" onmouseout="javascript:image_event('arrow_right', 'leave');" onmousedown="javascript:onNavigate('arrow_right');" style="float:left; height:20" />
+		</div>
+	</div>
+</body>
+
+</html>
