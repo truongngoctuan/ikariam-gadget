@@ -39,6 +39,11 @@ namespace IkariamFramework
         }
         #endregion
 
+        public string getJSON()
+        {
+            return "{\"bindings\": [{\"ircEvent\": \"PRIVMSG\", \"method\": \"newURI\",\"regex\": \"^http://.*\"}, {\"ircEvent\": \"PRIVMSG\", \"method\": \"deleteURI\", \"regex\": \"^delete.*\"}, {\"ircEvent\": \"PRIVMSG\", \"method\": \"randomURI\", \"regex\": \"^random.*\"}]}";
+        }
+
         #region EmpireOverview
         EmpireOverviewUnit[] empireOverviewUnits = new EmpireOverviewUnit[] {
             new EmpireOverviewUnit{Name = "City1", ID = 1, X = 1, Y = 1, ActionPoint = 1,
