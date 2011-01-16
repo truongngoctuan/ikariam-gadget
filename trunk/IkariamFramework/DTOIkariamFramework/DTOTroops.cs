@@ -11,14 +11,14 @@ namespace IkariamFramework.DTOIkariamFramework
     {
         public DTOTroops()
         {
-            Type = TROOPS_TYPE.UNKNOW;
+            Type = TYPE.Unknown;
             Quality = 0;
         }
         public bool IsUnits { get; set; }
 
-        public enum TROOPS_TYPE
+        public enum TYPE
         {
-            UNKNOW,
+            Unknown,
 
             //unit type
             Hoplite,
@@ -27,9 +27,9 @@ namespace IkariamFramework.DTOIkariamFramework
             Swordsman,
             Slinger,
             Archer,
-            Sulphur_Carabineers,
+            Sulphur_Carabineer,
 
-            Battering_ram,
+            Ram,
             Catapult,
             Mortar,
             Gyrocopter,
@@ -41,13 +41,13 @@ namespace IkariamFramework.DTOIkariamFramework
             Ram_Ship,
             Fire_Ship,
             Paddle_Wheel_Ram,
-            Ballista_ship,
+            Ballista_Ship,
 
             Catapult_Ship,
             Mortar_Ship,
             Diving_boat
         }
-        public TROOPS_TYPE Type { get; set; }
+        public TYPE Type { get; set; }
         public int Quality { get; set; }
     }
 }

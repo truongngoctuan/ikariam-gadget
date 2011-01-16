@@ -12,47 +12,47 @@ namespace IkariamFramework.DTOIkariamFramework
         public DTOBuilding()
         {
             IsBuilding = false;
-            Type = BUILDING_TYPE.UNKNOW;
+            Type = TYPE.Unknown;
         }
         public bool IsBuilding { get; set; }
 
-        public enum BUILDING_TYPE
+        public enum TYPE
         {
-            UNKNOW,
-            townHall,
-            museum,
-            palace,
-            vineyard,
-            tavern,
-            safehouse,
-            architect,
-            dump,
-            academy,
-            forester,
-            winegrower,
-            carpentering,
-            wall,
-            port,
-            shipyard,
+            Unknown,
 
-            palaceColony,
-            stonemason,
-            barracks,
-            fireworker,
+            Townhall,
+            Museum,
+            Palace,
+            Winepress,
+            Tavern,
+            Hideout,
+            Architect,
+            Dump,
+            Academy,
+            Forester,
+            Winegrower,
+            Carpenter,
+            Townwall,
+            TradingPort,
+            Shipyard,
 
-            warehouse,
-            temple,
-            glassblowing,
-            optician,
-            alchemist,
-            embassy,
-            branchOffice,
-            workshop,
+            PalaceColony,
+            Stonemason,
+            Barracks,
+            Firework,
 
-            flag
+            Warehouse,
+            Temple,
+            GlassBlower,
+            Optician,
+            Alchemist,
+            Embassy,
+            TradingPost,
+            Workshop,
 
+            Flag
         }
-        public BUILDING_TYPE Type { get; set; }
+        public TYPE Type { get; set; }
         public int Lvl { get; set; }
 
         public string Time { get; set; }

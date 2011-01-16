@@ -26,94 +26,94 @@ namespace IkariamFramework.DAOIkariamFramework
                 switch (strTemp)
                 {
                     case "townHall":
-                        building.Type = DTOBuilding.BUILDING_TYPE.townHall;
+                        building.Type = DTOBuilding.TYPE.Townhall;
                         break;
                     case "museum":
-                        building.Type = DTOBuilding.BUILDING_TYPE.museum;
+                        building.Type = DTOBuilding.TYPE.Museum;
                         break;
                     case "palace":
-                        building.Type = DTOBuilding.BUILDING_TYPE.palace;
+                        building.Type = DTOBuilding.TYPE.Palace;
                         break;
                     case "vineyard":
-                        building.Type = DTOBuilding.BUILDING_TYPE.vineyard;
+                        building.Type = DTOBuilding.TYPE.Winepress;
                         break;
                     case "tavern":
-                        building.Type = DTOBuilding.BUILDING_TYPE.tavern;
+                        building.Type = DTOBuilding.TYPE.Tavern;
                         break;
                     case "safehouse":
-                        building.Type = DTOBuilding.BUILDING_TYPE.safehouse;
+                        building.Type = DTOBuilding.TYPE.Hideout;
                         break;
                     case "architect":
-                        building.Type = DTOBuilding.BUILDING_TYPE.architect;
+                        building.Type = DTOBuilding.TYPE.Architect;
                         break;
                     case "dump":
-                        building.Type = DTOBuilding.BUILDING_TYPE.dump;
+                        building.Type = DTOBuilding.TYPE.Dump;
                         break;
                     case "academy":
-                        building.Type = DTOBuilding.BUILDING_TYPE.academy;
+                        building.Type = DTOBuilding.TYPE.Academy;
                         break;
                     case "forester":
-                        building.Type = DTOBuilding.BUILDING_TYPE.forester;
+                        building.Type = DTOBuilding.TYPE.Forester;
                         break;
                     case "winegrower":
-                        building.Type = DTOBuilding.BUILDING_TYPE.winegrower;
+                        building.Type = DTOBuilding.TYPE.Winegrower;
                         break;
                     case "carpentering":
-                        building.Type = DTOBuilding.BUILDING_TYPE.carpentering;
+                        building.Type = DTOBuilding.TYPE.Carpenter;
                         break;
                     case "wall":
-                        building.Type = DTOBuilding.BUILDING_TYPE.wall;
+                        building.Type = DTOBuilding.TYPE.Townwall;
                         break;
                     case "port":
-                        building.Type = DTOBuilding.BUILDING_TYPE.port;
+                        building.Type = DTOBuilding.TYPE.TradingPort;
                         break;
                     case "shipyard":
-                        building.Type = DTOBuilding.BUILDING_TYPE.shipyard;
+                        building.Type = DTOBuilding.TYPE.Shipyard;
                         break;
                     case "palaceColony":
-                        building.Type = DTOBuilding.BUILDING_TYPE.palaceColony;
+                        building.Type = DTOBuilding.TYPE.PalaceColony;
                         break;
                     case "stonemason":
-                        building.Type = DTOBuilding.BUILDING_TYPE.stonemason;
+                        building.Type = DTOBuilding.TYPE.Stonemason;
                         break;
                     case "barracks":
-                        building.Type = DTOBuilding.BUILDING_TYPE.barracks;
+                        building.Type = DTOBuilding.TYPE.Barracks;
                         break;
                     case "fireworker":
-                        building.Type = DTOBuilding.BUILDING_TYPE.fireworker;
+                        building.Type = DTOBuilding.TYPE.Firework;
                         break;
                     case "warehouse":
-                        building.Type = DTOBuilding.BUILDING_TYPE.warehouse;
+                        building.Type = DTOBuilding.TYPE.Warehouse;
                         break;
                     case "temple":
-                        building.Type = DTOBuilding.BUILDING_TYPE.temple;
+                        building.Type = DTOBuilding.TYPE.Temple;
                         break;
                     case "glassblowing":
-                        building.Type = DTOBuilding.BUILDING_TYPE.glassblowing;
+                        building.Type = DTOBuilding.TYPE.GlassBlower;
                         break;
                     case "optician":
-                        building.Type = DTOBuilding.BUILDING_TYPE.optician;
+                        building.Type = DTOBuilding.TYPE.Optician;
                         break;
                     case "alchemist":
-                        building.Type = DTOBuilding.BUILDING_TYPE.alchemist;
+                        building.Type = DTOBuilding.TYPE.Alchemist;
                         break;
                     case "embassy":
-                        building.Type = DTOBuilding.BUILDING_TYPE.embassy;
+                        building.Type = DTOBuilding.TYPE.Embassy;
                         break;
                     case "buildingGround land":
-                        building.Type = DTOBuilding.BUILDING_TYPE.flag;
+                        building.Type = DTOBuilding.TYPE.Flag;
                         break;
                     case "buildingGround shore":
-                        building.Type = DTOBuilding.BUILDING_TYPE.flag;
+                        building.Type = DTOBuilding.TYPE.Flag;
                         break;
                     case "branchOffice":
-                        building.Type = DTOBuilding.BUILDING_TYPE.branchOffice;
+                        building.Type = DTOBuilding.TYPE.TradingPost;
                         break;
                     case "workshop":
-                        building.Type = DTOBuilding.BUILDING_TYPE.workshop;
+                        building.Type = DTOBuilding.TYPE.Workshop;
                         break;  
                     default:
-                        building.Type = DTOBuilding.BUILDING_TYPE.UNKNOW;
+                        building.Type = DTOBuilding.TYPE.Unknown;
                         break;
                 }
 
