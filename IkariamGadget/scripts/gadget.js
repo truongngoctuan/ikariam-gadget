@@ -40,8 +40,8 @@ function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
     content += '<img id="research" class="overviewItem3" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
     content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
-    content += '<img id="empire" class="overviewItem5" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
-    content += '<img id="event" class="overviewItem6" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
+    content += '<img id="empire" class="overviewItem5" src="images/diplomat_active.gif" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
+    content += '<img id="event" class="overviewItem6" src="images/general_active.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
 
     gadgetContent.innerHTML = content;
     gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
@@ -75,7 +75,6 @@ function SetState(state) {
 }
 
 function StateForward() {
-    debugger;
     if (context.State == States.Welcome) {
         if(authenticated == false)
             return;
@@ -90,7 +89,6 @@ function StateForward() {
 }
 
 function StateBackward() {
-    debugger;
     if (context.State == States.Welcome) {
         return;
     }  
@@ -330,7 +328,7 @@ var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4
 var overviewState = OverviewStates.None;
 
 function onOverview(controlId) {
-    if (controlId == "towns")
+    if (controlId == "town")
         showTowns();
     else if (controlId == "military")
         showMilitary();
@@ -341,7 +339,7 @@ function onOverview(controlId) {
     else if (controlId == "empire")
         showEmpire();
     else if (controlId == "event")
-        showEmpire();
+        showEvent();
 }
 
 function showTowns() {
@@ -388,11 +386,11 @@ function OnShowFlyout() {
     if (overviewState == OverviewStates.Towns) {
         SetTownOverviewGUI();
     }
-    else if (overviewState = OverviewStates.Military) {
+    else if (overviewState == OverviewStates.Military) {
     }
-    else if (overviewState = OverviewStates.Research) {
+    else if (overviewState == OverviewStates.Research) {
     }
-    else if (overviewState = OverviewStates.Diplomacy) {
+    else if (overviewState == OverviewStates.Diplomacy) {
     }
     else if (overviewState == OverviewStates.Empire) {
         SetEmpireOverviewGUI();
@@ -402,9 +400,9 @@ function OnShowFlyout() {
 }
 
 function SetTownOverviewGUI() {
+    debugger;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-    debugger;
     oFlyoutContent.className = "townOverview";
     flyoutContent = "";
     flyoutContent += '<table>\
@@ -468,65 +466,70 @@ function SetTownOverviewGUI() {
 }
 
 function townUnitToHTML(townUnit, isOdd) {
+	
     if (isOdd == 0)
-        return '<tr valign="bottom">\
-	                        <td><div style="width:80px;"><b>' + townUnit.Name + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
-	                        <td>' + townUnit.Buildings.Academy.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Barracks.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Dump.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Embassy.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Hideout.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Museum.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Palace.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Shipyard.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Tavern.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Temple.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Townhall.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Townwall.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.TradingPort.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.TradingPost.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Warehouse.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Workshop.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Architect.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Carpenter.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Firework.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Optician.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.WinePress.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Alchemist.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Forester.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Glassblower.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Stonemason.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Winegrower.Lvl + '</td>\
-                    </tr>';
+	{
+		var html = "";
+		html += '<tr valign="bottom">';
+		html += '<td><div style="width:80px;"><b>' + townUnit.TownName + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>';
+		html += '<td>' + (townUnit.Buildings.Academy ? townUnit.Buildings.Academy.Lvl : '-') + '</td>';
+		html += '<td>' + (townUnit.Buildings.Barracks ? townUnit.Buildings.Barracks.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Dump ? townUnit.Buildings.Dump.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Embassy ? townUnit.Buildings.Embassy.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Hideout ? townUnit.Buildings.Hideout.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Museum ? townUnit.Buildings.Museum.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Palace ? townUnit.Buildings.Palace.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Shipyard ? townUnit.Buildings.Shipyard.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Tavern ? townUnit.Buildings.Tavern.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Temple ? townUnit.Buildings.Temple.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Townhall ? townUnit.Buildings.Townhall.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Townwall ? townUnit.Buildings.Townwall.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.TradingPort ? townUnit.Buildings.TradingPort.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.TradingPost ? townUnit.Buildings.TradingPost.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Warehouse ? townUnit.Buildings.Warehouse.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Workshop ? townUnit.Buildings.Workshop.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Architect ? townUnit.Buildings.Architect.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Carpenter ? townUnit.Buildings.Carpenter.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Firework ? townUnit.Buildings.Firework.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Optician ? townUnit.Buildings.Optician.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.WinePress ? townUnit.Buildings.WinePress.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Alchemist ? townUnit.Buildings.Alchemist.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Forester ? townUnit.Buildings.Forester.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Glassblower ? townUnit.Buildings.Glassblower.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Stonemason ? townUnit.Buildings.Stonemason.Lvl : '-') + '</td>';
+	    html += '<td>' + (townUnit.Buildings.Winegrower ? townUnit.Buildings.Winegrower.Lvl : '-') + '</td>';
+        html += '</tr>';
+		return html;
+	}              
     else
 	    return '<tr valign="bottom" style="background-color:#FDF7DD">\
-	                        <td><div style="width:80px;"><b>' + townUnit.Name + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
-	                        <td>' + townUnit.Buildings.Academy.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Barracks.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Dump.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Embassy.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Hideout.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Museum.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Palace.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Shipyard.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Tavern.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Temple.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Townhall.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Townwall.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.TradingPort.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.TradingPost.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Warehouse.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Workshop.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Architect.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Carpenter.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Firework.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Optician.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.WinePress.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Alchemist.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Forester.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Glassblower.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Stonemason.Lvl + '</td>\
-	                        <td>' + townUnit.Buildings.Winegrower.Lvl + '</td>\
+	                        <td><div style="width:80px;"><b>' + townUnit.TownName + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
+	                        <td>' + (townUnit.Buildings.Academy ? townUnit.Buildings.Academy.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Barracks ? townUnit.Buildings.Barracks.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Dump ? townUnit.Buildings.Dump.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Embassy ? townUnit.Buildings.Embassy.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Hideout ? townUnit.Buildings.Hideout.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Museum ? townUnit.Buildings.Museum.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Palace ? townUnit.Buildings.Palace.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Shipyard ? townUnit.Buildings.Shipyard.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Tavern ? townUnit.Buildings.Tavern.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Temple ? townUnit.Buildings.Temple.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Townhall ? townUnit.Buildings.Townhall.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Townwall ? townUnit.Buildings.Townwall.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.TradingPort ? townUnit.Buildings.TradingPort.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.TradingPost ? townUnit.Buildings.TradingPost.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Warehouse ? townUnit.Buildings.Warehouse.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Workshop ? townUnit.Buildings.Workshop.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Architect ? townUnit.Buildings.Architect.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Carpenter ? townUnit.Buildings.Carpenter.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Firework ? townUnit.Buildings.Firework.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Optician ? townUnit.Buildings.Optician.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.WinePress ? townUnit.Buildings.WinePress.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Alchemist ? townUnit.Buildings.Alchemist.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Forester ? townUnit.Buildings.Forester.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Glassblower ? townUnit.Buildings.Glassblower.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Stonemason ? townUnit.Buildings.Stonemason.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Winegrower ? townUnit.Buildings.Winegrower.Lvl : '-') + '</td>\
                     </tr>';
 }
 
@@ -616,7 +619,7 @@ function SetEmpireOverviewGUI() {
 function empireUnitToHTML(empireUnit, isOdd) {
     if(isOdd == 0)
         return '<tr valign="bottom">\
-	                        <td><div style="width:80px;"><b>' + empireUnit.Name + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
+	                        <td><div style="width:80px;"><b>' + empireUnit.TownName + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
 	                        <td>' + empireUnit.ActionPoint + '</td>\
 	                        <td>' + empireUnit.Population + '</td>\
 	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
@@ -629,7 +632,7 @@ function empireUnitToHTML(empireUnit, isOdd) {
                     </tr>';
     else
         return '<tr valign="bottom" style="background-color:#FDF7DD" >\
-	                        <td><div style="width:80px;"><b>' + empireUnit.Name + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
+	                        <td><div style="width:80px;"><b>' + empireUnit.TownName + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
 	                        <td>' + empireUnit.ActionPoint + '</td>\
 	                        <td>' + empireUnit.Population + '</td>\
 	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
