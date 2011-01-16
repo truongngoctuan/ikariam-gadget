@@ -85,38 +85,62 @@ namespace IkariamFramework.DAOIkariamFramework
                     case "wood":
                         {
                             Gloval.Database.Account.Cities[iIndexCity].Wood = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wood']").InnerText);
+                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3)
+                            {
+                                Gloval.Database.Account.Cities[iIndexCity].WoodLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                                break;
+                            }
                             Gloval.Database.Account.Cities[iIndexCity].WoodPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
-
-                            //Gloval.Database.Account.Cities[iIndexCity].Wood = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wood']").InnerText);//nodeLiChild.ChildNodes[3].InnerText);
-                            //Gloval.Database.Account.Cities[iIndexCity].WoodPerHour = NodeParser.toInt(nodeLiChild.ChildNodes[5].ChildNodes[2].InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].WoodLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[2]").NextSibling.InnerText);
                             break;
                         }
                     case "wine":
                         {
                             Gloval.Database.Account.Cities[iIndexCity].Wine = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_wine']").InnerText);
-                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
+                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3)
+                            {
+                                Gloval.Database.Account.Cities[iIndexCity].WineLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                                break;
+                            }
                             Gloval.Database.Account.Cities[iIndexCity].WinePerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].WineLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[2]").NextSibling.InnerText);
                             break;
                         }
                     case "marble":
                         {
                             Gloval.Database.Account.Cities[iIndexCity].Marble = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_marble']").InnerText);
-                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
+                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3)
+                            {
+                                Gloval.Database.Account.Cities[iIndexCity].MarbleLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                                break;
+                            }
                             Gloval.Database.Account.Cities[iIndexCity].MarblePerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].MarbleLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[2]").NextSibling.InnerText);
                             break;
                         }
                     case "glass":
                         {
                             Gloval.Database.Account.Cities[iIndexCity].Crystal = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_crystal']").InnerText);
-                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
+                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3)
+                            {
+                                Gloval.Database.Account.Cities[iIndexCity].CrystalLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                                break;
+                            }
+
                             Gloval.Database.Account.Cities[iIndexCity].CrystalPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].CrystalLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[2]").NextSibling.InnerText);
                             break;
                         }
                     case "sulfur":
                         {
                             Gloval.Database.Account.Cities[iIndexCity].Sulphur = NodeParser.toInt(nodeLiChild.SelectSingleNode("./span[@id='value_sulfur']").InnerText);
-                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3) break;
+                            if (nodeLiChild.ChildNodes[5].ChildNodes.Count == 3)
+                            {
+                                Gloval.Database.Account.Cities[iIndexCity].SulphurLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                                break;
+                            }
                             Gloval.Database.Account.Cities[iIndexCity].SulphurPerHour = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[1]").NextSibling.InnerText);
+                            Gloval.Database.Account.Cities[iIndexCity].SulphurLimit = NodeParser.toInt(nodeLiChild.SelectSingleNode("./div/span[2]").NextSibling.InnerText);
                             break;
                         }
                 }
@@ -147,6 +171,10 @@ namespace IkariamFramework.DAOIkariamFramework
         {
             BaseFunction.GoToLink(XPathManager.XPathCity.ShowWorld);
             Gloval.Database.CurrentView = Data.SITE_VIEW.WORLD;
+        }
+
+        public static void GetTotalGold(int iIndex)
+        {//xem nhu da o trong trang townhall
         }
         #endregion
     }

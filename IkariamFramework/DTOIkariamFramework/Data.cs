@@ -56,7 +56,9 @@ namespace IkariamFramework.DTOIkariamFramework
             ADVISOR_RESEARCH,
             ADVISOR_DIPLOMACY,
             TROOPS,
-            TROOPS_SHIPS
+            TROOPS_SHIPS,
+            GOLD_PAGE,
+            TOWN_HALL
             //con` nhiều nữa...
         }
         public SITE_VIEW CurrentView { get; set; }

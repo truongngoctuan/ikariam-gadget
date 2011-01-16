@@ -32,5 +32,20 @@ namespace IkariamFramework.DAOIkariamFramework
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advDiplomacy);
             Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_DIPLOMACY;
         }
+
+        public static void CheckAdvActive()
+        {
+            //go to goldpage
+            //check mayor
+            //check general
+            //check scientist
+            //check diplomat
+        }
+
+        public static bool CheckOneAdvisor(string strXPath)
+        {
+            //BaseFunction.GoToLink(XPathManager.XPathAdvisor.advDiplomacy);
+            return true;
+        }
     }
 }
