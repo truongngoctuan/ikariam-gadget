@@ -19,7 +19,8 @@ namespace IkariamFramework.DTOIkariamFramework
         //townhall view
         public long GoldIncome { get; set; } //(income - scientist)
         public int ScientistPointPerHour { get; set; }
-        public int PopulationLimit { get; set; }
+        public long PopulationLimit { get; set; }
+        public float PopulationGrow { get; set; }
 
         public int WoodLimit { get; set; }
         public int WineLimit { get; set; }

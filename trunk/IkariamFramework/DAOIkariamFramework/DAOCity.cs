@@ -173,8 +173,37 @@ namespace IkariamFramework.DAOIkariamFramework
             Gloval.Database.CurrentView = Data.SITE_VIEW.WORLD;
         }
 
-        public static void GetTotalGold(int iIndex)
+        public static void GoToTownHall()
+        {
+            BaseFunction.GoToLink(XPathManager.XPathCity.ShowTownHall);
+            Gloval.Database.CurrentView = Data.SITE_VIEW.TOWN_HALL;
+        }
+
+        public static void GetTownHallInfomation(int iIndex)
         {//xem nhu da o trong trang townhall
+            //total gold and total gold per hour
+            HtmlNode node1 = Gloval.Database.DocumentNode.SelectSingleNode(
+                    XPathManager.XPathCity.PopulationLimit);
+
+            Gloval.Database.Account.Cities[iIndex].PopulationLimit = NodeParser.toLong(node1.InnerText);
+
+            //----------------
+            HtmlNode node2 = Gloval.Database.DocumentNode.SelectSingleNode(
+                    XPathManager.XPathCity.PopulationGrow);
+
+            Gloval.Database.Account.Cities[iIndex].PopulationGrow = float.Parse(node2.InnerText.Split(' ')[0]);
+
+            //net gold
+            HtmlNode node3 = Gloval.Database.DocumentNode.SelectSingleNode(
+        XPathManager.XPathCity.NetGold);
+
+            Gloval.Database.Account.Cities[iIndex].GoldIncome = NodeParser.toUnsignedLong(node3.InnerText);
+
+            //scientist point per hour
+            HtmlNode node4 = Gloval.Database.DocumentNode.SelectSingleNode(
+XPathManager.XPathCity.ScientistPointPerHour);
+
+            Gloval.Database.Account.Cities[iIndex].ScientistPointPerHour = NodeParser.toInt(node4.NextSibling.InnerText);
         }
         #endregion
     }

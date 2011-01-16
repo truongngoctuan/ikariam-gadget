@@ -393,7 +393,7 @@
             this.button28.Name = "button28";
             this.button28.Size = new System.Drawing.Size(119, 23);
             this.button28.TabIndex = 33;
-            this.button28.Text = "button28";
+            this.button28.Text = "town hall inf";
             this.button28.UseVisualStyleBackColor = true;
             this.button28.Click += new System.EventHandler(this.button28_Click);
             // 
@@ -403,8 +403,9 @@
             this.button29.Name = "button29";
             this.button29.Size = new System.Drawing.Size(119, 23);
             this.button29.TabIndex = 34;
-            this.button29.Text = "button29";
+            this.button29.Text = "all town hall inf";
             this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
             // Form1
             // 

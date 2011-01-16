@@ -128,5 +128,45 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             return GetResourceCity(iIndex, false);
         }
+
+        //town hall info
+        public static void ForceUpdateTownHall(int iIndexCity)
+        {
+            BUSCity.ChangeCityTo(iIndexCity, true);
+            if (Gloval.Database.CurrentView != Data.SITE_VIEW.TOWN_HALL)
+            {
+                if (Gloval.Database.CurrentView != Data.SITE_VIEW.CITY)
+                {
+                    DAOCity.GoToCity();
+                }
+
+                DAOCity.GoToTownHall();
+            }
+
+            //lấy thông tin
+            DAOCity.GetTownHallInfomation(iIndexCity);
+        }
+
+        public static DTOCity GetTownHallInfomationInCity(int iIndexCity,
+            bool bForceUpdate)
+        {
+            if (Gloval.Database.Account.Cities == null)
+            {
+                DAOCity.GetCities();
+                bForceUpdate = true;
+            }
+
+            if (0 <= iIndexCity && iIndexCity < Gloval.Database.Account.Cities.Count())
+            {
+                if (bForceUpdate)
+                {
+                    ForceUpdateTownHall(iIndexCity);
+                }
+                return Gloval.Database.Account.Cities[iIndexCity];
+            }
+
+            //thong bao loi~
+            return null;
+        }
     }
 }
