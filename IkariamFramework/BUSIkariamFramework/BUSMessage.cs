@@ -42,6 +42,7 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             DAOAdvisor.GoToadvDiplomacy();
             DAOMessage.Get10LastMessage();
+            Gloval.Database.Account.DTMessage = DateTime.Now;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public static Stream GetHtmlSite(string url)
         {//http://htmlagilitypack.codeplex.com/Thread/View.aspx?ThreadId=14255
+            Gloval.NRequestPerTask++;
+
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse webResponse;
             // need a cookie container to store cookies
@@ -40,7 +42,7 @@ namespace IkariamFramework.DAOIkariamFramework
 
         public static Stream PostGetHtmlSite(string url, string postData)//, out bool responseOK)
         {//http://htmlagilitypack.codeplex.com/Thread/View.aspx?ThreadId=14255
-            string htmlResponse = string.Empty;
+            Gloval.NRequestPerTask++;
             //responseOK = false;
             HttpWebRequest webRequest = (HttpWebRequest)WebRequest.Create(url);
             HttpWebResponse webResponse;

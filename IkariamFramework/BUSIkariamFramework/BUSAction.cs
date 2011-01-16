@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using IkariamFramework.DAOIkariamFramework;
 using HtmlAgilityPack;
 using IkariamFramework.DTOIkariamFramework;
+using IkariamFramework.PresentationUnit;
 
 namespace IkariamFramework.BUSIkariamFramework
 {
@@ -104,5 +105,88 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             return DAOAccount.CheckAdvStatus();
         }
+
+        public static void AutoLoadDefaultPage()
+        {
+            DAOAccount.GoToGoldPage();
+        }
+
+        #region auto - scenario request
+        public static void AutoRequestTowns()
+        {
+            //get res all city
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                BUSCity.GetResourceCity(i, true);
+            }
+
+            //get townhall inf all city
+            for (int i = 0; i < nCities; i++)
+            {
+                BUSCity.GetTownHallInfomationInCity(i, true);
+            }
+
+            Gloval.bEmpireOverviewIsNewData = true;
+        }
+
+        public static void AutoRequestBuildings()
+        {
+            //force update building
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                BUSBuilding.ForceUpdate(i);
+            }
+
+            Gloval.bEmpireOverviewIsNewData = true;
+        }
+
+        public static void AutoRequestTroops()
+        {
+            //force unit
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                BUSTroops.ForceUpdateUnits(i);
+            }
+
+            //force update ships
+            for (int i = 0; i < nCities; i++)
+            {
+                BUSTroops.ForceUpdateShips(i);
+            }
+        }
+
+        public static void AutoRequestResearch()
+        {
+            BUSResearch.ForceUpdate();
+        }
+
+        public static void AutoRequestDiplomat()
+        {
+            BUSMessage.ForceUpdate();
+        }
+        #endregion 
+
+        #region gadget request data
+        public static string requestTownsFromGadget()
+        {
+            if (Gloval.bEmpireOverviewIsNewData)
+            {
+                //cap nhat thong tin dang luu tru phu` hop voi thoi diem hien ta
+                BUSCity.CalculateResourceFromLocalData();
+
+                //cap nhat lai thanh du lieu cu
+                //de gadget khong lay lai lan nua
+                Gloval.bEmpireOverviewIsNewData = false;
+
+                //lay cho gadget
+                return JSONConverter.toEmpireOverviewUnitJSON();
+            }
+
+            return "";
+        }
+        #endregion
     }
 }

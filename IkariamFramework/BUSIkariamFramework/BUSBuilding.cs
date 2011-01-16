@@ -50,6 +50,8 @@ namespace IkariamFramework.BUSIkariamFramework
                 {
                     DAOCity.GoToCity();
                 }
+                //cap nhat thoi gian update tu ika server
+                Gloval.Database.Account.Cities[iIndexCity].DTBuilding = DateTime.Now;
                 DAOBuilding.GetBuildingCity(iIndexCity);
             }
         }

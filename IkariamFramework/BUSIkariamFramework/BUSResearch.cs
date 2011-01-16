@@ -26,6 +26,7 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             //chuyen trang
             DAOAdvisor.GoToadvResearch();
+            Gloval.Database.Account.DTResearch = DateTime.Now;
 
             //lay sc point
             DAOResearch.GetCurrentResearchScientists();

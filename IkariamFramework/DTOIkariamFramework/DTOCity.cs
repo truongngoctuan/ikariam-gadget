@@ -17,8 +17,8 @@ namespace IkariamFramework.DTOIkariamFramework
         public DTOTroops[] ListTroopsShips { get; set; }//quan thuy
 
         //townhall view
-        public long GoldIncome { get; set; } //(income - scientist)
-        public int ScientistPointPerHour { get; set; }
+        public long GoldPerHour { get; set; } //(income - scientist)
+        public int ResearchPointPerHour { get; set; }
         public long PopulationLimit { get; set; }
         public float PopulationGrow { get; set; }
 
@@ -62,5 +62,19 @@ namespace IkariamFramework.DTOIkariamFramework
             SULPHUR
         }
         public TRADE_GOOD_TYPE TypeTradeGood { get; set; }
+
+                //-------------------------------
+        //quản lý thời gian update:
+        // - gold
+        public DateTime DTGold { get; set; }
+        // - res cities
+        // - building
+        // - town hall
+        public DateTime DTResourceCity { get; set; }
+        public DateTime DTBuilding { get; set; }
+        public DateTime DTTownHall { get; set; }
+
+        public DateTime DTTroopUnits { get; set; }
+        public DateTime DTTroopShips { get; set; }
     }
 }

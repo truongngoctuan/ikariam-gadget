@@ -105,6 +105,7 @@ namespace IkariamFramework.BUSIkariamFramework
                     if (Gloval.Database.CurrentCity == iIndex)
                     {//chưa update, nhưng đang ở viewhiện tại nên lấy res ko request
                         DAOCity.UpdateResourceCity(iIndex);
+                        Gloval.Database.Account.Cities[iIndex].DTResourceCity = DateTime.Now;
                         return Gloval.Database.Account.Cities[iIndex];
                     }
                     //chưa update --> buôc request
@@ -115,6 +116,7 @@ namespace IkariamFramework.BUSIkariamFramework
                 if (bForceUpdateSite)
                 {//buộc request
                     ChangeCityTo(iIndex, bForceUpdateSite);
+                    Gloval.Database.Account.Cities[iIndex].DTResourceCity = DateTime.Now;
                     DAOCity.UpdateResourceCity(iIndex);
                 }
 
@@ -143,6 +145,8 @@ namespace IkariamFramework.BUSIkariamFramework
                 DAOCity.GoToTownHall();
             }
 
+            Gloval.Database.Account.Cities[iIndexCity].DTTownHall = DateTime.Now;
+
             //lấy thông tin
             DAOCity.GetTownHallInfomation(iIndexCity);
         }
@@ -167,6 +171,33 @@ namespace IkariamFramework.BUSIkariamFramework
 
             //thong bao loi~
             return null;
+        }
+
+        public static void CalculateResourceFromLocalData()
+        {
+            DateTime dtnew = DateTime.Now;
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                
+                DTOCity ct = BUSCity.GetResourceCity(i);
+                TimeSpan tp = new TimeSpan(dtnew.Ticks - ct.DTResourceCity.Ticks);
+            
+                //cap nhat dan
+                ct.FreePopulation += (int )(ct.PopulationGrow / 3600f * (float)tp.TotalSeconds);
+                ct.Population += (int)(ct.PopulationGrow / 3600f * (float)tp.TotalSeconds);
+
+                if (ct.Population > ct.PopulationLimit) ct.Population = (int)ct.PopulationLimit;
+                
+                //cap nhat vang
+
+                //cap nhat res
+
+                //cap nhat cooldown cac building
+
+                //cap nhat diem scientist point
+
+            }
         }
     }
 }

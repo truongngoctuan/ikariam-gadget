@@ -45,6 +45,8 @@ namespace IkariamFramework.BUSIkariamFramework
                 DAOTroops.GoToTroops();
             }
 
+            Gloval.Database.Account.Cities[iIndexCity].DTTroopUnits = DateTime.Now;
+
             //lấy thông tin
             DAOTroops.GetUnits(iIndexCity);
         }
@@ -112,9 +114,10 @@ namespace IkariamFramework.BUSIkariamFramework
                     //nhảy vào trang troops
                     DAOTroops.GoToTroops();
                 }
-
                 DAOTroops.GoToShips();
             }
+
+            Gloval.Database.Account.Cities[iIndexCity].DTTroopShips = DateTime.Now;
 
             //lấy thông tin
             DAOTroops.GetShipss(iIndexCity);
