@@ -15,7 +15,7 @@ namespace Test_BUS_DAO
 {
     public partial class Form1 : Form
     {
-        Gadget gg = new Gadget();
+        IkariamFramework.InterfaceToGadget.Gadget gg = new IkariamFramework.InterfaceToGadget.Gadget();
         public Form1()
         {
             InitializeComponent();
@@ -82,14 +82,19 @@ namespace Test_BUS_DAO
 
             strResult += " wood: " + city.Wood;
             strResult += "+" + city.WoodPerHour;
+            strResult += " limit: " + city.WoodLimit;
             strResult += " wine: " + city.Wine;
             strResult += "+" + city.WinePerHour;
+            strResult += " limit: " + city.WineLimit;
             strResult += " mar: " + city.Marble;
             strResult += "+" + city.MarblePerHour;
+            strResult += " limit: " + city.MarbleLimit;
             strResult += " crys: " + city.Crystal;
             strResult += "+" + city.CrystalPerHour;
+            strResult += " limit: " + city.CrystalLimit;
             strResult += " sul: " + city.Sulphur;
             strResult += "+" + city.SulphurPerHour;
+            strResult += " limit: " + city.SulphurLimit;
             strResult += "\r\n";
 
             tbResult.Text = strResult;
@@ -115,14 +120,19 @@ namespace Test_BUS_DAO
 
                 strResult += " wood: " + city.Wood;
                 strResult += "+" + city.WoodPerHour;
+                strResult += " limit: " + city.WoodLimit;
                 strResult += " wine: " + city.Wine;
                 strResult += "+" + city.WinePerHour;
+                strResult += " limit: " + city.WineLimit;
                 strResult += " mar: " + city.Marble;
                 strResult += "+" + city.MarblePerHour;
+                strResult += " limit: " + city.MarbleLimit;
                 strResult += " crys: " + city.Crystal;
                 strResult += "+" + city.CrystalPerHour;
+                strResult += " limit: " + city.CrystalLimit;
                 strResult += " sul: " + city.Sulphur;
                 strResult += "+" + city.SulphurPerHour;
+                strResult += " limit: " + city.SulphurLimit;
                 strResult += "\r\n";
             }
 
@@ -544,6 +554,28 @@ namespace Test_BUS_DAO
             {
                 MessageBox.Show("đăng nhập thất bại!");
             }
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+             StringBuilder strResult = new StringBuilder(50);
+             strResult.Append("total gold: " + BUSAction.GetTotalGold(true));
+             strResult.Append("per hour: " + BUSAction.GetTotalGoldPerHour());
+             strResult.Append("\r\n");
+             tbResult.Text = strResult.ToString();
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {//adv statuc
+            StringBuilder strResult = new StringBuilder(50);
+            strResult.Append("adv active: " + BUSAction.CheckAdvStatus());
+            strResult.Append("\r\n");
+            tbResult.Text = strResult.ToString();
         }
     }
 }

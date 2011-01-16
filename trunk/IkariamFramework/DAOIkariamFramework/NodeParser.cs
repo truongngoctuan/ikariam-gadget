@@ -42,11 +42,48 @@ namespace IkariamFramework.DAOIkariamFramework
             //bỏ các kí tự chữ
             char[] arr_c = str.ToCharArray();
             StringBuilder sb = new StringBuilder(15);
+            sb.Append('0');
             for (int i = 0; i < str.Length; i++)
             {
                 if (IsDigit(arr_c[i])) sb.Append(arr_c[i]);
             }
 
+            return long.Parse(sb.ToString());
+        }
+
+        public static int toUnsignedInt(string str)
+        {
+            //bỏ các kí tự chữ
+            char[] arr_c = str.ToCharArray();
+            StringBuilder sb = new StringBuilder(15);
+            
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (IsDigit(arr_c[i]) || arr_c[i] == '-') sb.Append(arr_c[i]);
+            }
+
+            if (sb.Equals(new StringBuilder("")))
+            {
+                return 0;
+            }
+
+            return int.Parse(sb.ToString());
+        }
+
+        public static long toUnsignedLong(string str)
+        {
+            //bỏ các kí tự chữ
+            char[] arr_c = str.ToCharArray();
+            StringBuilder sb = new StringBuilder(15);
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (IsDigit(arr_c[i]) || arr_c[i] == '-') sb.Append(arr_c[i]);
+            }
+
+            if (sb.Equals(new StringBuilder("")))
+            {
+                return 0;
+            }
             return long.Parse(sb.ToString());
         }
         #endregion

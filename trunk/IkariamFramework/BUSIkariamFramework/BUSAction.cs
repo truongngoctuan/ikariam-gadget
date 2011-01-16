@@ -77,5 +77,32 @@ namespace IkariamFramework.BUSIkariamFramework
         }
 
         #endregion
+
+        //gold
+        public static long GetTotalGold(bool bForceUpdate)
+        {
+            if (bForceUpdate)
+            {
+                DAOAccount.GoToGoldPage();
+                DAOAccount.GetTotalGold();
+
+                return Gloval.Database.Account.TotalGold;
+            }
+            else
+            {
+                return Gloval.Database.Account.TotalGold;
+            }
+        }
+
+        public static long GetTotalGoldPerHour()
+        {//mac dinh ham nay di sau gettotal nen ko can forceupdate
+            return Gloval.Database.Account.TotalGoldPerHour;
+        }
+
+        //adv statuc
+        public static int CheckAdvStatus()
+        {
+            return DAOAccount.CheckAdvStatus();
+        }
     }
 }

@@ -14,6 +14,12 @@ namespace IkariamFramework.DAOIkariamFramework
         public class XPathAccount
         {
             public static string logOut = "//li[@class='logout']/a";
+            public static string GoldPage = "//li[@class='gold']/a";
+
+            public static string GoldTotal = "//table[@id='balance']/tr[1]/td[4]";
+            public static string GoldTotalPerHour = "//table[@id='upkeepReductionTable']/tr[4]/td[4]";
+
+            
         }
 
         public class XPathCity
@@ -31,6 +37,9 @@ namespace IkariamFramework.DAOIkariamFramework
             public static string ShowTroopsShips = "//table[@id='tabz']/tr/td[2]/a";//"//a[@title='Ships']";//"//table[@id='tabz']/tbody/tr/td[2]/a";
             public static string DivTableUnits = "//div[@class='contentBox01h']";
             public static string DivTableShips = "//div[@class='contentBox01h']";
+
+            public static string GoldTotal = "//table[@id='balance']/tr[1]/td[4]";//bo dau bo duoi la dc cac thp
+            public static string ResultGold = "";
         }
 
         public class XPathAdvisor
@@ -39,6 +48,11 @@ namespace IkariamFramework.DAOIkariamFramework
             public static string advMilitary = "//li[@id='advMilitary']/a";
             public static string advResearch = "//li[@id='advResearch']/a";
             public static string advDiplomacy = "//li[@id='advDiplomacy']/a";
+
+            public static string advCitiesActive = "//li[@id='advCities']/a";//"/html/body/div/div/div[11]/ul/li/a";
+            public static string advMilitaryActive = "//li[@id='advMilitary']/a";
+            public static string advResearchActive = "//li[@id='advResearch']/a";
+            public static string advDiplomacyActive = "//li[@id='advDiplomacy']/a";
         }
 
         public class XPathEvent
