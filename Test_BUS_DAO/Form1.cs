@@ -566,8 +566,23 @@ namespace Test_BUS_DAO
         }
 
         private void button28_Click(object sender, EventArgs e)
-        {
+        {//town hall inf
+            StringBuilder strResult = new StringBuilder(1000);
 
+            DTOCity ct = BUSCity.GetTownHallInfomationInCity(Gloval.Database.CurrentCity, true);
+
+            strResult.Append("---Town: " +
+                    BUSCity.GetCity(Gloval.Database.CurrentCity).Name
+                    + "---\r\n");
+
+            strResult.Append("polimit: " + ct.PopulationLimit);
+            strResult.Append(" pogrow: " + ct.PopulationGrow.ToString());
+            strResult.Append(" net gold: " + ct.GoldIncome);
+            strResult.Append(" scientist point per hour: " + ct.ScientistPointPerHour.ToString());
+
+            strResult.Append("\r\n");
+
+            tbResult.Text = strResult.ToString();
         }
 
         private void button26_Click(object sender, EventArgs e)
@@ -575,6 +590,30 @@ namespace Test_BUS_DAO
             StringBuilder strResult = new StringBuilder(50);
             strResult.Append("adv active: " + BUSAction.CheckAdvStatus());
             strResult.Append("\r\n");
+            tbResult.Text = strResult.ToString();
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            StringBuilder strResult = new StringBuilder(5000);
+
+            int nCities = BUSCity.Count();
+            for (int i = 0; i < nCities; i++)
+            {
+                DTOCity ct = BUSCity.GetTownHallInfomationInCity(i, true);
+
+                strResult.Append("---Town: " +
+                        BUSCity.GetCity(i).Name
+                        + "---\r\n");
+
+                strResult.Append("polimit: " + ct.PopulationLimit);
+                strResult.Append(" pogrow: " + ct.PopulationGrow.ToString());
+                strResult.Append(" net gold: " + ct.GoldIncome);
+                strResult.Append(" scientist point per hour: " + ct.ScientistPointPerHour.ToString());
+
+                strResult.Append("\r\n");
+            }
+
             tbResult.Text = strResult.ToString();
         }
     }

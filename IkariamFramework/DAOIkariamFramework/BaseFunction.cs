@@ -82,6 +82,8 @@ namespace IkariamFramework.DAOIkariamFramework
         {
             HtmlNode node = Gloval.Database.Document.DocumentNode.SelectSingleNode(strXpath);
             string strhref = node.GetAttributeValue("href", "err");
+
+            strhref = strhref.Replace("amp;", "");
             BaseFunction.GetHtmlSite(Gloval.Database.WebUrl + strhref);
         }
 
