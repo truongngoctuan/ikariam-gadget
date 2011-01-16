@@ -3,7 +3,17 @@
 	width: 130px;
 	height: 130px;
 	margin: 0px;
-	padding: 0px;
+	padding: 0px;	
+}
+
+.gadgetGUI_docked
+{
+
+}
+
+.gadgetGUI_undocked
+{
+
 }
 
 a, a:hover, a:visited
@@ -17,3 +27,102 @@ a:hover
 {
 	text-decoration: underline;	
 }
+
+/*
+	Man hinh Welcome
+*/
+.content_Welcome
+{
+	font: normal 8px Arial,Helvetica,sans-serif;
+	color: #542C0F;
+	font-weight: bold;
+}
+
+/*
+	Man hinh Overview
+*/
+.content_overview
+{
+	font: normal 8px Arial,Helvetica,sans-serif;
+	color: #542C0F;
+	font-weight: bold;
+}
+
+.gadgetGUI_docked
+{
+	width : 130;
+	height : 100;
+	background-image : url(images/Overview.png);
+}
+.gadgetGUI_docked .overviewItem1
+{
+	position : absolute;
+    left : 10;
+    top : 10;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem2
+{
+	position : absolute;
+    left : 60;
+    top : 10;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem3
+{
+	position : absolute;
+    left : 10;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem4
+{
+	position : absolute;
+    left : 60;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_undocked
+{
+	width : 400;
+	height : 300;
+	background-image : url(images/Overview_undocked.png);
+}
+.gadgetGUI_undocked .overviewItem1
+{
+	position : absolute;
+    left : 10;
+    top : 10;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem2
+{
+	position : absolute;
+    left : 100;
+    top : 10;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem3
+{
+	position : absolute;
+    left : 10;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_undocked .overviewItem4
+{
+	position : absolute;
+    left : 100;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+
+

@@ -24,7 +24,7 @@ var Framework;
 // State & GUI
 //
 ////////////////////////////////////////////////////////////////////////////////
-var States = { Welcome: 0, Silent: 1, Waiting: 2, Overview: 3 }
+var States = { Welcome: 0, Overview: 1 }
 function Context() {
     this.State = States.Welcome;
 }
@@ -35,24 +35,15 @@ function GetWelcomeGUI(gadgetContent, gadgetBackgroundImage) {
     gadgetBackgroundImage.src = 'url(images/Welcome_undocked.png)';
     //gadgetBackgroundImage.src = 'url(images/animated_loading_gallery.gif)';
 }
-function GetSilentGUI(gadgetContent, gadgetBackgroundImage) {
-    gadgetBackgroundImage.src = 'url(images/Gadget_undocked.png)';
-}
-function GetWaitingGUI(gadgetContent, gadgetBackgroundImage) {
-    var content = "<b>Waiting !!!</b>";
-
-    gadgetContent.innerHTML = content;
-    gadgetBackgroundImage.src = 'url(images/Gadget_undocked.png)';
-}
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
-    content += '<img id="towns" class="overviewItem1" src="images/Towns.png" onmousedown="javascript:onOverview(' + "'towns'" + ');"/>';
-    content += '<img id="military" class="overviewItem2" src="images/Military.png" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
-    content += '<img id="research" class="overviewItem3" src="images/Research.png" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
-    content += '<img id="diplomacy" class="overviewItem4" src="images/Diplomacy.png" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
+    content += '<img id="towns" class="overviewItem1" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'towns'" + ');"/>';
+    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
+    content += '<img id="research" class="overviewItem3" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
+    content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
 
     gadgetContent.innerHTML = content;
-    gadgetBackgroundImage.src = 'url(images/Gadget_undocked.png)';
+    gadgetBackgroundImage.src = 'url(images/Overview.png)';
 }
 
 function CreateGUI(oGadgetDocument) {
@@ -61,13 +52,7 @@ function CreateGUI(oGadgetDocument) {
     
     if (context.State == States.Welcome) {
         GetWelcomeGUI(oGadgetContent, oGadgetBackgroundImage);        
-    }
-    else if (context.State == States.Silent) {
-        GetSilentGUI(oGadgetContent, oGadgetBackgroundImage);
-    }
-    else if (context.State == States.Waiting) {
-        GetWaitingGUI(oGadgetContent, oGadgetBackgroundImage);
-    }
+    }   
     else if (context.State == States.Overview) {
         GetOverviewGUI(oGadgetContent, oGadgetBackgroundImage);
     }
@@ -78,13 +63,7 @@ function SetState(state) {
     var oGadgetDocument = System.Gadget.document;
     if (context.State == States.Welcome) {
         oGadgetDocument.getElementById('state').innerHTML = "Welcome !!!";
-    }
-    else if (context.State == States.Silent) {
-        oGadgetDocument.getElementById('state').innerHTML = "Silent !!!";
-    }
-    else if (context.State == States.Waiting) {
-        oGadgetDocument.getElementById('state').innerHTML = "Waiting !!!";
-    }
+    }    
     else if (context.State == States.Overview) {
         oGadgetDocument.getElementById('state').innerHTML = "Overview !!!";
     }
@@ -99,14 +78,8 @@ function StateForward() {
     if (context.State == States.Welcome) {
         if(authenticated == false)
             return;
-        SetState(States.Silent);
-    }
-    else if (context.State == States.Silent) {
-        SetState(States.Waiting);
-    }
-    else if (context.State == States.Waiting) {
         SetState(States.Overview);
-    }
+    } 
     else if (context.State == States.Overview) {
         return;
     }
@@ -119,15 +92,9 @@ function StateBackward() {
     debugger;
     if (context.State == States.Welcome) {
         return;
-    }
-    else if (context.State == States.Silent) {
-        SetState(States.Welcome);
-    }
-    else if (context.State == States.Waiting) {
-        SetState(States.Silent);
-    }
+    }  
     else if (context.State == States.Overview) {
-        SetState(States.Waiting);
+        SetState(States.Welcome);
     }
     else {
         SetState(States.Welcome);
@@ -208,7 +175,7 @@ function Login() {
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        SetState(States.Waiting);
+        SetState(States.Overview);
         debugger;        
     }
     else {
@@ -239,7 +206,7 @@ function Actions() {
 
         return errMessage;
     };
-    this.Logins = function(count, current) {
+    /*this.Logins = function(count, current) {
         if (current == 0 && current < count) {
             if (!beginProcess())
                 return;
@@ -265,7 +232,7 @@ function Actions() {
             }
         }
         var town = Framework.EmpireOverviewUnit(current);
-        flyoutContent += townToHTML(town);
+        flyoutContent += townToHTML(town, current%2);
         oFlyoutContent.innerHTML = flyoutContent + '</table>';
         current++;
         if (current < count) {
@@ -276,7 +243,7 @@ function Actions() {
         else {
             endProcess();
         }
-    };
+    };*/
 }
 var actions = new Actions();
 
@@ -417,15 +384,14 @@ function OnShowFlyout() {
     }
 }
 
-var flyoutContent = "";
-
 function AddTownToFlyout() {
+    debugger;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
 
-    oFlyoutContent.className = "townsoverview";
+    oFlyoutContent.className = "empireOverview";
     flyoutContent = "";
-    flyoutContent += '<table class="empireOverview">\
+    flyoutContent += '<table>\
                 <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
 	                <td name="Name"><div style="width:80px;"></div></td>\
 	                <td name="ActionPoint"><img src="images/ikariam/icon_action.gif" /></td>\
@@ -435,54 +401,56 @@ function AddTownToFlyout() {
 	                <td name="Marble"><img src="images/ikariam/icon_marble.gif" /></td>\
 	                <td name="Crystal"><img src="images/ikariam/icon_glass.gif" /></td>\
 	                <td name="Sulphur"><img src="images/ikariam/icon_sulfur.gif" /></td>\
-	                <td name="Research"><img src="images/ikariam/icon_research.gif" /></td>\
-	                <td name="Gold"><img src="images/ikariam/icon_gold.gif" /></td>\
-                </tr>';
-    oFlyoutContent.innerHTML = flyoutContent + '</table>';
-    var citiesCount = Framework.GetEmpireOverviewUnitNum();
-    if (citiesCount > 0) {
-        actions.addTownToFlyoutContent(citiesCount, 0, oFlyoutContent);
-    }    
-}
-
-/*
-function AddTownToFlyout() {
-    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
-    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-
-    oFlyoutContent.className = "townsoverview";
-    flyoutContent = "";
-    flyoutContent += '<table class="empireOverview">\
-                <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
-	                <td name="Name"><div style="width:80px;"></div></td>\
-	                <td name="ActionPoint"><img src="images/ikariam/icon_action.gif" /></td>\
-	                <td name="Population (PopulationLimit)"> <img src="images/ikariam/icon_citizen.gif"/></td>\
-	                <td name="Wood"><img src="images/ikariam/icon_wood.gif" /></td>\
-	                <td name="Wine"><img src="images/ikariam/icon_wine.gif" /></td>\
-	                <td name="Marble"><img src="images/ikariam/icon_marble.gif" /></td>\
-	                <td name="Crystal"><img src="images/ikariam/icon_glass.gif" /></td>\
-	                <td name="Sulphur"><img src="images/ikariam/icon_sulfur.gif" /></td>\
-	                <td name="Research"><img src="images/ikariam/icon_research.gif" /></td>\
-	                <td name="Gold"><img src="images/ikariam/icon_gold.gif" /></td>\
+	                <td name="ResearchPointPerHour"><img src="images/ikariam/icon_research.gif" /></td>\
+	                <td name="GoldPerHour"><img src="images/ikariam/icon_gold.gif" /></td>\
                 </tr>';
     var citiesCount = Framework.GetEmpireOverviewUnitNum();
     if (citiesCount > 0) {
+        var total = Framework.GetEmptyEmpireOverviewUnit();
+        var town;
         for (var i = 0; i < citiesCount; i++) {
-            var town = Framework.EmpireOverviewUnit(i);
-            //content += town2HTML(town, container);
-            addTownToFlyoutContent(town);
+            town = Framework.EmpireOverviewUnit(i);
+            
+            total.Population += town.Population;
+            total.Wood += town.Wood;
+            total.WoodPerHour += town.WoodPerHour;
+            total.Wine += town.Wine;
+            total.WinePerHour += town.WinePerHour;
+            total.Marble += town.Marble;
+            total.MarblePerHour += town.MarblePerHour;
+            total.Crystal += town.Crystal;
+            total.CrystalPerHour += town.CrystalPerHour;
+            total.Sulphur += town.Sulphur;
+            total.SulphurPerHour += town.SulphurPerHour;
+            total.ResearchPointPerHour += town.ResearchPointPerHour;
+            total.GoldPerHour += town.GoldPerHour;
+            
+            flyoutContent += townToHTML(town, i % 2);
         }
+
+        flyoutContent += '<tr valign="bottom" style="background-color:#DDAE61">\
+	                        <td><div style="width:80px;"><b>' + 'Total' + '</b></div></td>\
+	                        <td>' + ' ' + '</td>\
+	                        <td>' + total.Population + '</td>\
+	                        <td>' + total.Wood + ' (+' + total.WoodPerHour + ')</td>\
+	                        <td>' + total.Wine + ' (+' + total.WinePerHour + ')</td>\
+	                        <td>' + total.Marble + ' (+' + total.MarblePerHour + ')</td>\
+	                        <td>' + total.Crystal + ' (+' + total.CrystalPerHour + ')</td>\
+	                        <td>' + total.Sulphur + ' (+' + total.SulphurPerHour + ')</td>\
+	                        <td>' + '+' + total.ResearchPointPerHour + '</td>\
+	                        <td>' + '+' + total.GoldPerHour + '</td>\
+                        </tr>';
     }
     flyoutContent += '</table>';
-
     oFlyoutContent.innerHTML = flyoutContent;
 }
 
-function addTownToFlyoutContent(town) {
-    flyoutContent += '<tr valign="bottom">\
+function townToHTML(town, isOdd) {
+    if(isOdd == 0)
+        return '<tr valign="bottom">\
 	                        <td><div style="width:80px;"><b>' + town.Name + '</b>' + '(' + town.X + ',' + town.Y + ')</div></td>\
 	                        <td>' + town.ActionPoint + '</td>\
-	                        <td>' + town.Population + ' ' + town.PopulationLimit + '</td>\
+	                        <td>' + town.Population + '</td>\
 	                        <td>' + town.Wood + ' (+' + town.WoodPerHour + ')</td>\
 	                        <td>' + town.Wine + ' (+' + town.WinePerHour + ')</td>\
 	                        <td>' + town.Marble + ' (+' + town.MarblePerHour + ')</td>\
@@ -491,14 +459,11 @@ function addTownToFlyoutContent(town) {
 	                        <td>' + '+' + town.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + town.GoldPerHour + '</td>\
                     </tr>';
-}
-*/
-
-function townToHTML(town) {
-    return '<tr valign="bottom">\
+    else
+        return '<tr valign="bottom" style="background-color:#FDF7DD" >\
 	                        <td><div style="width:80px;"><b>' + town.Name + '</b>' + '(' + town.X + ',' + town.Y + ')</div></td>\
 	                        <td>' + town.ActionPoint + '</td>\
-	                        <td>' + town.Population + ' ' + town.PopulationLimit + '</td>\
+	                        <td>' + town.Population + '</td>\
 	                        <td>' + town.Wood + ' (+' + town.WoodPerHour + ')</td>\
 	                        <td>' + town.Wine + ' (+' + town.WinePerHour + ')</td>\
 	                        <td>' + town.Marble + ' (+' + town.MarblePerHour + ')</td>\
@@ -506,5 +471,5 @@ function townToHTML(town) {
 	                        <td>' + town.Sulphur + ' (+' + town.SulphurPerHour + ')</td>\
 	                        <td>' + '+' + town.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + town.GoldPerHour + '</td>\
-                    </tr>';
+                    </tr>';                    
 }
