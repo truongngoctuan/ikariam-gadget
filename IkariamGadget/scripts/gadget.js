@@ -37,7 +37,7 @@ function GetWelcomeGUI(gadgetContent, gadgetBackgroundImage) {
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
     content += '<img id="towns" class="overviewItem1" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'towns'" + ');"/>';
-    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
+    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
     content += '<img id="research" class="overviewItem3" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
     content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
 
@@ -173,8 +173,7 @@ function Login() {
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        SetState(States.Overview);
-        debugger;        
+        SetState(States.Overview);              
     }
     else {
         // Fail
@@ -324,7 +323,7 @@ function GadgetDocked() {
 // Overview : open Flyout to show overview
 //
 ////////////////////////////////////////////////////////////////////////////////
-var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4 }
+var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5 }
 var overviewState = OverviewStates.None;
 
 function onOverview(controlId) {
@@ -336,6 +335,8 @@ function onOverview(controlId) {
         showResearch();
     else if (controlId == "diplomacy")
         showDiplomacy();
+    else if (controlId == "empire")
+        showEmpire();
 }
 
 function showTowns() {
@@ -352,6 +353,10 @@ function showResearch() {
 }
 function showDiplomacy() {
     overviewState = OverviewStates.Diplomacy;
+    ShowHideFlyout();
+}
+function showEmpire() {
+    overviewState = OverviewStates.Empire;
     ShowHideFlyout();
 }
 
@@ -371,8 +376,11 @@ function ShowHideFlyout() {
 //
 ////////////////////////////////////////////////////////////////////////////////
 function OnShowFlyout() {
-    if (overviewState == OverviewStates.Towns) {
+    if (overviewState == OverviewStates.Empire) {
         SetEmpireOverviewGUI();
+    }
+    else if (overviewState == OverviewStates.Towns) {
+        SetTownOverviewGUI();
     }
     else if (overviewState = OverviewStates.Military) {
     }
@@ -385,7 +393,7 @@ function OnShowFlyout() {
 function SetTownOverviewGUI() {
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-
+    debugger;
     oFlyoutContent.className = "townOverview";
     flyoutContent = "";
     flyoutContent += '<table>\
@@ -401,12 +409,14 @@ function SetTownOverviewGUI() {
 	                <td name="ResearchPointPerHour"><img src="images/empireOverview/icon_research.gif" /></td>\
 	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
                 </tr>';
-                
+
+    var townOverviewUnits = Framework.GetTownOverviewUnitsOld();
     flyoutContent += '</table>';
     oFlyoutContent.innerHTML = flyoutContent;
 }
 
-function SetEmpireOverviewGUI() {    
+function SetEmpireOverviewGUI() {
+    debugger;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
 
@@ -447,26 +457,26 @@ function SetEmpireOverviewGUI() {
     
     if (citiesCount > 0) {
         var total = Framework.GetEmptyEmpireOverviewUnit();
-        var town;
+        var empireUnit;
         for (var i = 0; i < citiesCount; i++) {
             //town = Framework.EmpireOverviewUnit(i);
-            town = empireOverviewUnits[i];
-                        
-            total.Population += town.Population;
-            total.Wood += town.Wood;
-            total.WoodPerHour += town.WoodPerHour;
-            total.Wine += town.Wine;
-            total.WinePerHour += town.WinePerHour;
-            total.Marble += town.Marble;
-            total.MarblePerHour += town.MarblePerHour;
-            total.Crystal += town.Crystal;
-            total.CrystalPerHour += town.CrystalPerHour;
-            total.Sulphur += town.Sulphur;
-            total.SulphurPerHour += town.SulphurPerHour;
-            total.ResearchPointPerHour += town.ResearchPointPerHour;
-            total.GoldPerHour += town.GoldPerHour;
-            
-            flyoutContent += townToHTML(town, i % 2);
+            empireUnit = empireOverviewUnits[i];
+
+            total.Population += empireUnit.Population;
+            total.Wood += empireUnit.Wood;
+            total.WoodPerHour += empireUnit.WoodPerHour;
+            total.Wine += empireUnit.Wine;
+            total.WinePerHour += empireUnit.WinePerHour;
+            total.Marble += empireUnit.Marble;
+            total.MarblePerHour += empireUnit.MarblePerHour;
+            total.Crystal += empireUnit.Crystal;
+            total.CrystalPerHour += empireUnit.CrystalPerHour;
+            total.Sulphur += empireUnit.Sulphur;
+            total.SulphurPerHour += empireUnit.SulphurPerHour;
+            total.ResearchPointPerHour += empireUnit.ResearchPointPerHour;
+            total.GoldPerHour += empireUnit.GoldPerHour;
+
+            flyoutContent += empireUnitToHTML(empireUnit, i % 2);
         }
         
         flyoutContent += '<tr valign="bottom" style="background-color:#DDAE61">\
@@ -486,31 +496,31 @@ function SetEmpireOverviewGUI() {
     oFlyoutContent.innerHTML = flyoutContent;
 }
 
-function townToHTML(town, isOdd) {
+function empireUnitToHTML(empireUnit, isOdd) {
     if(isOdd == 0)
         return '<tr valign="bottom">\
-	                        <td><div style="width:80px;"><b>' + town.Name + '</b>' + '(' + town.X + ',' + town.Y + ')</div></td>\
-	                        <td>' + town.ActionPoint + '</td>\
-	                        <td>' + town.Population + '</td>\
-	                        <td>' + town.Wood + ' (+' + town.WoodPerHour + ')</td>\
-	                        <td>' + town.Wine + ' (+' + town.WinePerHour + ')</td>\
-	                        <td>' + town.Marble + ' (+' + town.MarblePerHour + ')</td>\
-	                        <td>' + town.Crystal + ' (+' + town.CrystalPerHour + ')</td>\
-	                        <td>' + town.Sulphur + ' (+' + town.SulphurPerHour + ')</td>\
-	                        <td>' + '+' + town.ResearchPointPerHour + '</td>\
-	                        <td>' + '+' + town.GoldPerHour + '</td>\
+	                        <td><div style="width:80px;"><b>' + empireUnit.Name + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
+	                        <td>' + empireUnit.ActionPoint + '</td>\
+	                        <td>' + empireUnit.Population + '</td>\
+	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
+	                        <td>' + empireUnit.Wine + ' (+' + empireUnit.WinePerHour + ')</td>\
+	                        <td>' + empireUnit.Marble + ' (+' + empireUnit.MarblePerHour + ')</td>\
+	                        <td>' + empireUnit.Crystal + ' (+' + empireUnit.CrystalPerHour + ')</td>\
+	                        <td>' + empireUnit.Sulphur + ' (+' + empireUnit.SulphurPerHour + ')</td>\
+	                        <td>' + '+' + empireUnit.ResearchPointPerHour + '</td>\
+	                        <td>' + '+' + empireUnit.GoldPerHour + '</td>\
                     </tr>';
     else
         return '<tr valign="bottom" style="background-color:#FDF7DD" >\
-	                        <td><div style="width:80px;"><b>' + town.Name + '</b>' + '(' + town.X + ',' + town.Y + ')</div></td>\
-	                        <td>' + town.ActionPoint + '</td>\
-	                        <td>' + town.Population + '</td>\
-	                        <td>' + town.Wood + ' (+' + town.WoodPerHour + ')</td>\
-	                        <td>' + town.Wine + ' (+' + town.WinePerHour + ')</td>\
-	                        <td>' + town.Marble + ' (+' + town.MarblePerHour + ')</td>\
-	                        <td>' + town.Crystal + ' (+' + town.CrystalPerHour + ')</td>\
-	                        <td>' + town.Sulphur + ' (+' + town.SulphurPerHour + ')</td>\
-	                        <td>' + '+' + town.ResearchPointPerHour + '</td>\
-	                        <td>' + '+' + town.GoldPerHour + '</td>\
+	                        <td><div style="width:80px;"><b>' + empireUnit.Name + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
+	                        <td>' + empireUnit.ActionPoint + '</td>\
+	                        <td>' + empireUnit.Population + '</td>\
+	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
+	                        <td>' + empireUnit.Wine + ' (+' + empireUnit.WinePerHour + ')</td>\
+	                        <td>' + empireUnit.Marble + ' (+' + empireUnit.MarblePerHour + ')</td>\
+	                        <td>' + empireUnit.Crystal + ' (+' + empireUnit.CrystalPerHour + ')</td>\
+	                        <td>' + empireUnit.Sulphur + ' (+' + empireUnit.SulphurPerHour + ')</td>\
+	                        <td>' + '+' + empireUnit.ResearchPointPerHour + '</td>\
+	                        <td>' + '+' + empireUnit.GoldPerHour + '</td>\
                     </tr>';                    
 }

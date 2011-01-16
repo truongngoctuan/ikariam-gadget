@@ -227,6 +227,7 @@
     <Compile Include="JSON.net\Utilities\StringUtils.cs" />
     <Compile Include="JSON.net\Utilities\ThreadSafeStore.cs" />
     <Compile Include="JSON.net\Utilities\ValidationUtils.cs" />
+    <Compile Include="PresentationUnit\MilitaryOverviewUnit.cs" />
     <Compile Include="PresentationUnit\EmpireOverviewUnit.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />
     <Compile Include="HtmlAgilityPack\EncodingFoundException.cs" />
@@ -260,7 +261,7 @@
     <Compile Include="DAOIkariamFramework\DAOMessage.cs" />
     <Compile Include="DAOIkariamFramework\DAOMilitary.cs" />
     <Compile Include="InterfaceToGadget\Gadget.cs" />
-    <Compile Include="PresentationUnit\JSONConverter.cs" />
+    <Compile Include="PresentationUnit\TownOverviewUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DAOIkariamFramework\DAOResearch.cs" />
     <Compile Include="DAOIkariamFramework\DAOTransport.cs" />

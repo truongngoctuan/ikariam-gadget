@@ -182,7 +182,7 @@ namespace IkariamFramework.BUSIkariamFramework
                 Gloval.bEmpireOverviewIsNewData = false;
 
                 //lay cho gadget
-                return JSONConverter.toEmpireOverviewUnitJSON();
+                //return JSONConverter.toEmpireOverviewUnitJSON();
             }
 
             return "";

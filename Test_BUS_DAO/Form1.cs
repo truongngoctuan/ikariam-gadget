@@ -16,6 +16,8 @@ namespace Test_BUS_DAO
     public partial class Form1 : Form
     {
         IkariamFramework.InterfaceToGadget.Gadget gg = new IkariamFramework.InterfaceToGadget.Gadget();
+        enum EEE { ABC = 0, NDD = 5 };
+
         public Form1()
         {
             InitializeComponent();

@@ -45,7 +45,7 @@ namespace IkariamFramework
 
         #region EmpireOverview
         EmpireOverviewUnit[] empireOverviewUnits = new EmpireOverviewUnit[] {
-            new EmpireOverviewUnit{Name = "City1", ID = 1, X = 1, Y = 1, ActionPoint = 1,
+            new EmpireOverviewUnit{TownName = "City1", ID = 1, X = 1, Y = 1, ActionPoint = 1,
                                     FreePopulation = 100, Population = 200, PopulationLimit = 1000,
                                     Wood = 1000, WoodPerHour = 3600, WoodLimit = 100000,
                                     Wine = 1000, WinePerHour = 3600, WineLimit = 100000,
@@ -53,7 +53,7 @@ namespace IkariamFramework
                                     Crystal = 1000, CrystalPerHour = 3600, CrystalLimit = 100000,
                                     Sulphur = 1000, SulphurPerHour = 3600, SulphurLimit = 100000,
                                     GoldPerHour = 3600, ResearchPointPerHour = 3600},
-            new EmpireOverviewUnit{Name = "City2", ID = 2, X = 2, Y = 2, ActionPoint = 2,
+            new EmpireOverviewUnit{TownName = "City2", ID = 2, X = 2, Y = 2, ActionPoint = 2,
                                     FreePopulation = 200, Population = 200, PopulationLimit = 2000,
                                     Wood = 2000, WoodPerHour = 3600, WoodLimit = 200000,
                                     Wine = 2000, WinePerHour = 3600, WineLimit = 200000,
@@ -61,7 +61,7 @@ namespace IkariamFramework
                                     Crystal = 2000, CrystalPerHour = 3600, CrystalLimit = 200000,
                                     Sulphur = 2000, SulphurPerHour = 3600, SulphurLimit = 200000,
                                     GoldPerHour = 3600, ResearchPointPerHour = 3600},
-            new EmpireOverviewUnit{Name = "City3", ID = 3, X = 3, Y = 3, ActionPoint = 3,
+            new EmpireOverviewUnit{TownName = "City3", ID = 3, X = 3, Y = 3, ActionPoint = 3,
                                     FreePopulation = 300, Population = 300, PopulationLimit = 3000,
                                     Wood = 3000, WoodPerHour = 3600, WoodLimit = 300000,
                                     Wine = 3000, WinePerHour = 3600, WineLimit = 300000,
@@ -95,6 +95,173 @@ namespace IkariamFramework
                 return empireOverviewUnits[index];
             }
             return null;
+        }
+        #endregion
+
+        #region TownOverview
+        List<TownOverviewUnit> townOverviewUnits = new List<TownOverviewUnit> {
+            new TownOverviewUnit{TownName = "Town1", X = 1, Y = 1, 
+                Buildings = new Dictionary<string,DTOBuilding>{
+                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                }},
+            new TownOverviewUnit{TownName = "Town2", X = 2, Y = 2, 
+                Buildings = new Dictionary<string,DTOBuilding>{
+                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                }},
+            new TownOverviewUnit{TownName = "Town3", X = 3, Y = 3, 
+                Buildings = new Dictionary<string,DTOBuilding>{
+                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                }},
+        };
+
+        public string GetTownOverviewUnits()
+        {
+            // Tham khao ham` nay` de convert tu` dang list sang Dictionary
+            List<TownOverviewUnit> townOverviewUnitsTemp = new List<TownOverviewUnit>();
+            foreach(DTOCity dtoCity in Gloval.Database.Account.Cities)
+            {
+                TownOverviewUnit townOverviewUnit = new TownOverviewUnit();
+                townOverviewUnit.TownName = dtoCity.Name;
+                townOverviewUnit.X = dtoCity.X;
+                townOverviewUnit.Y = dtoCity.Y;
+                foreach (DTOBuilding building in dtoCity.ListBuilding)
+                {
+                    townOverviewUnit.Buildings.Add(building.Type.ToString(), building);
+                }                
+            }
+            return JsonConvert.SerializeObject(townOverviewUnitsTemp);
+        }
+
+        public string GetTownOverviewUnitsOld()
+        {
+            return JsonConvert.SerializeObject(townOverviewUnits);
+        }
+        #endregion
+
+        #region MilitaryOverview
+        List<MilitaryOverviewUnit> militaryOverviewUnits = new List<MilitaryOverviewUnit> {
+            new MilitaryOverviewUnit{
+                TownName = "Town1", 
+                X = 1, 
+                Y = 1, 
+                Troops = new Dictionary<string, DTOTroops>{
+                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                },
+                Ships = new Dictionary<string, DTOTroops>{
+                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
+                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
+                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                }
+            },
+            new MilitaryOverviewUnit{
+                TownName = "Town2", 
+                X = 2, 
+                Y = 2, 
+                Troops = new Dictionary<string, DTOTroops>{
+                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                },
+                Ships = new Dictionary<string, DTOTroops>{
+                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
+                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
+                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                }
+            },
+            new MilitaryOverviewUnit{
+                TownName = "Town3", 
+                X = 3, 
+                Y = 3, 
+                Troops = new Dictionary<string, DTOTroops>{
+                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                },
+                Ships = new Dictionary<string, DTOTroops>{
+                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
+                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
+                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                }
+            },
+        };
+
+        public string GetMilitaryOverviewUnit()
+        {
+            List<MilitaryOverviewUnit> militaryOverviewUnitsTemp = new List<MilitaryOverviewUnit>();
+            foreach (DTOCity dtoCity in Gloval.Database.Account.Cities)
+            {
+                MilitaryOverviewUnit militaryOverviewUnit = new MilitaryOverviewUnit();
+                militaryOverviewUnit.TownName = dtoCity.Name;
+                militaryOverviewUnit.X = dtoCity.X;
+                militaryOverviewUnit.Y = dtoCity.Y;
+                foreach (DTOTroops troop in dtoCity.ListTroopsUnits)
+                {
+                    militaryOverviewUnit.Troops.Add(troop.Type.ToString(), troop);
+                }
+                foreach (DTOTroops ship in dtoCity.ListTroopsShips)
+                {
+                    militaryOverviewUnit.Troops.Add(ship.Type.ToString(), ship);
+                }
+            }
+            return JsonConvert.SerializeObject(militaryOverviewUnits);
+        }
+
+        public string GetMilitaryOverviewUnitOld()
+        {
+            return JsonConvert.SerializeObject(militaryOverviewUnits);
+        }
+        #endregion
+
+        #region Research
+        DTOResearch researchOverviewUnit = new DTOResearch
+        {
+            Scientists = 100,
+            ResearchPoints = 10000,
+            ResearchPointsPerHour = 3600,
+            Seafaring = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000},
+            Economic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
+            Scientific = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
+            Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 }            
+        };
+
+        public string GetResearchOverviewUnit()
+        {
+            return JsonConvert.SerializeObject(researchOverviewUnit);
         }
         #endregion
 
