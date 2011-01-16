@@ -102,33 +102,33 @@ namespace IkariamFramework
         List<TownOverviewUnit> townOverviewUnits = new List<TownOverviewUnit> {
             new TownOverviewUnit{TownName = "Town1", X = 1, Y = 1, 
                 Buildings = new Dictionary<string,DTOBuilding>{
-                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
-                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
-                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
-                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
-                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
-                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                    {"Townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"Townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"Academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"Warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"TradingPort", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"Museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
                 }},
             new TownOverviewUnit{TownName = "Town2", X = 2, Y = 2, 
                 Buildings = new Dictionary<string,DTOBuilding>{
-                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
-                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
-                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
-                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
-                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
-                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                    {"Townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"Townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"Academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"Warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"TradingPort", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"Museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
                 }},
             new TownOverviewUnit{TownName = "Town3", X = 3, Y = 3, 
                 Buildings = new Dictionary<string,DTOBuilding>{
-                    {"townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
-                    {"townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
-                    {"academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
-                    {"warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
-                    {"tradingport", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
-                    {"museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
+                    {"Townhall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townhall}},
+                    {"Townwall", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Townwall}},
+                    {"Academy", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Academy}},
+                    {"Warehouse", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Warehouse}},
+                    {"TradingPort", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.TradingPort}},
+                    {"Museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
                 }},
         };
-
+        /*
         public string GetTownOverviewUnits()
         {
             // Tham khao ham` nay` de convert tu` dang list sang Dictionary
@@ -146,16 +146,16 @@ namespace IkariamFramework
             }
             return JsonConvert.SerializeObject(townOverviewUnitsTemp);
         }
-
-        public string GetTownOverviewUnitsOld()
+        */
+        public string GetTownOverviewUnits()
         {
             return JsonConvert.SerializeObject(townOverviewUnits);
         }
         #endregion
 
-        #region MilitaryOverview
-        List<MilitaryOverviewUnit> militaryOverviewUnits = new List<MilitaryOverviewUnit> {
-            new MilitaryOverviewUnit{
+        #region TroopOverview
+        List<TroopOverviewUnit> troopOverviewUnits = new List<TroopOverviewUnit> {
+            new TroopOverviewUnit{
                 TownName = "Town1", 
                 X = 1, 
                 Y = 1, 
@@ -176,7 +176,7 @@ namespace IkariamFramework
                     {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
                 }
             },
-            new MilitaryOverviewUnit{
+            new TroopOverviewUnit{
                 TownName = "Town2", 
                 X = 2, 
                 Y = 2, 
@@ -197,7 +197,7 @@ namespace IkariamFramework
                     {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
                 }
             },
-            new MilitaryOverviewUnit{
+            new TroopOverviewUnit{
                 TownName = "Town3", 
                 X = 3, 
                 Y = 3, 
@@ -219,8 +219,8 @@ namespace IkariamFramework
                 }
             },
         };
-
-        public string GetMilitaryOverviewUnit()
+        /*
+        public string GetTroopOverviewUnits()
         {
             List<MilitaryOverviewUnit> militaryOverviewUnitsTemp = new List<MilitaryOverviewUnit>();
             foreach (DTOCity dtoCity in Gloval.Database.Account.Cities)
@@ -240,10 +240,10 @@ namespace IkariamFramework
             }
             return JsonConvert.SerializeObject(militaryOverviewUnits);
         }
-
-        public string GetMilitaryOverviewUnitOld()
+        */
+        public string GetTroopOverviewUnits()
         {
-            return JsonConvert.SerializeObject(militaryOverviewUnits);
+            return JsonConvert.SerializeObject(troopOverviewUnits);
         }
         #endregion
 
@@ -258,10 +258,48 @@ namespace IkariamFramework
             Scientific = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
             Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 }            
         };
-
+        /*
+        public string GetResearchOverviewUnit()
+        {
+            return JsonConvert.SerializeObject(Gloval.Database.Account.Research);
+        }
+        */
         public string GetResearchOverviewUnit()
         {
             return JsonConvert.SerializeObject(researchOverviewUnit);
+        }
+        #endregion
+
+        #region Events
+        DTOEvent[] eventOverviewUnits = new DTOEvent[]
+        {
+            new DTOEvent{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.NEW},
+            new DTOEvent{Town = "City2", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.ALL},
+            new DTOEvent{Town = "City3", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.OLD}
+        };
+        public string GetEventOverviewUnits()
+        {
+            return JsonConvert.SerializeObject(eventOverviewUnits);
+        }
+        /*
+        public string GetEventOverviewUnits()
+        {
+            return JsonConvert.SerializeObject(Gloval.Database.Account.Event);
+        }
+        */
+        #endregion
+
+        #region Movements
+        /*public string GetMovementOverviewUnits()
+        {
+            return JsonConvert.SerializeObject(Gloval.Database.Account.???);
+        }*/
+        #endregion
+
+        #region Messages
+        public string GetMessageOverviewUnits()
+        {
+            return JsonConvert.SerializeObject(Gloval.Database.Account.Message);
         }
         #endregion
 

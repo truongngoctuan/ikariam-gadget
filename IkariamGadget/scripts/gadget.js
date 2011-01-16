@@ -36,10 +36,12 @@ function GetWelcomeGUI(gadgetContent, gadgetBackgroundImage) {
 }
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
-    content += '<img id="towns" class="overviewItem1" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'towns'" + ');"/>';
-    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
+    content += '<img id="town" class="overviewItem1" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'town'" + ');"/>';
+    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
     content += '<img id="research" class="overviewItem3" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
     content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
+    content += '<img id="empire" class="overviewItem5" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
+    content += '<img id="event" class="overviewItem6" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
 
     gadgetContent.innerHTML = content;
     gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
@@ -221,6 +223,7 @@ function Actions() {
             endProcess();
         }
     };
+    
     this.addTownToFlyoutContent = function(count, current, oFlyoutContent) {        
         if (current == 0 && current < count) {
             if (!beginProcess()) {
@@ -323,7 +326,7 @@ function GadgetDocked() {
 // Overview : open Flyout to show overview
 //
 ////////////////////////////////////////////////////////////////////////////////
-var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5 }
+var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5, Event : 6 }
 var overviewState = OverviewStates.None;
 
 function onOverview(controlId) {
@@ -336,6 +339,8 @@ function onOverview(controlId) {
     else if (controlId == "diplomacy")
         showDiplomacy();
     else if (controlId == "empire")
+        showEmpire();
+    else if (controlId == "event")
         showEmpire();
 }
 
@@ -359,6 +364,10 @@ function showEmpire() {
     overviewState = OverviewStates.Empire;
     ShowHideFlyout();
 }
+function showEvent() {
+    overviewState = OverviewStates.Event;
+    ShowHideFlyout();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -376,10 +385,7 @@ function ShowHideFlyout() {
 //
 ////////////////////////////////////////////////////////////////////////////////
 function OnShowFlyout() {
-    if (overviewState == OverviewStates.Empire) {
-        SetEmpireOverviewGUI();
-    }
-    else if (overviewState == OverviewStates.Towns) {
+    if (overviewState == OverviewStates.Towns) {
         SetTownOverviewGUI();
     }
     else if (overviewState = OverviewStates.Military) {
@@ -387,6 +393,11 @@ function OnShowFlyout() {
     else if (overviewState = OverviewStates.Research) {
     }
     else if (overviewState = OverviewStates.Diplomacy) {
+    }
+    else if (overviewState == OverviewStates.Empire) {
+        SetEmpireOverviewGUI();
+    }
+    else if (overviewState == OverviewStates.Event) {
     }
 }
 
@@ -399,21 +410,127 @@ function SetTownOverviewGUI() {
     flyoutContent += '<table>\
                 <tr valign="bottom" style="background-image:url(images/empireOverview/button.gif)">\
 	                <td name="Name"><div style="width:80px;"></div></td>\
-	                <td name="ActionPoint"><img src="images/empireOverview/icon_action.gif" /></td>\
-	                <td name="Population (PopulationLimit)"> <img src="images/empireOverview/icon_citizen.gif"/></td>\
-	                <td name="Wood"><img src="images/empireOverview/icon_wood.gif" /></td>\
-	                <td name="Wine"><img src="images/empireOverview/icon_wine.gif" /></td>\
-	                <td name="Marble"><img src="images/empireOverview/icon_marble.gif" /></td>\
-	                <td name="Crystal"><img src="images/empireOverview/icon_glass.gif" /></td>\
-	                <td name="Sulphur"><img src="images/empireOverview/icon_sulfur.gif" /></td>\
-	                <td name="ResearchPointPerHour"><img src="images/empireOverview/icon_research.gif" /></td>\
-	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
+	                <td name="Academy"><img src="images/townOverview/academy.gif" /></td>\
+			        <td name="Barracks"><img src="images/townOverview/barracks.gif" /></td>\
+			        <td name="Dump"><img src="images/townOverview/dump.gif" /></td>\
+			        <td name="Embassy"><img src="images/townOverview/embassy.gif" /></td>\
+			        <td name="Hideout"><img src="images/townOverview/hideout.gif" /></td>\
+			        <td name="Museum"><img src="images/townOverview/museum.gif" /></td>\
+			        <td name="Palace"><img src="images/townOverview/palace.gif" /></td>\
+			        <td name="Shipyard"><img src="images/townOverview/shipyard.gif" /></td>\
+			        <td name="Tavern"><img src="images/townOverview/tavern.gif" /></td>\
+			        <td name="Temple"><img src="images/townOverview/temple.gif" /></td>\
+			        <td name="Town hall"><img src="images/townOverview/townhall.gif" /></td>\
+			        <td name="Town wall"><img src="images/townOverview/townwall.gif" /></td>\
+			        <td name="Trading port"><img src="images/townOverview/tradingport.gif" /></td>\
+			        <td name="Trading post"><img src="images/townOverview/tradingpost.gif" /></td>\
+			        <td name="Warehouse"><img src="images/townOverview/warehouse.gif" /></td>\
+			        <td name="Workshop"><img src="images/townOverview/workshop.gif" /></td>\
+			        <td name="Architect\'s Office"><img src="images/townOverview/architect.gif" /></td>\
+			        <td name="Carpenter"><img src="images/townOverview/carpenter.gif" /></td>\
+			        <td name="Firework Test Area"><img src="images/townOverview/firework.gif" /></td>\
+			        <td name="Optician"><img src="images/townOverview/optician.gif" /></td>\
+			        <td name="Wine Press"><img src="images/townOverview/winepress.gif" /></td>\
+			        <td name="Alchemist\'s Tower"><img src="images/townOverview/alchemist.gif" /></td>\
+			        <td name="Forester\'s House"><img src="images/townOverview/forester.gif" /></td>\
+			        <td name="Glassblower"><img src="images/townOverview/glassblower.gif" /></td>\
+			        <td name="Stonemason"><img src="images/townOverview/stonemason.gif" /></td>\
+			        <td name="Winegrower"><img src="images/townOverview/winegrower.gif" /></td>\
                 </tr>';
 
-    var townOverviewUnits = Framework.GetTownOverviewUnitsOld();
+    var townOverviewUnits = JSON.parse(Framework.GetTownOverviewUnits(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+
+    var citiesCount = 0;
+    for (var k in townOverviewUnits) {
+        if (townOverviewUnits.hasOwnProperty(k))
+            citiesCount++;
+    }
+
+    if (citiesCount > 0) {        
+        var townUnit;
+        for (var i = 0; i < citiesCount; i++) {
+            //town = Framework.EmpireOverviewUnit(i);
+            townUnit = townOverviewUnits[i];
+            flyoutContent += townUnitToHTML(townUnit, i % 2);
+        }
+    }
     flyoutContent += '</table>';
     oFlyoutContent.innerHTML = flyoutContent;
 }
+
+function townUnitToHTML(townUnit, isOdd) {
+    if (isOdd == 0)
+        return '<tr valign="bottom">\
+	                        <td><div style="width:80px;"><b>' + townUnit.Name + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
+	                        <td>' + townUnit.Buildings.Academy.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Barracks.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Dump.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Embassy.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Hideout.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Museum.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Palace.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Shipyard.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Tavern.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Temple.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Townhall.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Townwall.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.TradingPort.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.TradingPost.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Warehouse.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Workshop.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Architect.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Carpenter.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Firework.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Optician.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.WinePress.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Alchemist.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Forester.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Glassblower.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Stonemason.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Winegrower.Lvl + '</td>\
+                    </tr>';
+    else
+	    return '<tr valign="bottom" style="background-color:#FDF7DD">\
+	                        <td><div style="width:80px;"><b>' + townUnit.Name + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
+	                        <td>' + townUnit.Buildings.Academy.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Barracks.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Dump.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Embassy.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Hideout.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Museum.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Palace.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Shipyard.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Tavern.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Temple.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Townhall.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Townwall.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.TradingPort.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.TradingPost.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Warehouse.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Workshop.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Architect.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Carpenter.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Firework.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Optician.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.WinePress.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Alchemist.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Forester.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Glassblower.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Stonemason.Lvl + '</td>\
+	                        <td>' + townUnit.Buildings.Winegrower.Lvl + '</td>\
+                    </tr>';
+}
+
+
 
 function SetEmpireOverviewGUI() {
     debugger;

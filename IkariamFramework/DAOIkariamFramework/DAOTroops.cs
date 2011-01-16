@@ -23,7 +23,7 @@ namespace IkariamFramework.DAOIkariamFramework
 
             list.Add(GetUnitAndTroop(FirstLine.ChildNodes[1], DTOTroops.TYPE.Hoplite, true));
             list.Add(GetUnitAndTroop(FirstLine.ChildNodes[2], DTOTroops.TYPE.Steam_Giant, true));
-            list.Add(GetUnitAndTroop(FirstLine.ChildNodes[3], DTOTroops.TYPE.Spearmen, true));
+            list.Add(GetUnitAndTroop(FirstLine.ChildNodes[3], DTOTroops.TYPE.Spearman, true));
             list.Add(GetUnitAndTroop(FirstLine.ChildNodes[4], DTOTroops.TYPE.Swordsman, true));
             list.Add(GetUnitAndTroop(FirstLine.ChildNodes[5], DTOTroops.TYPE.Slinger, true));
             list.Add(GetUnitAndTroop(FirstLine.ChildNodes[6], DTOTroops.TYPE.Archer, true));
