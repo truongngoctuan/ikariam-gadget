@@ -14,5 +14,13 @@ namespace IkariamFramework.DTOIkariamFramework
         }
 
         public static Dictionary<string, string> Dict { get; set; }
+
+        public static int NRequestPerTask { get; set; }
+
+        //-------------------------------
+        //quản lý thời gian update:
+
+        //quản lý dữ liệu có cần cập nhật khi gadget hỏi hay không
+        public static bool bEmpireOverviewIsNewData { get; set; }
     }
 }

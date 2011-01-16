@@ -16,6 +16,7 @@ namespace IkariamFramework.BUSIkariamFramework
             if (Gloval.Database.Account.Event == null)
             {
                 DAOEvent.GetEventEntry();
+                Gloval.Database.Account.DTEvent = DateTime.Now;
             }
 
             return Gloval.Database.Account.Event.Count();
@@ -27,6 +28,7 @@ namespace IkariamFramework.BUSIkariamFramework
             if (Gloval.Database.Account.Event == null)
             {
                 DAOEvent.GetEventEntry();
+                Gloval.Database.Account.DTEvent = DateTime.Now;
             }
 
             if (0 <= iIndex && iIndex < Gloval.Database.Account.Event.Count())
@@ -41,6 +43,7 @@ namespace IkariamFramework.BUSIkariamFramework
         public static void ForceUpdate()
         {
             DAOEvent.GetEventEntry();
+            Gloval.Database.Account.DTEvent = DateTime.Now;
         }
     }
 }

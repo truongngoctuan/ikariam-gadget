@@ -34,6 +34,19 @@ namespace IkariamFramework.DTOIkariamFramework
             DIPLOMAT = 8
         }
 
+        //-------------------------------
+        //quản lý thời gian update:
+        // - gold
+        public DateTime DTGold { get; set; }
+
+        // - event
+        public DateTime DTEvent { get; set; }
+
+        // - research
+        public DateTime DTResearch { get; set; }
+
+        // - message
+        public DateTime DTMessage { get; set; }
     }
 }
 

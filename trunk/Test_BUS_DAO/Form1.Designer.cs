@@ -63,6 +63,7 @@
             this.button27 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.button29 = new System.Windows.Forms.Button();
+            this.lbNRequest = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbResult
@@ -407,11 +408,21 @@
             this.button29.UseVisualStyleBackColor = true;
             this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
+            // lbNRequest
+            // 
+            this.lbNRequest.AutoSize = true;
+            this.lbNRequest.Location = new System.Drawing.Point(12, 71);
+            this.lbNRequest.Name = "lbNRequest";
+            this.lbNRequest.Size = new System.Drawing.Size(13, 13);
+            this.lbNRequest.TabIndex = 35;
+            this.lbNRequest.Text = "0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 490);
+            this.Controls.Add(this.lbNRequest);
             this.Controls.Add(this.button29);
             this.Controls.Add(this.button28);
             this.Controls.Add(this.button27);
@@ -491,6 +502,7 @@
         private System.Windows.Forms.Button button27;
         private System.Windows.Forms.Button button28;
         private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Label lbNRequest;
     }
 }
 

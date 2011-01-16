@@ -197,13 +197,13 @@ namespace IkariamFramework.DAOIkariamFramework
             HtmlNode node3 = Gloval.Database.DocumentNode.SelectSingleNode(
         XPathManager.XPathCity.NetGold);
 
-            Gloval.Database.Account.Cities[iIndex].GoldIncome = NodeParser.toUnsignedLong(node3.InnerText);
+            Gloval.Database.Account.Cities[iIndex].GoldPerHour = NodeParser.toUnsignedLong(node3.InnerText);
 
             //scientist point per hour
             HtmlNode node4 = Gloval.Database.DocumentNode.SelectSingleNode(
 XPathManager.XPathCity.ScientistPointPerHour);
 
-            Gloval.Database.Account.Cities[iIndex].ScientistPointPerHour = NodeParser.toInt(node4.NextSibling.InnerText);
+            Gloval.Database.Account.Cities[iIndex].ResearchPointPerHour = NodeParser.toInt(node4.NextSibling.InnerText);
         }
         #endregion
     }

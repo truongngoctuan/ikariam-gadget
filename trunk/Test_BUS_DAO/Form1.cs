@@ -577,8 +577,8 @@ namespace Test_BUS_DAO
 
             strResult.Append("polimit: " + ct.PopulationLimit);
             strResult.Append(" pogrow: " + ct.PopulationGrow.ToString());
-            strResult.Append(" net gold: " + ct.GoldIncome);
-            strResult.Append(" scientist point per hour: " + ct.ScientistPointPerHour.ToString());
+            strResult.Append(" net gold: " + ct.GoldPerHour);
+            strResult.Append(" scientist point per hour: " + ct.ResearchPointPerHour.ToString());
 
             strResult.Append("\r\n");
 
@@ -608,8 +608,8 @@ namespace Test_BUS_DAO
 
                 strResult.Append("polimit: " + ct.PopulationLimit);
                 strResult.Append(" pogrow: " + ct.PopulationGrow.ToString());
-                strResult.Append(" net gold: " + ct.GoldIncome);
-                strResult.Append(" scientist point per hour: " + ct.ScientistPointPerHour.ToString());
+                strResult.Append(" net gold: " + ct.GoldPerHour);
+                strResult.Append(" scientist point per hour: " + ct.ResearchPointPerHour.ToString());
 
                 strResult.Append("\r\n");
             }
