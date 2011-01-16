@@ -43,7 +43,7 @@ function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
 
     gadgetContent.innerHTML = content;
-    gadgetBackgroundImage.src = 'url(images/Overview.png)';
+    gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
 }
 
 function CreateGUI(oGadgetDocument) {
@@ -162,6 +162,18 @@ function endProcess() {
 
 function Login() {
     authenticated = false;
+    debugger;
+    var obj = eval('(' + Framework.GetJSON() + ')');
+    var myData = JSON.parse(Framework.GetJSON(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
     
     var errorMessageCode = -1;    
     // Exit if no credentials exist
@@ -374,7 +386,7 @@ function ShowHideFlyout() {
 ////////////////////////////////////////////////////////////////////////////////
 function OnShowFlyout() {
     if (overviewState == OverviewStates.Towns) {
-        AddTownToFlyout();
+        SetEmpireOverviewGUI();
     }
     else if (overviewState = OverviewStates.Military) {
     }
@@ -384,25 +396,48 @@ function OnShowFlyout() {
     }
 }
 
-function AddTownToFlyout() {
-    debugger;
+function SetTownOverviewGUI() {
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+
+    oFlyoutContent.className = "townOverview";
+    flyoutContent = "";
+    flyoutContent += '<table>\
+                <tr valign="bottom" style="background-image:url(images/empireOverview/button.gif)">\
+	                <td name="Name"><div style="width:80px;"></div></td>\
+	                <td name="ActionPoint"><img src="images/empireOverview/icon_action.gif" /></td>\
+	                <td name="Population (PopulationLimit)"> <img src="images/empireOverview/icon_citizen.gif"/></td>\
+	                <td name="Wood"><img src="images/empireOverview/icon_wood.gif" /></td>\
+	                <td name="Wine"><img src="images/empireOverview/icon_wine.gif" /></td>\
+	                <td name="Marble"><img src="images/empireOverview/icon_marble.gif" /></td>\
+	                <td name="Crystal"><img src="images/empireOverview/icon_glass.gif" /></td>\
+	                <td name="Sulphur"><img src="images/empireOverview/icon_sulfur.gif" /></td>\
+	                <td name="ResearchPointPerHour"><img src="images/empireOverview/icon_research.gif" /></td>\
+	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
+                </tr>';
+                
+    flyoutContent += '</table>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function SetEmpireOverviewGUI() {    
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
 
     oFlyoutContent.className = "empireOverview";
     flyoutContent = "";
     flyoutContent += '<table>\
-                <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
+                <tr valign="bottom" style="background-image:url(images/empireOverview/button.gif)">\
 	                <td name="Name"><div style="width:80px;"></div></td>\
-	                <td name="ActionPoint"><img src="images/ikariam/icon_action.gif" /></td>\
-	                <td name="Population (PopulationLimit)"> <img src="images/ikariam/icon_citizen.gif"/></td>\
-	                <td name="Wood"><img src="images/ikariam/icon_wood.gif" /></td>\
-	                <td name="Wine"><img src="images/ikariam/icon_wine.gif" /></td>\
-	                <td name="Marble"><img src="images/ikariam/icon_marble.gif" /></td>\
-	                <td name="Crystal"><img src="images/ikariam/icon_glass.gif" /></td>\
-	                <td name="Sulphur"><img src="images/ikariam/icon_sulfur.gif" /></td>\
-	                <td name="ResearchPointPerHour"><img src="images/ikariam/icon_research.gif" /></td>\
-	                <td name="GoldPerHour"><img src="images/ikariam/icon_gold.gif" /></td>\
+	                <td name="ActionPoint"><img src="images/empireOverview/icon_action.gif" /></td>\
+	                <td name="Population (PopulationLimit)"> <img src="images/empireOverview/icon_citizen.gif"/></td>\
+	                <td name="Wood"><img src="images/empireOverview/icon_wood.gif" /></td>\
+	                <td name="Wine"><img src="images/empireOverview/icon_wine.gif" /></td>\
+	                <td name="Marble"><img src="images/empireOverview/icon_marble.gif" /></td>\
+	                <td name="Crystal"><img src="images/empireOverview/icon_glass.gif" /></td>\
+	                <td name="Sulphur"><img src="images/empireOverview/icon_sulfur.gif" /></td>\
+	                <td name="ResearchPointPerHour"><img src="images/empireOverview/icon_research.gif" /></td>\
+	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
                 </tr>';
     var citiesCount = Framework.GetEmpireOverviewUnitNum();
     if (citiesCount > 0) {
@@ -430,7 +465,7 @@ function AddTownToFlyout() {
 
         flyoutContent += '<tr valign="bottom" style="background-color:#DDAE61">\
 	                        <td><div style="width:80px;"><b>' + 'Total' + '</b></div></td>\
-	                        <td>' + ' ' + '</td>\
+	                        <td>' + '-' + '</td>\
 	                        <td>' + total.Population + '</td>\
 	                        <td>' + total.Wood + ' (+' + total.WoodPerHour + ')</td>\
 	                        <td>' + total.Wine + ' (+' + total.WinePerHour + ')</td>\
