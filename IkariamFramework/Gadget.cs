@@ -72,6 +72,10 @@ namespace IkariamFramework
         {
             return empireOverviewUnits.Length;
         }
+        public EmpireOverviewUnit GetEmptyEmpireOverviewUnit()
+        {
+            return new EmpireOverviewUnit();
+        }
 
         public EmpireOverviewUnit EmpireOverviewUnit(int index)
         {
@@ -81,6 +85,51 @@ namespace IkariamFramework
                 return empireOverviewUnits[index];
             }
             return null;
+        }
+        #endregion
+
+        #region AutoRequest
+        Thread autoRequestThread = null;
+        // nen de bien' nay` len GlobarVar luon cho tien
+        public volatile bool bStopAutoRequest = false;
+        public void InitAutoRequest()
+        {
+            if (autoRequestThread == null)
+            {
+                autoRequestThread = new Thread(new ThreadStart(ThreadWorker));
+                autoRequestThread.Start();
+            }
+        }        
+        public void StopAutoRequest()
+        {
+            if (autoRequestThread != null)
+            {
+                bStopAutoRequest = true;
+                autoRequestThread.Abort();
+                autoRequestThread = null;
+            }
+        }
+
+        // ===============================
+        // tach cai' cuc. nay` ra ham` cua mai`
+        enum RequestTarget { None = 0, Towns = 1, Military = 2, Research = 4, Diplomacy = 8 };
+        RequestTarget requestTarget = RequestTarget.None;
+        int nextRequestIn = 3600000; //1 minutes
+        // ===============================
+        private void ThreadWorker()
+        {
+            // ===============================
+            // tack cuc nay` ra ham` cua mai` ben lop' nao` do'
+            while (!bStopAutoRequest)
+            {
+                //Request requestTarget 
+                //BUS.RequestSomething();
+                //Update requestTarget
+                requestTarget = RequestTarget.Towns;
+                nextRequestIn = 3600000;
+                Thread.Sleep(nextRequestIn); //Sua thanh wait de
+            }
+            // ===============================
         }
         #endregion
 

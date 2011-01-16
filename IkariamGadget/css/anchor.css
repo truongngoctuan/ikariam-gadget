@@ -1,4 +1,10 @@
-﻿.gadgetGUI_docked #anchor
+﻿.gadgetGUI_docked
+{
+	width : 130;
+	height : 100;
+	background-image : url(images/Welcome.png);
+}
+.gadgetGUI_docked #anchor
 {
 	position : absolute;
     left : 10;
@@ -17,17 +23,22 @@
 .gadgetGUI_docked #stateBlock
 {
 	float : left;
-	width : 75;
+	width : 80;
     height : 15;
 	text-align : center;
-	background-image : url(images/state.png);
-    
+    background-image : url(images/state.png);
 }
 .gadgetGUI_docked #state
 {
-	font-size : x-small;
+	font-size : small;
 }
 
+.gadgetGUI_undocked
+{
+	width : 400;
+	height : 300;
+	background-image : url(images/Welcome_undocked.png);
+}
 .gadgetGUI_undocked #anchor
 {
 	position : absolute;

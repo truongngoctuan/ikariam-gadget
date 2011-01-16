@@ -58,10 +58,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="css\townsoverview.css" />
     <Content Include="gadget.html" />
     <Content Include="css\anchor.css" />
-    <Content Include="css\overview.css" />
     <Content Include="flyout_gmail.html" />
     <Content Include="css\flyout.css" />
     <Content Include="css\gadget.css" />
