@@ -18,7 +18,6 @@ var builder;
 // .NET instance of the IkariamFramework.Gadget object.
 var Framework;
 
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 // State & GUI
@@ -161,20 +160,7 @@ function endProcess() {
 }
 
 function Login() {
-    authenticated = false;
-    debugger;
-    var obj = eval('(' + Framework.GetJSON() + ')');
-    var myData = JSON.parse(Framework.GetJSON(), function(key, value) {
-        var type;
-        if (value && typeof value === 'object') {
-            type = value.type;
-            if (typeof type === 'string' && typeof window[type] === 'function') {
-                return new (window[type])(value);
-            }
-        }
-        return value;
-    });
-    
+    authenticated = false;    
     var errorMessageCode = -1;    
     // Exit if no credentials exist
     if (displayname == "" || username == "" || password == "") {
@@ -439,13 +425,33 @@ function SetEmpireOverviewGUI() {
 	                <td name="ResearchPointPerHour"><img src="images/empireOverview/icon_research.gif" /></td>\
 	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
                 </tr>';
-    var citiesCount = Framework.GetEmpireOverviewUnitNum();
+
+    //var citiesCount = Framework.GetEmpireOverviewUnitNum();
+    
+    var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+    
+    var citiesCount = 0;
+    for (var k in empireOverviewUnits) {
+        if (empireOverviewUnits.hasOwnProperty(k))
+            citiesCount++;
+    }   
+    
     if (citiesCount > 0) {
         var total = Framework.GetEmptyEmpireOverviewUnit();
         var town;
         for (var i = 0; i < citiesCount; i++) {
-            town = Framework.EmpireOverviewUnit(i);
-            
+            //town = Framework.EmpireOverviewUnit(i);
+            town = empireOverviewUnits[i];
+                        
             total.Population += town.Population;
             total.Wood += town.Wood;
             total.WoodPerHour += town.WoodPerHour;
@@ -462,7 +468,7 @@ function SetEmpireOverviewGUI() {
             
             flyoutContent += townToHTML(town, i % 2);
         }
-
+        
         flyoutContent += '<tr valign="bottom" style="background-color:#DDAE61">\
 	                        <td><div style="width:80px;"><b>' + 'Total' + '</b></div></td>\
 	                        <td>' + '-' + '</td>\

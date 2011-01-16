@@ -9,6 +9,7 @@ using System.Threading;
 using IkariamFramework.BUSIkariamFramework;
 using IkariamFramework.DTOIkariamFramework;
 using IkariamFramework.PresentationUnit;
+using Newtonsoft.Json;
 
 namespace IkariamFramework
 {
@@ -32,10 +33,7 @@ namespace IkariamFramework
             //int errCode = BUSAction.Login(username, password, server);
             int errCode = 0;
             if (errCode == 0)
-            {
                 Authenticated = true;
-                Gloval.bEmpireOverviewIsNewData = false;
-            }
             else
                 Authenticated = false;
             return errCode;
@@ -44,17 +42,7 @@ namespace IkariamFramework
 
         public string getJSON()
         {
-            return "";
-            //return "{\"bindings\": 
-            //    [{\"ircEvent\": \"PRIVMSG\", 
-            //        \"method\": \"newURI\",
-            //        \"regex\": \"^http://.*\"}, 
-            //{\"ircEvent\": \"PRIVMSG\", 
-            //    \"method\": \"deleteURI\", 
-            //    \"regex\": \"^delete.*\"}, 
-            //{\"ircEvent\": \"PRIVMSG\", 
-            //    \"method\": \"randomURI\", 
-            //    \"regex\": \"^random.*\"}]}";
+            return "{\"bindings\": [{\"ircEvent\": \"PRIVMSG\", \"method\": \"newURI\",\"regex\": \"^http://.*\"}, {\"ircEvent\": \"PRIVMSG\", \"method\": \"deleteURI\", \"regex\": \"^delete.*\"}, {\"ircEvent\": \"PRIVMSG\", \"method\": \"randomURI\", \"regex\": \"^random.*\"}]}";
         }
 
         #region EmpireOverview
@@ -84,17 +72,20 @@ namespace IkariamFramework
                                     Sulphur = 3000, SulphurPerHour = 3600, SulphurLimit = 300000,
                                     GoldPerHour = 3600, ResearchPointPerHour = 3600}
         };
-
-       
-        public int GetEmpireOverviewUnitNum()
-        {
-            return empireOverviewUnits.Length;
-        }
+        
         public EmpireOverviewUnit GetEmptyEmpireOverviewUnit()
         {
             return new EmpireOverviewUnit();
         }
+        public string GetEmpireOverviewUnits()
+        {
+            return JsonConvert.SerializeObject(empireOverviewUnits, Formatting.Indented);
+        }
 
+        public int GetEmpireOverviewUnitNum()
+        {
+            return empireOverviewUnits.Length;
+        }
         public EmpireOverviewUnit EmpireOverviewUnit(int index)
         {
             Thread.Sleep(1000);
@@ -130,15 +121,7 @@ namespace IkariamFramework
 
         // ===============================
         // tach cai' cuc. nay` ra ham` cua mai`
-        enum RequestTarget { None = 0, 
-            Towns = 1, 
-            Troops = 2, 
-            Research = 4, 
-            Diplomacy = 8, 
-            //All = 16,
-            Gold_page = 32,
-            Building = 64
-            };
+        enum RequestTarget { None = 0, Towns = 1, Military = 2, Research = 4, Diplomacy = 8 };
         RequestTarget requestTarget = RequestTarget.None;
         int nextRequestIn = 3600000; //1 minutes
         // ===============================
@@ -146,88 +129,16 @@ namespace IkariamFramework
         {
             // ===============================
             // tack cuc nay` ra ham` cua mai` ben lop' nao` do'
-            requestTarget = (RequestTarget)64;
-
             while (!bStopAutoRequest)
             {
                 //Request requestTarget 
                 //BUS.RequestSomething();
                 //Update requestTarget
-                //requestTarget = RequestTarget.Towns;
-
-                makeRequest();
-
-                requestTarget = (RequestTarget)GetNextRequest(out nextRequestIn);
+                requestTarget = RequestTarget.Towns;
+                nextRequestIn = 3600000;
                 Thread.Sleep(nextRequestIn); //Sua thanh wait de
             }
             // ===============================
-        }
-
-        int GetNextRequest(out int tNextRequest)
-        {
-            tNextRequest = 60000;
-            int iNextRequest = (int)RequestTarget.Gold_page;
-
-            //kiem tra adv xem co can request trong lan tiep theo hay khong
-            //khong can nua, mac dinh la request gold_page rùi
-
-            //kiem tra cac su kien move, xay xong nha, co su kien nao nho hon 
-            //tNexRequest mac dinh hay ko, 
-            //neu co add them vao iNextRequest
-
-            return iNextRequest;
-        }
-
-        void makeRequest()
-        {
-            //go to gold_page 
-            if ((requestTarget & RequestTarget.Gold_page) != 0)
-            {
-                //kiem tra xem co adv nao active hay ko, 
-                //neu co bo sung vao requestTarget de cap nhat
-                //ngay lap tuc, khong doi lan request sau
-                BUSAction.AutoLoadDefaultPage();
-                int iAdvstatus = BUSAction.CheckAdvStatus();
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
-                {
-                    requestTarget |= RequestTarget.Towns;
-                }
-
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
-                {
-                    requestTarget |= RequestTarget.Troops;
-                    //check thêm move
-                }
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.SCIENTIST) != 0)
-                {
-                    requestTarget |= RequestTarget.Research;
-                }
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.DIPLOMAT) != 0)
-                {
-                    requestTarget |= RequestTarget.Diplomacy;
-                }
-            }
-            
-            //if then else request tung cai' trong request target
-            if ((requestTarget & RequestTarget.Towns) != 0)
-            {
-                BUSAction.AutoRequestTowns();
-                Gloval.bEmpireOverviewIsNewData = true;
-            }
-            if ((requestTarget & RequestTarget.Building) != 0)
-            {
-                BUSAction.AutoRequestBuildings();
-                Gloval.bEmpireOverviewIsNewData = true;
-            }
-            if ((requestTarget & RequestTarget.Research) != 0)
-            {
-            }
-            if ((requestTarget & RequestTarget.Troops) != 0)
-            {
-            }
-            if ((requestTarget & RequestTarget.Diplomacy) != 0)
-            {
-            }
         }
         #endregion
 
@@ -257,14 +168,6 @@ namespace IkariamFramework
             // Nothing to do here.
         }
 
-        #endregion
-
-        #region interface method gadget use
-
-        public string requestEmpireOverview()
-        {
-            return BUSAction.requestTownsFromGadget();
-        }
         #endregion
     }
 }
