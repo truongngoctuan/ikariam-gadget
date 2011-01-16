@@ -89,6 +89,7 @@
     <Content Include="images\Welcome_undocked.png" />
     <Content Include="scripts\gadget.js" />
     <Content Include="scripts\GadgetInterop.js" />
+    <Content Include="scripts\json2.js" />
     <Content Include="scripts\settings.js" />
     <Content Include="settings.html" />
   </ItemGroup>
