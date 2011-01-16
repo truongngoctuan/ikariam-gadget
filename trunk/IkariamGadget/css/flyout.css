@@ -9,6 +9,27 @@ body
 /*
 	Flyout Overview
 */
+body,td {
+	font: normal 10px Verdana,Arial,Helvetica,sans-serif;
+	color: #542C0F;
+	padding : 0 0;	
+	margin: 0 0;
+}
+
+table {
+	background-color:#F7E7C5;
+}
+
+td,tr,table,img {
+	padding : 0 0;	
+	margin:0 0;
+	border-style:none;
+	border-width:0;
+	border-spacing: 0px 0px;
+	vertical-align:middle;
+}
+
+/* EmpireOverview */
 .empireOverview {
 	background-color : #FFEECA
 }
@@ -23,15 +44,34 @@ body
 	height:20px;
 	margin:5px;
 }
-body,td {
-	font: normal 10px Verdana,Arial,Helvetica,sans-serif;
-	color: #542C0F;
+
+/* TownOverview */
+.townOverview {
+		background-color : #FFEECA
+	}
+.townOverview td {
+	text-align : center; 	
+	width : 8em;
+	border : 1px solid #7E4A21;		
 }
-td,tr,table,img {
-	padding : 0 0;	
-	margin:0 0;
-	border-style:none;
-	border-width:0;
-	border-spacing: 0px 0px;
-	vertical-align:middle;
+.townOverview img {
+	height:17px;
+	width:20px;
+	margin:2px;
 }
+
+/* TroopOverview */
+.troopOverview {
+		background-color : #FFEECA
+	}
+.troopOverview td {
+	text-align : center; 	
+	width : 8em;
+	border : 1px solid #7E4A21;		
+}
+.troopOverview img {
+	height: 30px;
+	width: 35px;
+	margin: 2px;
+}
+

@@ -73,15 +73,31 @@ a:hover
 .gadgetGUI_docked .overviewItem3
 {
 	position : absolute;
-    left : 10;
-    top : 40;
+    left : 110;
+    top : 10;
 	width : 25;
 	height : 30;
 }
 .gadgetGUI_docked .overviewItem4
 {
 	position : absolute;
+    left : 10;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem5
+{
+	position : absolute;
     left : 60;
+    top : 40;
+	width : 25;
+	height : 30;
+}
+.gadgetGUI_docked .overviewItem6
+{
+	position : absolute;
+    left : 110;
     top : 40;
 	width : 25;
 	height : 30;
@@ -111,15 +127,31 @@ a:hover
 .gadgetGUI_undocked .overviewItem3
 {
 	position : absolute;
-    left : 10;
-    top : 150;
+    left : 190;
+    top : 10;
 	width : 75;
 	height : 90;
 }
 .gadgetGUI_undocked .overviewItem4
 {
 	position : absolute;
+    left : 10;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_docked .overviewItem5
+{
+	position : absolute;
     left : 100;
+    top : 150;
+	width : 75;
+	height : 90;
+}
+.gadgetGUI_docked .overviewItem6
+{
+	position : absolute;
+    left : 190;
     top : 150;
 	width : 75;
 	height : 90;

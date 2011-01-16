@@ -23,7 +23,7 @@ namespace IkariamFramework.DTOIkariamFramework
             //unit type
             Hoplite,
             Steam_Giant,
-            Spearmen,
+            Spearman,
             Swordsman,
             Slinger,
             Archer,
