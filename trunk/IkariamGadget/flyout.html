@@ -4,36 +4,40 @@
     <script src="scripts/gadget.js" type="text/javascript"></script>
     <link href="css/flyout.css" rel="stylesheet" type="text/css" />
 </head>
-<body style="width:800">
+<body style="width:850px">
 <div id="gadgetGUI" style="text-align:center">
-<ul style="display:block; padding: 0 0; margin:0 0; list-style-type:none;">
-<li style="border:none; display:inline; padding: 0 0; margin:0 0;"> <div style="display:inline; background-image:url(images/note/notes_top_left.gif); width:39px; height:39px;"></div></li>
-<li style="border:none; display:inline; padding: 0 0; margin:0 0;"><div style="display:inline; background-image:url(images/note/notes_top.gif); width:770px; height:39px;"></div></li>
-<li style="border:none; display:inline; padding: 0 0; margin:0 0;"><div style="display:inline; background-image:url(images/note/notes_top_right.gif); width:39px; height:39px;"></div></li>
-</ul>
-<div style="display:block;
+<div style="position:absolute;top:0px;left:0px;
+width:850px; height:39px;
+margin-left:10px;">
+	<div style="float:left;
+	background-image:url(images/note/notes_top_left.gif); width:39px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top.gif); width:770px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top_right.gif); width:39px; height:39px;"></div>
+</div>
+<div style="position:absolute; top:39px; left:10px;
     width:844px;
-    height:400px;
+    
     background-color:#F6E9C6;
     border-bottom: 3px solid #D2A860;
     border-left: 3px solid #D2A860;
     border-right: 3px solid #D2A860;
     padding: 5px 0 0 0;
-    margin: 0 2px 0 2px;    
-    ">
-    <table class="empireOverview" style="position:relative; left:20px; top:5px;
-    width:800px; display:block; padding:0; margin: 0 0; border-style:none;">    
+    margin: 0 2px 0 2px;">
+    <table class="empireOverview" style="position:relative; left:0px; top:5px;
+    display:block; padding:0; margin: 0px 20px 10px 20px; border-style:none;">   
         <tr valign="bottom" style="background-image: url()">
-            <td name="wd_l" style="background-image: url(images/note/notes_left.gif); width: 17px">
-            </td>
+            <!--<td name="wd_l" style="background-image: url(images/note/notes_left.gif); width: 17px">
+            </td>-->
             <td name="wd_m">
                 <g:background id="flyoutBackgroundImage">
                     <div id="flyoutContent">
                     </div>
                 </g:background>
             </td>
-            <td name="wd_r" style="background-image: url(images/note/notes_right.gif); width: 17px">
-            </td>
+            <!--<td name="wd_r" style="background-image: url(images/note/notes_right.gif); width: 17px">
+            </td>-->
         </tr>
     </table>    
     <input type="button" onclick="javascript:ShowHideFlyout()" value="Close" />

@@ -55,6 +55,17 @@ namespace IkariamFramework
         #endregion
 
         #region EmpireOverview
+        EmpireOverviewUnit[] emptyEmpireOverviewUnits = new EmpireOverviewUnit[] {
+            new EmpireOverviewUnit{TownName = "-", ID = 0, X = 0, Y = 0, ActionPoint = 0,
+                                    FreePopulation = 0, Population = 0, PopulationLimit = 0,
+                                    Wood = 0, WoodPerHour = 0, WoodLimit = 0,
+                                    Wine = 0, WinePerHour = 0, WineLimit = 0,
+                                    Marble = 0, MarblePerHour = 0, MarbleLimit = 0,
+                                    Crystal = 0, CrystalPerHour = 0, CrystalLimit = 0,
+                                    Sulphur = 0, SulphurPerHour = 0, SulphurLimit = 0,
+                                    GoldPerHour = 0, ResearchPointPerHour = 0}
+        };
+
         EmpireOverviewUnit[] empireOverviewUnits = new EmpireOverviewUnit[] {
             new EmpireOverviewUnit{TownName = "City1", ID = 1, X = 1, Y = 1, ActionPoint = 1,
                                     FreePopulation = 100, Population = 200, PopulationLimit = 1000,
@@ -149,6 +160,14 @@ namespace IkariamFramework
         #endregion
 
         #region TownOverview
+        List<TownOverviewUnit> emptyTownOverviewUnits = new List<TownOverviewUnit>
+        {
+            new TownOverviewUnit{TownName = "-", X = 0, Y = 0, 
+                Buildings = new Dictionary<string,DTOBuilding>{
+                    {"Townhall", new DTOBuilding{Lvl = 0, Type = DTOBuilding.TYPE.Townhall}}
+            }}
+        };
+
         List<TownOverviewUnit> townOverviewUnits = new List<TownOverviewUnit> {
             new TownOverviewUnit{TownName = "Town1", X = 1, Y = 1, 
                 Buildings = new Dictionary<string,DTOBuilding>{
@@ -209,6 +228,18 @@ namespace IkariamFramework
         #endregion
 
         #region TroopOverview
+        List<TroopOverviewUnit> emptyTroopOverviewUnits = new List<TroopOverviewUnit> {
+            new TroopOverviewUnit{
+                TownName = "-", 
+                X = 0, 
+                Y = 0, 
+                Troops = new Dictionary<string, DTOTroops>{                    
+                },
+                Ships = new Dictionary<string, DTOTroops>{
+                }
+            }
+        };
+
         List<TroopOverviewUnit> troopOverviewUnits = new List<TroopOverviewUnit> {
             new TroopOverviewUnit{
                 TownName = "Town1", 
@@ -579,19 +610,21 @@ namespace IkariamFramework
                 return BUSAction.requestTownsFromGadget();
             }
             catch (Exception ex)
-            { return ""; }
+            { 
+                return JsonConvert.SerializeObject(emptyEmpireOverviewUnits); 
+            }
         }
 
         public string requestBuildingsOverview()
         {
-            try{
-            return BUSAction.requestBuildingsFromGadget();
+            try
+            {
+                return BUSAction.requestBuildingsFromGadget();
             }
-                catch (Exception ex)
-            { 
-                    return "";
-                
-                }
+            catch (Exception ex)
+            {
+                return JsonConvert.SerializeObject(emptyTownOverviewUnits);
+            }
         }
 
         public string requestTroopsOverview()
@@ -602,8 +635,7 @@ namespace IkariamFramework
             }
             catch (Exception ex)
             {
-                return "";
-
+                return JsonConvert.SerializeObject(emptyTroopOverviewUnits);
             }
         }
         #endregion
