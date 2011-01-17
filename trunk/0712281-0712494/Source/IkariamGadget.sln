@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gadget.Interop", "Gadget.Interop\Gadget.Interop.csproj", "{6DD83908-2256-4C3C-B9C6-FBD773E1DE8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkariamGadget", "IkariamGadget\IkariamGadget.csproj", "{BE06FD53-DB56-497F-8B9E-FC94E38E99E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IkariamFramework", "IkariamFramework\IkariamFramework.csproj", "{153DF6F1-F901-47BD-907C-6D1427C08B41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_BUS_DAO", "Test_BUS_DAO\Test_BUS_DAO.csproj", "{E0676DD1-F046-4062-96B9-21E3AA24C5DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DD83908-2256-4C3C-B9C6-FBD773E1DE8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD83908-2256-4C3C-B9C6-FBD773E1DE8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD83908-2256-4C3C-B9C6-FBD773E1DE8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD83908-2256-4C3C-B9C6-FBD773E1DE8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE06FD53-DB56-497F-8B9E-FC94E38E99E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE06FD53-DB56-497F-8B9E-FC94E38E99E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE06FD53-DB56-497F-8B9E-FC94E38E99E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE06FD53-DB56-497F-8B9E-FC94E38E99E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153DF6F1-F901-47BD-907C-6D1427C08B41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153DF6F1-F901-47BD-907C-6D1427C08B41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153DF6F1-F901-47BD-907C-6D1427C08B41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153DF6F1-F901-47BD-907C-6D1427C08B41}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0676DD1-F046-4062-96B9-21E3AA24C5DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0676DD1-F046-4062-96B9-21E3AA24C5DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0676DD1-F046-4062-96B9-21E3AA24C5DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0676DD1-F046-4062-96B9-21E3AA24C5DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

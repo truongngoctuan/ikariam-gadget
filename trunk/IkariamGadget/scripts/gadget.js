@@ -428,7 +428,7 @@ function Refresh() {
         }        
     }
     if (autoRefresh)
-        setTimeout(function() { Refresh(); }, 1000);
+        setTimeout(function() { Refresh(); }, frequency);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
