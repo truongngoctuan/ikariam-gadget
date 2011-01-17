@@ -112,7 +112,7 @@ namespace IkariamFramework.BUSIkariamFramework
         }
 
         #region auto - scenario request
-        public static void AutoRequestTowns()
+        public static void AutoRequestEmpireOverview()
         {
             //get res all city
             int nCities = BUSCity.Count();
@@ -127,6 +127,9 @@ namespace IkariamFramework.BUSIkariamFramework
                 BUSCity.GetTownHallInfomationInCity(i, true);
             }
 
+            //event
+            BUSEvent.ForceUpdate();
+
             Gloval.bEmpireOverviewIsNewData = true;
         }
 
@@ -139,7 +142,7 @@ namespace IkariamFramework.BUSIkariamFramework
                 BUSBuilding.ForceUpdate(i);
             }
 
-            Gloval.bEmpireOverviewIsNewData = true;
+            //Gloval.bEmpireOverviewIsNewData = true;
         }
 
         public static void AutoRequestTroops()
@@ -174,15 +177,16 @@ namespace IkariamFramework.BUSIkariamFramework
         {
             if (Gloval.bEmpireOverviewIsNewData)
             {
-                //cap nhat thong tin dang luu tru phu` hop voi thoi diem hien ta
-                BUSCity.CalculateResourceFromLocalData();
+                ////cap nhat thong tin dang luu tru phu` hop voi thoi diem hien ta
+                BUSCity.CalculateFromLocalData();
 
                 //cap nhat lai thanh du lieu cu
                 //de gadget khong lay lai lan nua
                 Gloval.bEmpireOverviewIsNewData = false;
 
-                //lay cho gadget
-                //return JSONConverter.toEmpireOverviewUnitJSON();
+                //lay du lieu moi update cho gadget
+                return JSONConverter.toEmpireOverviewUnitJSON();
+                //return "new data";
             }
 
             return "";

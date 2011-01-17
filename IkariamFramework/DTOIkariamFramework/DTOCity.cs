@@ -35,11 +35,11 @@ namespace IkariamFramework.DTOIkariamFramework
 
         public bool IsUpdatedResource = false;
 
-        public int Wood { get; set; }
-        public int Wine { get; set; }
-        public int Marble { get; set; }
-        public int Crystal { get; set; }
-        public int Sulphur { get; set; }
+        public float Wood { get; set; }
+        public float Wine { get; set; }
+        public float Marble { get; set; }
+        public float Crystal { get; set; }
+        public float Sulphur { get; set; }
 
         public int WoodPerHour { get; set; }
         public int WinePerHour { get; set; }
@@ -47,8 +47,8 @@ namespace IkariamFramework.DTOIkariamFramework
         public int CrystalPerHour { get; set; }
         public int SulphurPerHour { get; set; }
 
-        public int Population { get; set; }
-        public int FreePopulation { get; set; }
+        public float Population { get; set; }
+        public float FreePopulation { get; set; }
 
         public int ActionPoint { get; set; }
 

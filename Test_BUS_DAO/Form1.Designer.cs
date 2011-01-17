@@ -64,15 +64,20 @@
             this.button28 = new System.Windows.Forms.Button();
             this.button29 = new System.Windows.Forms.Button();
             this.lbNRequest = new System.Windows.Forms.Label();
+            this.button30 = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
+            this.tbThreaddebug = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // tbResult
             // 
-            this.tbResult.Location = new System.Drawing.Point(276, 12);
+            this.tbResult.Location = new System.Drawing.Point(526, 12);
             this.tbResult.Multiline = true;
             this.tbResult.Name = "tbResult";
             this.tbResult.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbResult.Size = new System.Drawing.Size(430, 401);
+            this.tbResult.Size = new System.Drawing.Size(236, 401);
             this.tbResult.TabIndex = 0;
             // 
             // button1
@@ -417,11 +422,63 @@
             this.lbNRequest.TabIndex = 35;
             this.lbNRequest.Text = "0";
             // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(288, 34);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(107, 23);
+            this.button30.TabIndex = 36;
+            this.button30.Text = "run local thread";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(288, 18);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(44, 13);
+            this.label3.TabIndex = 37;
+            this.label3.Text = "Thread:";
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(288, 64);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(107, 23);
+            this.button31.TabIndex = 38;
+            this.button31.Text = "run client request";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(288, 94);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(107, 23);
+            this.button32.TabIndex = 39;
+            this.button32.Text = "stop local thread";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click_1);
+            // 
+            // tbThreaddebug
+            // 
+            this.tbThreaddebug.Location = new System.Drawing.Point(276, 124);
+            this.tbThreaddebug.Multiline = true;
+            this.tbThreaddebug.Name = "tbThreaddebug";
+            this.tbThreaddebug.Size = new System.Drawing.Size(244, 290);
+            this.tbThreaddebug.TabIndex = 40;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(718, 490);
+            this.ClientSize = new System.Drawing.Size(774, 490);
+            this.Controls.Add(this.tbThreaddebug);
+            this.Controls.Add(this.button32);
+            this.Controls.Add(this.button31);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.button30);
             this.Controls.Add(this.lbNRequest);
             this.Controls.Add(this.button29);
             this.Controls.Add(this.button28);
@@ -460,6 +517,8 @@
             this.Controls.Add(this.tbResult);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -503,6 +562,11 @@
         private System.Windows.Forms.Button button28;
         private System.Windows.Forms.Button button29;
         private System.Windows.Forms.Label lbNRequest;
+        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button button32;
+        private System.Windows.Forms.TextBox tbThreaddebug;
     }
 }
 
