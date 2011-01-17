@@ -7,7 +7,7 @@
 .gadgetGUI_docked #anchor
 {
 	position : absolute;
-    left : 10;
+    left : 7;
     top : 85;
 }
 .gadgetGUI_docked #arrow_left
@@ -23,7 +23,7 @@
 .gadgetGUI_docked #stateBlock
 {
 	float : left;
-	width : 80;
+	width : 70;
     height : 15;
 	text-align : center;
     background-image : url(images/state.png);

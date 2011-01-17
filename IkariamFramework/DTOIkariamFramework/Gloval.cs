@@ -21,6 +21,23 @@ namespace IkariamFramework.DTOIkariamFramework
         //quản lý thời gian update:
 
         //quản lý dữ liệu có cần cập nhật khi gadget hỏi hay không
-        public static bool bEmpireOverviewIsNewData { get; set; }
+        public static object lockThis = new Object();
+        private static bool _EmpireOverviewIsNewData;
+        public static bool bEmpireOverviewIsNewData {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _EmpireOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _EmpireOverviewIsNewData = value;
+                }
+            }
+        }
     }
 }

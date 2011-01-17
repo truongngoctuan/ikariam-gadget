@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace IkariamFramework.DTOIkariamFramework
 {
@@ -45,7 +46,7 @@ namespace IkariamFramework.DTOIkariamFramework
 
             Catapult_Ship,
             Mortar_Ship,
-            Diving_boat
+            Diving_Boat
         }
         public TYPE Type { get; set; }
         public int Quality { get; set; }

@@ -23,7 +23,7 @@ var Framework;
 // State & GUI
 //
 ////////////////////////////////////////////////////////////////////////////////
-var States = { Welcome: 0, Overview: 1 }
+var States = { Welcome: 0, Loading : 1, Overview: 2 }
 function Context() {
     this.State = States.Welcome;
 }
@@ -32,7 +32,32 @@ function GetWelcomeGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
     gadgetContent.innerHTML = content;
     gadgetBackgroundImage.src = 'url(images/Welcome_undocked.png)';
-    //gadgetBackgroundImage.src = 'url(images/animated_loading_gallery.gif)';
+}
+
+var currentImage = 0;
+function isLoading()
+{
+	if(Framework.requestCode() > 0)
+		return false;
+	return true;
+}
+function nextLoadingFrame()
+{
+	var loadingImage = document.getElementById('loadingImage');
+	loadingImage.src = 'images/loading/Frame' + currentImage + '.png';
+	currentImage++;
+	if(currentImage > 11)
+		currentImage = 0;
+	if(isLoading() == false)
+		SetState(States.Overview);
+	//else
+	//	setTimeout("nextLoadingFrame()", 1000);
+}
+function GetLoadingGUI(gadgetContent, gadgetBackgroundImage) {
+    var content = "";
+    content += '<img id="loadingImage" src="images/loading/Frame0.png" onload="javascript:setTimeout(' + "'nextLoadingFrame()', 100);" + '"/>';
+    gadgetContent.innerHTML = content;
+    gadgetBackgroundImage.src = 'url(images/Welcome_undocked.png)';	
 }
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
@@ -42,6 +67,7 @@ function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
     content += '<img id="empire" class="overviewItem5" src="images/diplomat_active.gif" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
     content += '<img id="event" class="overviewItem6" src="images/general_active.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
+    content += '<img id="troop" class="overviewItem7" src="images/mayor_active.gif" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
 
     gadgetContent.innerHTML = content;
     gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
@@ -54,6 +80,9 @@ function CreateGUI(oGadgetDocument) {
     if (context.State == States.Welcome) {
         GetWelcomeGUI(oGadgetContent, oGadgetBackgroundImage);        
     }   
+	else if (context.State == States.Loading) {
+        GetLoadingGUI(oGadgetContent, oGadgetBackgroundImage);        
+    }
     else if (context.State == States.Overview) {
         GetOverviewGUI(oGadgetContent, oGadgetBackgroundImage);
     }
@@ -65,6 +94,9 @@ function SetState(state) {
     if (context.State == States.Welcome) {
         oGadgetDocument.getElementById('state').innerHTML = "Welcome !!!";
     }    
+	else if (context.State == States.Loading) {
+        oGadgetDocument.getElementById('state').innerHTML = "Loading !!!";
+    }
     else if (context.State == States.Overview) {
         oGadgetDocument.getElementById('state').innerHTML = "Overview !!!";
     }
@@ -160,7 +192,8 @@ function endProcess() {
 }
 
 function Login() {
-    authenticated = false;    
+    authenticated = false;
+    autoRefresh = false;
     var errorMessageCode = -1;    
     // Exit if no credentials exist
     if (displayname == "" || username == "" || password == "") {
@@ -173,7 +206,9 @@ function Login() {
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        SetState(States.Overview);              
+        autoRefresh = true;
+        Refresh();
+        SetState(States.Loading);              
     }
     else {
         // Fail
@@ -324,7 +359,7 @@ function GadgetDocked() {
 // Overview : open Flyout to show overview
 //
 ////////////////////////////////////////////////////////////////////////////////
-var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5, Event : 6 }
+var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5, Event : 6, Troop : 7 }
 var overviewState = OverviewStates.None;
 
 function onOverview(controlId) {
@@ -340,6 +375,8 @@ function onOverview(controlId) {
         showEmpire();
     else if (controlId == "event")
         showEvent();
+    else if (controlId == "troop")
+        showTroop();
 }
 
 function showTowns() {
@@ -366,14 +403,45 @@ function showEvent() {
     overviewState = OverviewStates.Event;
     ShowHideFlyout();
 }
+function showTroop() {
+    overviewState = OverviewStates.Troop;
+    ShowHideFlyout();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Auto Refresh
+//
+////////////////////////////////////////////////////////////////////////////////
+var autoRefresh = false;
+function Refresh() {
+    if (context.State == States.Overview) {        
+        var code = Framework.requestCode();
+        var debug = Framework.requestDEBUGString();
+        // sang den`
+        if (updateFlyout) {
+        if (code & 1 > 0 && code > 0 /*&& overviewState == OverviewStates.Empire*/) {
+            debugger;
+                OnShowFlyout();
+            }
+        }        
+    }
+    if (autoRefresh)
+        setTimeout(function() { Refresh(); }, 1000);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Shows or hides the flyout
 //
 ////////////////////////////////////////////////////////////////////////////////
+var updateFlyout = false;
 function ShowHideFlyout() {
     System.Gadget.Flyout.show = !System.Gadget.Flyout.show;
+    if (System.Gadget.Flyout.show)
+        updateFlyout = true;
+    else
+        updateFlyout = false;        
 }
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -397,7 +465,155 @@ function OnShowFlyout() {
     }
     else if (overviewState == OverviewStates.Event) {
     }
+    else if (overviewState == OverviewStates.Troop) {
+        SetTroopOverviewGUI();
+    }
 }
+
+function SetTroopOverviewGUI() {
+    debugger;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    oFlyoutContent.className = "troopOverview";
+    flyoutContent = "";
+    flyoutContent += '<table>\
+                <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
+			        <td name="Name"><div style="width:80px;"></div></td>\
+			        <td name="Hoplite"><img src="images/troopOverview/Hoplite.gif" /></td>\
+			        <td name="Steam Giant"><img src="images/troopOverview/Steam_Giant.gif" /></td>\
+			        <td name="Spearman"><img src="images/troopOverview/Spearman.gif" /></td>\
+			        <td name="Swordsman"><img src="images/troopOverview/Swordsman.gif" /></td>\
+			        <td name="Slinger"><img src="images/troopOverview/Slinger.gif" /></td>\
+			        <td name="Archer"><img src="images/troopOverview/Archer.gif" /></td>\
+			        <td name="Sulphur Carabineer"><img src="images/troopOverview/Sulphur_Carabineer.gif" /></td>\
+			        <td name="Ram"><img src="images/troopOverview/Ram.gif" /></td>\
+			        <td name="Catapult"><img src="images/troopOverview/Catapult.gif" /></td>\
+			        <td name="Mortar"><img src="images/troopOverview/Mortar.gif" /></td>\
+			        <td name="Gyrocopter"><img src="images/troopOverview/Gyrocopter.gif" /></td>\
+			        <td name="Balloon Bombardier"><img src="images/troopOverview/Balloon_Bombardier.gif" /></td>\
+			        <td name="Cook"><img src="images/troopOverview/Cook.gif" /></td>\
+			        <td name="Doctor"><img src="images/troopOverview/Doctor.gif" /></td>\
+		        </tr>';
+
+    var troopOverviewUnits = JSON.parse(Framework.GetTroopOverviewUnits(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+
+    var citiesCount = 0;
+    for (var k in troopOverviewUnits) {
+        if (troopOverviewUnits.hasOwnProperty(k))
+            citiesCount++;
+    }
+
+    if (citiesCount > 0) {
+        var troopUnit;
+        for (var i = 0; i < citiesCount; i++) {
+            //town = Framework.EmpireOverviewUnit(i);
+            troopUnit = troopOverviewUnits[i];
+            flyoutContent += troopUnitToHTML(troopUnit, i % 2);
+        }
+    }
+    flyoutContent += '</table>';
+    
+    flyoutContent += '<br /> <br />';
+    
+    flyoutContent += '<table>\
+                <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
+			        <td name="Name"><div style="width:80px;"></div></td>\
+			        <td name="Ram Ship"><img src="images/troopOverview/Ram_Ship.gif" /></td>\
+			        <td name="Fire Giant"><img src="images/troopOverview/Fire_Ship.gif" /></td>\
+			        <td name="Paddle Wheel Ram"><img src="images/troopOverview/Paddle_Wheel_Ram.gif" /></td>\
+			        <td name="Ballista Ship"><img src="images/troopOverview/Ballista_Ship.gif" /></td>\
+			        <td name="Catapult Ship"><img src="images/troopOverview/Catapult_Ship.gif" /></td>\
+			        <td name="Mortar Ship"><img src="images/troopOverview/Mortar_Ship.gif" /></td>\
+			        <td name="Diving Boat"><img src="images/troopOverview/Diving_Boat.gif" /></td>\
+		        </tr>';
+		   
+	if (citiesCount > 0) {
+        var shipUnit;
+        for (var i = 0; i < citiesCount; i++) {
+            //town = Framework.EmpireOverviewUnit(i);
+            shipUnit = troopOverviewUnits[i];
+            flyoutContent += shipUnitToHTML(shipUnit, i % 2);
+        }
+    }     
+    flyoutContent += '</table>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function troopUnitToHTML(troopUnit, isOdd) {
+    if (isOdd == 0) {
+        return '<tr valign="bottom">\
+	                        <td><div style="width:80px;"><b>' + troopUnit.TownName + '</b>' + '(' + troopUnit.X + ',' + troopUnit.Y + ')</div></td>\
+	                        <td>' + (troopUnit.Troops.Hoplite ? troopUnit.Troops.Hoplite.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Steam_Giant ? troopUnit.Troops.Steam_Giant.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Spearman ? troopUnit.Troops.Spearman.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Swordsman ? troopUnit.Troops.Swordsman.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Slinger? troopUnit.Troops.Slinger.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Archer ? troopUnit.Troops.Archer.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Sulphur_Carabineer ? troopUnit.Troops.Sulphur_Carabineer.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Ram ? troopUnit.Troops.Ram.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Catapult ? troopUnit.Troops.Catapult.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Mortar ? troopUnit.Troops.Mortar.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Gyrocopter ? troopUnit.Troops.Gyrocopter.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Balloon_Bombardier ? troopUnit.Troops.Balloon_Bombardier.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Cook ? troopUnit.Troops.Cook.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Doctor ? troopUnit.Troops.Doctor.Quality : '-') + '</td>\
+                    </tr>';
+    }
+    else
+        return '<tr valign="bottom" style="background-color:#FDF7DD">\
+	                        <td><div style="width:80px;"><b>' + troopUnit.TownName + '</b>' + '(' + troopUnit.X + ',' + troopUnit.Y + ')</div></td>\
+	                        <td>' + (troopUnit.Troops.Hoplite ? troopUnit.Troops.Hoplite.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Steam_Giant ? troopUnit.Troops.Steam_Giant.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Spearman ? troopUnit.Troops.Spearman.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Swordsman ? troopUnit.Troops.Swordsman.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Slinger ? troopUnit.Troops.Slinger.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Archer ? troopUnit.Troops.Archer.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Sulphur_Carabineer ? troopUnit.Troops.Sulphur_Carabineer.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Ram ? troopUnit.Troops.Ram.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Catapult ? troopUnit.Troops.Catapult.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Mortar ? troopUnit.Troops.Mortar.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Gyrocopter ? troopUnit.Troops.Gyrocopter.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Balloon_Bombardier ? troopUnit.Troops.Balloon_Bombardier.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Cook ? troopUnit.Troops.Cook.Quality : '-') + '</td>\
+	                        <td>' + (troopUnit.Troops.Doctor ? troopUnit.Troops.Doctor.Quality : '-') + '</td>\
+                    </tr>';
+}
+
+function shipUnitToHTML(shipUnit, isOdd) {
+    if (isOdd == 0) {
+        return '<tr valign="bottom">\
+	                        <td><div style="width:80px;"><b>' + shipUnit.TownName + '</b>' + '(' + shipUnit.X + ',' + shipUnit.Y + ')</div></td>\
+	                        <td>' + (shipUnit.Ships.Ram_Ship ? shipUnit.Ships.Ram_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Fire_Ship ? shipUnit.Ships.Fire_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Paddle_Wheel_Ram ? shipUnit.Ships.Paddle_Wheel_Ram.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Ballista_Ship ? shipUnit.Ships.Ballista_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Catapult_Ship? shipUnit.Ships.Catapult_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Mortar_Ship ? shipUnit.Ships.Mortar_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Diving_Boat ? shipUnit.Ships.Diving_Boat.Quality : '-') + '</td>\
+                    </tr>';
+    }
+    else
+        return '<tr valign="bottom" style="background-color:#FDF7DD">\
+	                        <td><div style="width:80px;"><b>' + shipUnit.TownName + '</b>' + '(' + shipUnit.X + ',' + shipUnit.Y + ')</div></td>\
+	                        <td>' + (shipUnit.Ships.Ram_Ship ? shipUnit.Ships.Ram_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Fire_Ship ? shipUnit.Ships.Fire_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Paddle_Wheel_Ram ? shipUnit.Ships.Paddle_Wheel_Ram.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Ballista_Ship ? shipUnit.Ships.Ballista_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Catapult_Ship ? shipUnit.Ships.Catapult_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Mortar_Ship ? shipUnit.Ships.Mortar_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Ships.Diving_Boat ? shipUnit.Ships.Diving_Boat.Quality : '-') + '</td>\
+                    </tr>';
+}
+
 
 function SetTownOverviewGUI() {
     debugger;
@@ -469,37 +685,35 @@ function townUnitToHTML(townUnit, isOdd) {
 	
     if (isOdd == 0)
 	{
-		var html = "";
-		html += '<tr valign="bottom">';
-		html += '<td><div style="width:80px;"><b>' + townUnit.TownName + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>';
-		html += '<td>' + (townUnit.Buildings.Academy ? townUnit.Buildings.Academy.Lvl : '-') + '</td>';
-		html += '<td>' + (townUnit.Buildings.Barracks ? townUnit.Buildings.Barracks.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Dump ? townUnit.Buildings.Dump.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Embassy ? townUnit.Buildings.Embassy.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Hideout ? townUnit.Buildings.Hideout.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Museum ? townUnit.Buildings.Museum.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Palace ? townUnit.Buildings.Palace.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Shipyard ? townUnit.Buildings.Shipyard.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Tavern ? townUnit.Buildings.Tavern.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Temple ? townUnit.Buildings.Temple.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Townhall ? townUnit.Buildings.Townhall.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Townwall ? townUnit.Buildings.Townwall.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.TradingPort ? townUnit.Buildings.TradingPort.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.TradingPost ? townUnit.Buildings.TradingPost.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Warehouse ? townUnit.Buildings.Warehouse.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Workshop ? townUnit.Buildings.Workshop.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Architect ? townUnit.Buildings.Architect.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Carpenter ? townUnit.Buildings.Carpenter.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Firework ? townUnit.Buildings.Firework.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Optician ? townUnit.Buildings.Optician.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.WinePress ? townUnit.Buildings.WinePress.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Alchemist ? townUnit.Buildings.Alchemist.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Forester ? townUnit.Buildings.Forester.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Glassblower ? townUnit.Buildings.Glassblower.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Stonemason ? townUnit.Buildings.Stonemason.Lvl : '-') + '</td>';
-	    html += '<td>' + (townUnit.Buildings.Winegrower ? townUnit.Buildings.Winegrower.Lvl : '-') + '</td>';
-        html += '</tr>';
-		return html;
+	    return '<tr valign="bottom">\
+	                        <td><div style="width:80px;"><b>' + townUnit.TownName + '</b>' + '(' + townUnit.X + ',' + townUnit.Y + ')</div></td>\
+	                        <td>' + (townUnit.Buildings.Academy ? townUnit.Buildings.Academy.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Barracks ? townUnit.Buildings.Barracks.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Dump ? townUnit.Buildings.Dump.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Embassy ? townUnit.Buildings.Embassy.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Hideout ? townUnit.Buildings.Hideout.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Museum ? townUnit.Buildings.Museum.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Palace ? townUnit.Buildings.Palace.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Shipyard ? townUnit.Buildings.Shipyard.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Tavern ? townUnit.Buildings.Tavern.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Temple ? townUnit.Buildings.Temple.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Townhall ? townUnit.Buildings.Townhall.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Townwall ? townUnit.Buildings.Townwall.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.TradingPort ? townUnit.Buildings.TradingPort.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.TradingPost ? townUnit.Buildings.TradingPost.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Warehouse ? townUnit.Buildings.Warehouse.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Workshop ? townUnit.Buildings.Workshop.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Architect ? townUnit.Buildings.Architect.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Carpenter ? townUnit.Buildings.Carpenter.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Firework ? townUnit.Buildings.Firework.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Optician ? townUnit.Buildings.Optician.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.WinePress ? townUnit.Buildings.WinePress.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Alchemist ? townUnit.Buildings.Alchemist.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Forester ? townUnit.Buildings.Forester.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Glassblower ? townUnit.Buildings.Glassblower.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Stonemason ? townUnit.Buildings.Stonemason.Lvl : '-') + '</td>\
+	                        <td>' + (townUnit.Buildings.Winegrower ? townUnit.Buildings.Winegrower.Lvl : '-') + '</td>\
+                    </tr>';
 	}              
     else
 	    return '<tr valign="bottom" style="background-color:#FDF7DD">\
@@ -534,7 +748,6 @@ function townUnitToHTML(townUnit, isOdd) {
 }
 
 
-
 function SetEmpireOverviewGUI() {
     debugger;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
@@ -557,8 +770,8 @@ function SetEmpireOverviewGUI() {
                 </tr>';
 
     //var citiesCount = Framework.GetEmpireOverviewUnitNum();
-    
-    var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
+    var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
+    //var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;

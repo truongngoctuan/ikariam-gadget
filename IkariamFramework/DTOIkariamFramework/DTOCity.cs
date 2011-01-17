@@ -6,11 +6,12 @@ using System.IO;
 using HtmlAgilityPack;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Runtime.Serialization;
 
 namespace IkariamFramework.DTOIkariamFramework
 {
     [Serializable, ComVisible(true)]
-    public class DTOCity
+    public class DTOCity 
     {
         public DTOBuilding[] ListBuilding { get; set; }
         public DTOTroops[] ListTroopsUnits { get; set; }//quan bo

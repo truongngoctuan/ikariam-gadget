@@ -6,10 +6,11 @@ using System.Net;
 using HtmlAgilityPack;
 using System.Windows.Forms;
 using IkariamFramework.DTOIkariamFramework;
+using System.Runtime.Serialization;
 
 namespace IkariamFramework.DTOIkariamFramework
 {
-    public class Data
+    public class Data 
     {
         private static Data INSTANCE = new Data();
 

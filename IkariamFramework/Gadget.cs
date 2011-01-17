@@ -41,10 +41,10 @@ namespace IkariamFramework
                 string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
                 path = Path.GetDirectoryName(path);
                 Gloval.Dict = XmlHelper.LoadFile(string.Format(path + "\\Lang\\{0}.xml", split[1]));
-
-
                 Authenticated = true;
-                
+                bStopAutoRequest = false;
+                InitAutoRequest();
+
                 Gloval.bEmpireOverviewIsNewData = false;
                 return 0;
             }
@@ -82,14 +82,53 @@ namespace IkariamFramework
                                     GoldPerHour = 3600, ResearchPointPerHour = 3600}
         };
 
+        public static EmpireOverviewUnit[] CityToEmpire(DTOCity[] cities)
+        {            
+            List<EmpireOverviewUnit> EmpireOverviewUnitTemps = new List<EmpireOverviewUnit>();
+            foreach (DTOCity city in cities)
+            {
+                EmpireOverviewUnit empireOverviewUnit = new EmpireOverviewUnit();
+                empireOverviewUnit.TownName = city.Name;
+                empireOverviewUnit.ID = city.ID;
+                empireOverviewUnit.X = city.X;
+                empireOverviewUnit.Y = city.Y;
+                empireOverviewUnit.ActionPoint = city.ActionPoint;
+                empireOverviewUnit.FreePopulation = (int)city.Population;
+                empireOverviewUnit.Population = (int)city.PopulationLimit;
+                empireOverviewUnit.PopulationLimit = (int)city.PopulationLimit;
+                empireOverviewUnit.Wood = (int)city.Wood;
+                empireOverviewUnit.WoodPerHour = city.WoodPerHour; 
+                empireOverviewUnit.WoodLimit = city.WoodLimit;
+                empireOverviewUnit.Wine = (int)city.Wine; 
+                empireOverviewUnit.WinePerHour = city.WinePerHour; 
+                empireOverviewUnit.WineLimit = city.WineLimit;
+                empireOverviewUnit.Marble = (int)city.Marble; 
+                empireOverviewUnit.MarblePerHour = city.MarblePerHour; 
+                empireOverviewUnit.MarbleLimit = city.MarbleLimit;
+                empireOverviewUnit.Crystal = (int)city.Crystal; 
+                empireOverviewUnit.CrystalPerHour = city.CrystalPerHour; 
+                empireOverviewUnit.CrystalLimit = city.CrystalLimit;
+                empireOverviewUnit.Sulphur = (int)city.Sulphur; 
+                empireOverviewUnit.SulphurPerHour = city.SulphurPerHour; 
+                empireOverviewUnit.SulphurLimit = city.SulphurLimit;
+                empireOverviewUnit.GoldPerHour = (int)city.GoldPerHour;
+                empireOverviewUnit.ResearchPointPerHour = city.ResearchPointPerHour;
+
+                EmpireOverviewUnitTemps.Add(empireOverviewUnit);
+            }
+            return EmpireOverviewUnitTemps.ToArray();
+        }
+
+
 		public EmpireOverviewUnit GetEmptyEmpireOverviewUnit()
         {
             return new EmpireOverviewUnit();
         }
 		
 		public string GetEmpireOverviewUnits()
-        {
-            return JsonConvert.SerializeObject(empireOverviewUnits, Formatting.Indented);
+        {            
+            return requestEmpireOverview();
+            //return JsonConvert.SerializeObject(empireOverviewUnits, Formatting.Indented);
         }
 		
         public int GetEmpireOverviewUnitNum()
@@ -171,20 +210,20 @@ namespace IkariamFramework
                 X = 1, 
                 Y = 1, 
                 Troops = new Dictionary<string, DTOTroops>{
-                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
-                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
-                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
-                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
-                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
-                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                    {"Balloon_Bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"Archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"Catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"Hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"Swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"Steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
                 },
                 Ships = new Dictionary<string, DTOTroops>{
-                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
-                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
-                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
-                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
-                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
-                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                    {"Paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"Mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"Diving_Boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_Boat, Quality = 1}},
+                    {"Ram_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ram_Ship, Quality = 1}},
+                    {"Ballista_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"Catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
                 }
             },
             new TroopOverviewUnit{
@@ -192,20 +231,20 @@ namespace IkariamFramework
                 X = 2, 
                 Y = 2, 
                 Troops = new Dictionary<string, DTOTroops>{
-                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
-                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
-                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
-                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
-                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
-                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                    {"Balloon_Bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"Archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"Catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"Hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"Swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"Steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
                 },
                 Ships = new Dictionary<string, DTOTroops>{
-                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
-                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
-                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
-                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
-                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
-                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                    {"Paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"Mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"Diving_Boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_Boat, Quality = 1}},
+                    {"Ram_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ram_Ship, Quality = 1}},
+                    {"Ballista_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"Catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
                 }
             },
             new TroopOverviewUnit{
@@ -213,20 +252,20 @@ namespace IkariamFramework
                 X = 3, 
                 Y = 3, 
                 Troops = new Dictionary<string, DTOTroops>{
-                    {"bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
-                    {"archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
-                    {"catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
-                    {"hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
-                    {"swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
-                    {"steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
+                    {"Balloon_Bombardier", new DTOTroops{Type = DTOTroops.TYPE.Balloon_Bombardier, Quality = 2}},
+                    {"Archer", new DTOTroops{Type = DTOTroops.TYPE.Archer, Quality = 1}},
+                    {"Catapult", new DTOTroops{Type = DTOTroops.TYPE.Catapult, Quality = 1}},
+                    {"Hoplite", new DTOTroops{Type = DTOTroops.TYPE.Hoplite, Quality = 1}},
+                    {"Swordsman", new DTOTroops{Type = DTOTroops.TYPE.Swordsman, Quality = 1}},
+                    {"Steam_Giant", new DTOTroops{Type = DTOTroops.TYPE.Steam_Giant, Quality = 1}},
                 },
                 Ships = new Dictionary<string, DTOTroops>{
-                    {"paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
-                    {"mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
-                    {"diving_boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_boat, Quality = 1}},
-                    {"battering_ram", new DTOTroops{Type = DTOTroops.TYPE.Ram, Quality = 1}},
-                    {"ballista_ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
-                    {"catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
+                    {"Paddle_Wheel_Ram", new DTOTroops{Type = DTOTroops.TYPE.Paddle_Wheel_Ram, Quality = 2}},
+                    {"Mortar_Ship", new DTOTroops{Type = DTOTroops.TYPE.Mortar_Ship, Quality = 1}},
+                    {"Diving_Boat", new DTOTroops{Type = DTOTroops.TYPE.Diving_Boat, Quality = 1}},
+                    {"Ram_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ram_Ship, Quality = 1}},
+                    {"Ballista_Ship", new DTOTroops{Type = DTOTroops.TYPE.Ballista_Ship, Quality = 1}},
+                    {"Catapult_Ship", new DTOTroops{Type = DTOTroops.TYPE.Catapult_Ship, Quality = 1}},
                 }
             },
         };
@@ -492,6 +531,8 @@ namespace IkariamFramework
 
         public int requestCode()
         {
+            
+
             //debug
             DBnRequestClient++;
 

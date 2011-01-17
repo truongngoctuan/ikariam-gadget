@@ -69,6 +69,7 @@
             this.button31 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
             this.tbThreaddebug = new System.Windows.Forms.TextBox();
+            this.button33 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tbResult
@@ -469,11 +470,22 @@
             this.tbThreaddebug.Size = new System.Drawing.Size(244, 290);
             this.tbThreaddebug.TabIndex = 40;
             // 
+            // button33
+            // 
+            this.button33.Location = new System.Drawing.Point(451, 34);
+            this.button33.Name = "button33";
+            this.button33.Size = new System.Drawing.Size(75, 23);
+            this.button33.TabIndex = 41;
+            this.button33.Text = "g";
+            this.button33.UseVisualStyleBackColor = true;
+            this.button33.Click += new System.EventHandler(this.button33_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(774, 490);
+            this.Controls.Add(this.button33);
             this.Controls.Add(this.tbThreaddebug);
             this.Controls.Add(this.button32);
             this.Controls.Add(this.button31);
@@ -567,6 +579,7 @@
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.TextBox tbThreaddebug;
+        private System.Windows.Forms.Button button33;
     }
 }
 

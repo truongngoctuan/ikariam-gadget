@@ -674,5 +674,11 @@ namespace Test_BUS_DAO
         {
             gg2.StopAutoRequest();
         }
+
+        private void button33_Click(object sender, EventArgs e)
+        {
+            Data dt = Gloval.Database;
+
+        }
     }
 }
