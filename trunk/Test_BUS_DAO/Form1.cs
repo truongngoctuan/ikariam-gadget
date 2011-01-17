@@ -638,10 +638,9 @@ namespace Test_BUS_DAO
             int iCode = gg2.requestCode();
             if (iCode != -1)
             {
-                if ((iCode & (int)1) != 0)
-                    tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
-                if ((iCode & (int)2) != 0)
-                    tbResult.Text = gg2.requestBuildingsOverview() + tbResult.Text;
+                if ((iCode & (int)1) != 0) tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
+                if ((iCode & (int)2) != 0) tbResult.Text = gg2.requestBuildingsOverview() + tbResult.Text;
+                if ((iCode & (int)4) != 0) tbResult.Text = gg2.requestTroopsOverview() + tbResult.Text;
                 //if if if...
             }
 

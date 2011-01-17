@@ -274,16 +274,17 @@ namespace IkariamFramework
                 }
             },
         };
-        /*
-        public string GetTroopOverviewUnits()
+
+        public static string GetTroopOverviewUnits()
         {
-            List<MilitaryOverviewUnit> militaryOverviewUnitsTemp = new List<MilitaryOverviewUnit>();
+            List<TroopOverviewUnit> militaryOverviewUnitsTemp = new List<TroopOverviewUnit>();
             foreach (DTOCity dtoCity in Gloval.Database.Account.Cities)
             {
-                MilitaryOverviewUnit militaryOverviewUnit = new MilitaryOverviewUnit();
+                TroopOverviewUnit militaryOverviewUnit = new TroopOverviewUnit();
                 militaryOverviewUnit.TownName = dtoCity.Name;
                 militaryOverviewUnit.X = dtoCity.X;
                 militaryOverviewUnit.Y = dtoCity.Y;
+                militaryOverviewUnit.Troops = new Dictionary<string, DTOTroops>();
                 foreach (DTOTroops troop in dtoCity.ListTroopsUnits)
                 {
                     militaryOverviewUnit.Troops.Add(troop.Type.ToString(), troop);
@@ -292,14 +293,13 @@ namespace IkariamFramework
                 {
                     militaryOverviewUnit.Troops.Add(ship.Type.ToString(), ship);
                 }
+
+                militaryOverviewUnitsTemp.Add(militaryOverviewUnit);
             }
-            return JsonConvert.SerializeObject(militaryOverviewUnits);
+            string str = JsonConvert.SerializeObject(militaryOverviewUnitsTemp);
+            return str;
         }
-        */
-        public string GetTroopOverviewUnits()
-        {
-            return JsonConvert.SerializeObject(troopOverviewUnits);
-        }
+
         #endregion
 
         #region Research
@@ -486,13 +486,14 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    BUSAction.AutoRequestBuildings();
+                    //BUSAction.AutoRequestBuildings();
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
+                    BUSAction.AutoRequestTroops();
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
@@ -560,6 +561,7 @@ namespace IkariamFramework
             int iCode = 0;
             if (Gloval.bEmpireOverviewIsNewData) iCode |= 1;
             if (Gloval.bBuildingsOverviewIsNewData) iCode |= 2;
+            if (Gloval.bTroopsOverviewIsNewData) iCode |= 4;
 
             DEBUG("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
             return iCode;
@@ -590,6 +592,19 @@ namespace IkariamFramework
                     return "";
                 
                 }
+        }
+
+        public string requestTroopsOverview()
+        {
+            try
+            {
+                return BUSAction.requestTroopsFromGadget();
+            }
+            catch (Exception ex)
+            {
+                return "";
+
+            }
         }
         #endregion
 
