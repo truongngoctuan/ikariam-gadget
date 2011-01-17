@@ -1,0 +1,18 @@
+﻿body 
+{
+	margin: 0;
+	padding: 0;
+	width: 275px;
+	height: 200px;
+	border: solid 1px #c0c0c0;
+	font-family:Calibri;
+	font-size:11px;  
+	text-align:center;  
+}
+
+#settingsDiv
+{
+	padding: 20px;
+    background-color: White;
+    width: 100%;
+}
