@@ -1,7 +1,7 @@
 body
 {
-	padding: 0px; 
-	margin: 0px;	
+	/*padding: 0px; 
+	margin: 0px;*/
 	height: 400px;
 }
 
@@ -11,8 +11,6 @@ body
 body,td {
 	font: normal 10px Verdana,Arial,Helvetica,sans-serif;
 	color: #542C0F;
-	padding : 0 0;	
-	margin: 0 0;
 }
 
 table {
@@ -35,7 +33,7 @@ td,tr,table,img {
 .empireOverview td {
 	text-align : center; 
 	padding : 0 0em;		
-	width : 8em;
+	width : auto;
 	border : 1px solid #7E4A21;
 	
 }

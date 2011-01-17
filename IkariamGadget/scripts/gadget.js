@@ -61,13 +61,13 @@ function GetLoadingGUI(gadgetContent, gadgetBackgroundImage) {
 }
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
-    content += '<img id="town" class="overviewItem1" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'town'" + ');"/>';
-    content += '<img id="military" class="overviewItem2" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
-    content += '<img id="research" class="overviewItem3" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
-    content += '<img id="diplomacy" class="overviewItem4" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
-    content += '<img id="empire" class="overviewItem5" src="images/diplomat_active.gif" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
-    content += '<img id="event" class="overviewItem6" src="images/general_active.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
-    content += '<img id="troop" class="overviewItem7" src="images/mayor_active.gif" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
+    content += '<img id="town" class="overviewItem1" src="images/buildings.png" onmousedown="javascript:onOverview(' + "'town'" + ');"/>';
+    //content += '<img id="military" class="overviewItem4" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
+    //content += '<img id="research" class="overviewItem5" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
+    //content += '<img id="diplomacy" class="overviewItem6" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
+    content += '<img id="empire" class="overviewItem2" src="images/empire.png" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
+    //content += '<img id="event" class="overviewItem7" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
+    content += '<img id="troop" class="overviewItem3" src="images/troops.png" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
 
     gadgetContent.innerHTML = content;
     gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
@@ -93,12 +93,15 @@ function SetState(state) {
     var oGadgetDocument = System.Gadget.document;
     if (context.State == States.Welcome) {
         oGadgetDocument.getElementById('state').innerHTML = "Welcome !!!";
+        autoRefresh = false;
     }    
 	else if (context.State == States.Loading) {
         oGadgetDocument.getElementById('state').innerHTML = "Loading !!!";
     }
     else if (context.State == States.Overview) {
         oGadgetDocument.getElementById('state').innerHTML = "Overview !!!";
+        autoRefresh = true;
+        Refresh();
     }
     else {
         oGadgetDocument.getElementById('state').innerHTML = "Unknown State !!!";
@@ -200,15 +203,13 @@ function Login() {
         errorMessageCode = -1;
     }
     else {
-        errorMessageCode = Framework.Login(username, password, /*"s5.vn.ikariam.com"*/ displayname);
+        errorMessageCode = 0; //Framework.Login(username, password, /*"s5.vn.ikariam.com"*/ displayname);
     }
         
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        autoRefresh = true;
-        Refresh();
-        SetState(States.Loading);              
+        SetState(States.Overview);           
     }
     else {
         // Fail
@@ -415,15 +416,15 @@ function showTroop() {
 ////////////////////////////////////////////////////////////////////////////////
 var autoRefresh = false;
 function Refresh() {
-    if (context.State == States.Overview) {        
-        var code = Framework.requestCode();
-        var debug = Framework.requestDEBUGString();
+    if (context.State == States.Overview) {
+        //var code = Framework.requestCode();
+        //var debug = Framework.requestDEBUGString();
         // sang den`
         if (updateFlyout) {
-        if (code & 1 > 0 && code > 0 /*&& overviewState == OverviewStates.Empire*/) {
-            debugger;
-                OnShowFlyout();
-            }
+            //if (code & 1 > 0 && code > 0 /*&& overviewState == OverviewStates.Empire*/) {
+            //debugger;
+            OnShowFlyout();
+            //}
         }        
     }
     if (autoRefresh)
@@ -437,11 +438,9 @@ function Refresh() {
 ////////////////////////////////////////////////////////////////////////////////
 var updateFlyout = false;
 function ShowHideFlyout() {
-    System.Gadget.Flyout.show = !System.Gadget.Flyout.show;
-    if (System.Gadget.Flyout.show)
-        updateFlyout = true;
-    else
-        updateFlyout = false;        
+    //debugger;    
+    updateFlyout = !System.Gadget.Flyout.show;
+    System.Gadget.Flyout.show = !System.Gadget.Flyout.show;    
 }
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -451,6 +450,8 @@ function ShowHideFlyout() {
 //
 ////////////////////////////////////////////////////////////////////////////////
 function OnShowFlyout() {
+    if (!updateFlyout)
+        return;
     if (overviewState == OverviewStates.Towns) {
         SetTownOverviewGUI();
     }
@@ -471,7 +472,8 @@ function OnShowFlyout() {
 }
 
 function SetTroopOverviewGUI() {
-    debugger;
+    if (!System.Gadget.Flyout.document)
+        return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
     oFlyoutContent.className = "troopOverview";
@@ -616,7 +618,8 @@ function shipUnitToHTML(shipUnit, isOdd) {
 
 
 function SetTownOverviewGUI() {
-    debugger;
+    if (!System.Gadget.Flyout.document)
+        return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
     oFlyoutContent.className = "townOverview";
@@ -747,9 +750,10 @@ function townUnitToHTML(townUnit, isOdd) {
                     </tr>';
 }
 
-
 function SetEmpireOverviewGUI() {
-    debugger;
+    //debugger;
+    if (!System.Gadget.Flyout.document)
+        return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
 
@@ -770,8 +774,8 @@ function SetEmpireOverviewGUI() {
                 </tr>';
 
     //var citiesCount = Framework.GetEmpireOverviewUnitNum();
-    var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
-    //var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
+    //var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
+    var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;
@@ -816,11 +820,11 @@ function SetEmpireOverviewGUI() {
 	                        <td><div style="width:80px;"><b>' + 'Total' + '</b></div></td>\
 	                        <td>' + '-' + '</td>\
 	                        <td>' + total.Population + '</td>\
-	                        <td>' + total.Wood + ' (+' + total.WoodPerHour + ')</td>\
-	                        <td>' + total.Wine + ' (+' + total.WinePerHour + ')</td>\
-	                        <td>' + total.Marble + ' (+' + total.MarblePerHour + ')</td>\
-	                        <td>' + total.Crystal + ' (+' + total.CrystalPerHour + ')</td>\
-	                        <td>' + total.Sulphur + ' (+' + total.SulphurPerHour + ')</td>\
+	                        <td>' + total.Wood + '<br /> (+' + total.WoodPerHour + ')</td>\
+	                        <td>' + total.Wine + '<br /> (+' + total.WinePerHour + ')</td>\
+	                        <td>' + total.Marble + '<br /> (+' + total.MarblePerHour + ')</td>\
+	                        <td>' + total.Crystal + '<br /> (+' + total.CrystalPerHour + ')</td>\
+	                        <td>' + total.Sulphur + '<br /> (+' + total.SulphurPerHour + ')</td>\
 	                        <td>' + '+' + total.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + total.GoldPerHour + '</td>\
                         </tr>';
@@ -835,11 +839,11 @@ function empireUnitToHTML(empireUnit, isOdd) {
 	                        <td><div style="width:80px;"><b>' + empireUnit.TownName + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
 	                        <td>' + empireUnit.ActionPoint + '</td>\
 	                        <td>' + empireUnit.Population + '</td>\
-	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
-	                        <td>' + empireUnit.Wine + ' (+' + empireUnit.WinePerHour + ')</td>\
-	                        <td>' + empireUnit.Marble + ' (+' + empireUnit.MarblePerHour + ')</td>\
-	                        <td>' + empireUnit.Crystal + ' (+' + empireUnit.CrystalPerHour + ')</td>\
-	                        <td>' + empireUnit.Sulphur + ' (+' + empireUnit.SulphurPerHour + ')</td>\
+	                        <td>' + empireUnit.Wood + '<br /> (+' + empireUnit.WoodPerHour + ')</td>\
+	                        <td>' + empireUnit.Wine + '<br /> (+' + empireUnit.WinePerHour + ')</td>\
+	                        <td>' + empireUnit.Marble + '<br /> (+' + empireUnit.MarblePerHour + ')</td>\
+	                        <td>' + empireUnit.Crystal + '<br /> (+' + empireUnit.CrystalPerHour + ')</td>\
+	                        <td>' + empireUnit.Sulphur + '<br /> (+' + empireUnit.SulphurPerHour + ')</td>\
 	                        <td>' + '+' + empireUnit.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + empireUnit.GoldPerHour + '</td>\
                     </tr>';
@@ -848,11 +852,11 @@ function empireUnitToHTML(empireUnit, isOdd) {
 	                        <td><div style="width:80px;"><b>' + empireUnit.TownName + '</b>' + '(' + empireUnit.X + ',' + empireUnit.Y + ')</div></td>\
 	                        <td>' + empireUnit.ActionPoint + '</td>\
 	                        <td>' + empireUnit.Population + '</td>\
-	                        <td>' + empireUnit.Wood + ' (+' + empireUnit.WoodPerHour + ')</td>\
-	                        <td>' + empireUnit.Wine + ' (+' + empireUnit.WinePerHour + ')</td>\
-	                        <td>' + empireUnit.Marble + ' (+' + empireUnit.MarblePerHour + ')</td>\
-	                        <td>' + empireUnit.Crystal + ' (+' + empireUnit.CrystalPerHour + ')</td>\
-	                        <td>' + empireUnit.Sulphur + ' (+' + empireUnit.SulphurPerHour + ')</td>\
+	                        <td>' + empireUnit.Wood + '<br /> (+' + empireUnit.WoodPerHour + ')</td>\
+	                        <td>' + empireUnit.Wine + '<br /> (+' + empireUnit.WinePerHour + ')</td>\
+	                        <td>' + empireUnit.Marble + '<br /> (+' + empireUnit.MarblePerHour + ')</td>\
+	                        <td>' + empireUnit.Crystal + '<br /> (+' + empireUnit.CrystalPerHour + ')</td>\
+	                        <td>' + empireUnit.Sulphur + '<br /> (+' + empireUnit.SulphurPerHour + ')</td>\
 	                        <td>' + '+' + empireUnit.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + empireUnit.GoldPerHour + '</td>\
                     </tr>';                    
