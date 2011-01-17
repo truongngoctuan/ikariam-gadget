@@ -10,6 +10,8 @@ using IkariamFramework.BUSIkariamFramework;
 using IkariamFramework.DTOIkariamFramework;
 using IkariamFramework.PresentationUnit;
 using Newtonsoft.Json;
+using System.IO;
+using IkariamFramework.InterfaceToGadget;
 
 namespace IkariamFramework
 {
@@ -30,16 +32,25 @@ namespace IkariamFramework
         #region Login
         public int Login(string username, string password, string server)
         {
-            //int errCode = BUSAction.Login(username, password, server);
-            int errCode = 0;
-            if (errCode == 0)
+            // Login : trả về bool, thành công - thất bại
+            // Hoặc tra về errorCode
+            if (BUSAction.Login(username, password, server) == 0)
             {
+                //xac dinh lang dua vao server
+                string[] split = server.Split('.');
+                string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                path = Path.GetDirectoryName(path);
+                Gloval.Dict = XmlHelper.LoadFile(string.Format(path + "\\Lang\\{0}.xml", split[1]));
+
+
                 Authenticated = true;
+                
                 Gloval.bEmpireOverviewIsNewData = false;
+                return 0;
             }
-            else
-                Authenticated = false;
-            return errCode;
+
+            Authenticated = false;
+            return 1;
         }
         #endregion
 
@@ -306,10 +317,10 @@ namespace IkariamFramework
         #region AutoRequest
         Thread autoRequestThread = null;
         // nen de bien' nay` len GlobarVar luon cho tien
-        public volatile bool bStopAutoRequest = false;
+        public volatile bool bStopAutoRequest = true;
         public void InitAutoRequest()
         {
-            if (autoRequestThread == null)
+            if (autoRequestThread == null || bStopAutoRequest == true)
             {
                 autoRequestThread = new Thread(new ThreadStart(ThreadWorker));
                 autoRequestThread.Start();
@@ -337,32 +348,40 @@ namespace IkariamFramework
             Building = 64
             };
         RequestTarget requestTarget = RequestTarget.None;
-        int nextRequestIn = 3600000; //1 minutes
+        int DefaultAutoRequestTime = 15000; //1 minutes
         // ===============================
         private void ThreadWorker()
         {
+            bStopAutoRequest = true;
             // ===============================
             // tack cuc nay` ra ham` cua mai` ben lop' nao` do'
-            requestTarget = (RequestTarget)64;
+            requestTarget = (RequestTarget)1;
+            makeRequest();
+            //dang starting nen ko cho client tiep can
+            //xem nhu server down
 
+            bStopAutoRequest = false;
+            requestTarget = 0;
             while (!bStopAutoRequest)
             {
+                //DEBUG("starting request...");
                 //Request requestTarget 
                 //BUS.RequestSomething();
                 //Update requestTarget
                 //requestTarget = RequestTarget.Towns;
-
+                
                 makeRequest();
 
-                requestTarget = (RequestTarget)GetNextRequest(out nextRequestIn);
-                Thread.Sleep(nextRequestIn); //Sua thanh wait de
+                requestTarget = (RequestTarget)GetNextRequest(out DefaultAutoRequestTime);
+                //DEBUG("done request...");
+                Thread.Sleep(DefaultAutoRequestTime); //Sua thanh wait de
             }
             // ===============================
         }
 
         int GetNextRequest(out int tNextRequest)
         {
-            tNextRequest = 60000;
+            tNextRequest = DefaultAutoRequestTime;
             int iNextRequest = (int)RequestTarget.Gold_page;
 
             //kiem tra adv xem co can request trong lan tiep theo hay khong
@@ -384,37 +403,38 @@ namespace IkariamFramework
                 //neu co bo sung vao requestTarget de cap nhat
                 //ngay lap tuc, khong doi lan request sau
                 BUSAction.AutoLoadDefaultPage();
-                int iAdvstatus = BUSAction.CheckAdvStatus();
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
-                {
-                    requestTarget |= RequestTarget.Towns;
-                }
+            }
 
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
-                {
-                    requestTarget |= RequestTarget.Troops;
-                    //check thêm move
-                }
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.SCIENTIST) != 0)
-                {
-                    requestTarget |= RequestTarget.Research;
-                }
-                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.DIPLOMAT) != 0)
-                {
-                    requestTarget |= RequestTarget.Diplomacy;
-                }
+            int iAdvstatus = BUSAction.CheckAdvStatus();
+            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
+            {
+                requestTarget |= RequestTarget.Towns;
+            }
+            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
+            {
+                requestTarget |= RequestTarget.Troops;
+                //check thêm move
+            }
+            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.SCIENTIST) != 0)
+            {
+                requestTarget |= RequestTarget.Research;
+            }
+            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.DIPLOMAT) != 0)
+            {
+                requestTarget |= RequestTarget.Diplomacy;
             }
             
             //if then else request tung cai' trong request target
+
             if ((requestTarget & RequestTarget.Towns) != 0)
-            {
-                BUSAction.AutoRequestTowns();
+            {//res + town hall
+                BUSAction.AutoRequestEmpireOverview();
                 Gloval.bEmpireOverviewIsNewData = true;
             }
             if ((requestTarget & RequestTarget.Building) != 0)
             {
-                BUSAction.AutoRequestBuildings();
-                Gloval.bEmpireOverviewIsNewData = true;
+                //BUSAction.AutoRequestBuildings();
+                //Gloval.bEmpireOverviewIsNewData = true;
             }
             if ((requestTarget & RequestTarget.Research) != 0)
             {
@@ -425,6 +445,12 @@ namespace IkariamFramework
             if ((requestTarget & RequestTarget.Diplomacy) != 0)
             {
             }
+
+            //-----------------------------------------
+            //debug
+            DBnRequestServer++;
+            DEBUG("request server: " + DBnRequestServer.ToString() + " " + requestTarget.ToString());
+            //-----------------------------------------
         }
         #endregion
 
@@ -458,9 +484,53 @@ namespace IkariamFramework
 
         #region interface method gadget use
 
+        //thu tu request thong thuong:
+        //requestcode --> requestempireoverview
+
+        //test
+        //requestcode --> requestempireoverview --> requestDEBUG
+
+        public int requestCode()
+        {
+            //debug
+            DBnRequestClient++;
+
+            //server down !!!
+            if (bStopAutoRequest)
+            {
+                DEBUG("server down !!!");
+                return -1;
+            }
+
+            int iCode = 0;
+            if (Gloval.bEmpireOverviewIsNewData) iCode |= 1;
+
+
+
+            DEBUG("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
+            return iCode;
+        }
+
+        public string requestDEBUGString()
+        {
+            return DBcmd.ToString();
+        }
+
         public string requestEmpireOverview()
         {
-            return BUSAction.requestTownsFromGadget();
+             return BUSAction.requestTownsFromGadget();
+        }
+        #endregion
+
+        #region variable for debug
+
+        static StringBuilder DBcmd = new StringBuilder(5000);
+        public static int DBnRequestServer = 0;
+        public static int DBnRequestClient = 0;
+
+        void DEBUG(string str)
+        {
+            DBcmd.Insert(0, str + "\r\n");
         }
         #endregion
     }

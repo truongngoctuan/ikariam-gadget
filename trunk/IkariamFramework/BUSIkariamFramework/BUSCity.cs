@@ -173,7 +173,7 @@ namespace IkariamFramework.BUSIkariamFramework
             return null;
         }
 
-        public static void CalculateResourceFromLocalData()
+        public static void CalculateFromLocalData()
         {
             DateTime dtnew = DateTime.Now;
             int nCities = BUSCity.Count();
@@ -183,21 +183,35 @@ namespace IkariamFramework.BUSIkariamFramework
                 DTOCity ct = BUSCity.GetResourceCity(i);
                 TimeSpan tp = new TimeSpan(dtnew.Ticks - ct.DTResourceCity.Ticks);
             
-                //cap nhat dan
-                ct.FreePopulation += (int )(ct.PopulationGrow / 3600f * (float)tp.TotalSeconds);
-                ct.Population += (int)(ct.PopulationGrow / 3600f * (float)tp.TotalSeconds);
-
-                if (ct.Population > ct.PopulationLimit) ct.Population = (int)ct.PopulationLimit;
+                //cap nhat dan - townhall
+                ct.FreePopulation += updateValue(ct.PopulationGrow, (float)tp.TotalSeconds);
+                ct.Population = updateValueHaveLimit(ct.Population, ct.PopulationLimit, ct.PopulationGrow, (float)tp.TotalSeconds);
                 
-                //cap nhat vang
-
                 //cap nhat res
+                ct.Wood = updateValueHaveLimit(ct.Wood, ct.WoodLimit, ct.WoodPerHour, (float)tp.TotalSeconds);
+                ct.Wine = updateValueHaveLimit(ct.Wine, ct.WineLimit, ct.WinePerHour, (float)tp.TotalSeconds);
+                ct.Marble = updateValueHaveLimit(ct.Marble, ct.MarbleLimit, ct.MarblePerHour, (float)tp.TotalSeconds);
+                ct.Crystal = updateValueHaveLimit(ct.Crystal, ct.CrystalLimit, ct.CrystalPerHour, (float)tp.TotalSeconds);
+                ct.Sulphur = updateValueHaveLimit(ct.Sulphur, ct.SulphurLimit, ct.SulphurPerHour, (float)tp.TotalSeconds);
 
                 //cap nhat cooldown cac building
 
-                //cap nhat diem scientist point
-
+                //cap nhat lai thoi gian
+                ct.DTResourceCity = dtnew;
+                ct.DTTownHall = dtnew;
+                Gloval.Database.Account.Cities[i] = ct;
             }
+        }
+
+        static float updateValueHaveLimit(float fValue, float fValueLimit, float fValuePerHour, float fDelta)
+        {
+            fValue += updateValue(fValuePerHour, fDelta);
+            if (fValue > fValueLimit) fValue = fValueLimit;
+            return fValue;
+        }
+        static float updateValue(float fValuePerHour, float fDelta)
+        {
+            return fValuePerHour / 3600f * (float)fDelta;
         }
     }
 }

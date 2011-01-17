@@ -25,12 +25,15 @@ namespace Test_BUS_DAO
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (gg.Login(tbUsername.Text,
+            if (gg2.Login(tbUsername.Text,
                 tbPassword.Text,
                 //"s15.en.ikariam.com") == 0)
                 //"s5.vn.ikariam.com") == 0)
                 tbServer.Text) == 0)
             {
+                gg2.bStopAutoRequest = false;
+                gg2.InitAutoRequest();
+
                 tbResult.Text = BUSAction.InnerHTML();
             }
             else
@@ -550,6 +553,9 @@ namespace Test_BUS_DAO
                 "22551325",
                 "s5.vn.ikariam.com") == 0)
             {
+                gg2.bStopAutoRequest = false;
+                gg2.InitAutoRequest();
+
                 tbResult.Text = BUSAction.InnerHTML();
             }
             else
@@ -617,6 +623,56 @@ namespace Test_BUS_DAO
             }
 
             tbResult.Text = strResult.ToString();
+        }
+
+        IkariamFramework.Gadget gg2 = new IkariamFramework.Gadget();
+        Timer tm = null;
+        private void button30_Click(object sender, EventArgs e)
+        {//run ika thread
+            gg2.bStopAutoRequest = false;
+            gg2.InitAutoRequest();
+        }
+
+        void tm_Tick(object sender, EventArgs e)
+        {
+            int iCode = gg2.requestCode();
+
+            if ((iCode & (int)1) != 0) tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
+            //if if if...
+
+            tbThreaddebug.Text = gg2.requestDEBUGString();
+        }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            tm = new Timer();
+            tm.Interval = 2000;
+            tm.Tick += new EventHandler(tm_Tick);
+            tm.Start();
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            tm.Stop();
+            gg2.StopAutoRequest();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (tm != null)
+            {
+                button32_Click(null, null);
+            }
+        }
+
+        private void button32_Click_1(object sender, EventArgs e)
+        {
+            gg2.StopAutoRequest();
         }
     }
 }

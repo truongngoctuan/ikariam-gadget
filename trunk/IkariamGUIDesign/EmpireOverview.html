@@ -30,82 +30,89 @@
 </style>
 </head>
 <body>
-<table class="" style="margin: 0px 0px;padding: 0px 0px;">
-	<tr valign="bottom" style="background-image:url(images/note/notes_top.gif);
-	height:39px; ">
-		<td name="wd_tl" style="background-image:url(images/note/notes_top_left.gif);
-		width:38px;padding-left:1px;"></td>	                
-		<td name="wd_tm" style="width:670px;color: #542C0F; font-weight:bold; text-align:center;">Empire Overview</td>	                
-		<td name="wd_tr" style="background-image:url(images/note/notes_top_right.gif);
-		width:39px;"></td>	                
-	</tr>
-</table>
-<table class="" style="width:750px;">
-<tr valign="bottom" style="background-image:url()">
-	<td name="wd_l" style="background-image:url(images/note/notes_left.gif);width:17px"></td>	                
-	<td name="wd_m">
-	<table class="empireOverview">                
-		<tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">	                
-			<td name="Name"><div style="width:80px;"></div></td>	                
-			<td name="ActionPoint"><img src="images/ikariam/icon_action.gif" /></td>	                
-			<td name="Population (PopulationLimit)"> <img src="images/ikariam/icon_citizen.gif"/></td>	                
-			<td name="Wood"><img src="images/ikariam/icon_wood.gif" /></td>	                
-			<td name="Wine"><img src="images/ikariam/icon_wine.gif" /></td>	                
-			<td name="Marble"><img src="images/ikariam/icon_marble.gif" /></td>	                
-			<td name="Crystal"><img src="images/ikariam/icon_glass.gif" /></td>	                
-			<td name="Sulphur"><img src="images/ikariam/icon_sulfur.gif" /></td>	                
-			<td name="ResearchPointPerHour"><img src="images/ikariam/icon_research.gif" /></td>	                
-			<td name="GoldPerHour"><img src="images/ikariam/icon_gold.gif" /></td>                
-		</tr>
-		<tr valign="bottom">	                        
-			<td><div style="width:80px;"><b>City1</b>(1,1)</div></td>	                        
-			<td>1</td>	                        
-			<td>200</td>	                        
-			<td>1000 (+3600)</td>	                        
-			<td>1000 (+3600)</td>	                        
-			<td>1000 (+3600)</td>	                        
-			<td>1000 (+3600)</td>	                        
-			<td>1000 (+3600)</td>	                        
-			<td>+3600</td>
-			<td>+3600</td>                    
-		</tr>
-		<tr valign="bottom" style="background-color:#FDF7DD" >	                        
-			<td><div style="width:80px;"><b>City2</b>(2,2)</div></td>	                        
-			<td>2</td>	                        
-			<td>200</td>	                        
-			<td>2000 (+3600)</td>	                        
-			<td>2000 (+3600)</td>	                        
-			<td>2000 (+3600)</td>	                        
-			<td>2000 (+3600)</td>	                        
-			<td>2000 (+3600)</td>	                        
-			<td>+3600</td>	                        
-			<td>+3600</td>                    
-		</tr>
-		<tr valign="bottom">	                        
-			<td><div style="width:80px;"><b>City3</b>(3,3)</div></td>	                        
-			<td>3</td>	                        
-			<td>300</td>	                        
-			<td>3000 (+3600)</td>	                        
-			<td>3000 (+3600)</td>	                        
-			<td>3000 (+3600)</td>	                        
-			<td>3000 (+3600)</td>	                        
-			<td>3000 (+3600)</td>	                        
-			<td>+3600</td>	                        
-			<td>+3600</td>                    
-		</tr>
-		<tr valign="bottom" style="background-color:#DDAE61">	                        
-			<td><div style="width:80px;"><b>Total</b></div></td>	                        
-			<td> </td>	                        
-			<td>700</td>	                        
-			<td>6000 (+10800)</td>	                        
-			<td>6000 (+10800)</td>	                        
-			<td>6000 (+10800)</td>	                        
-			<td>6000 (+10800)</td>	                        
-			<td>6000 (+10800)</td>	                        
-			<td>+10800</td>	                        
-			<td>+10800</td>                        
-		</tr>
-	</table>
+<div style="position:absolute;top:0px;left:0px;
+width:850px; height:39px;
+margin-left:10px;">
+	<div style="float:left;
+	background-image:url(images/note/notes_top_left.gif); width:39px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top.gif); width:770px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top_right.gif); width:39px; height:39px;"></div>
+</div>
+<div style="position:absolute; top:39px;
+    width:844px;
+    height:400px;
+    background-color:#F6E9C6;
+    border-bottom: 3px solid #D2A860;
+    border-left: 3px solid #D2A860;
+    border-right: 3px solid #D2A860;
+    padding: 5px 0 0 0;
+    margin: 0 2px 0 2px;">
+    <table class="empireOverview" style="position:relative; left:20px; top:5px;
+    width:800px; display:block; padding:0; margin: 0 0; border-style:none;">                
+        <tr valign="bottom" style="background-image:url(images/ikariam/button.gif);">	                
+	        <td name="Name"><div style="width:80px;"></div></td>	                
+	        <td name="ActionPoint" ><img src="images/ikariam/icon_action.gif" /></td>	                
+	        <td name="Population (PopulationLimit)" > <img src="images/ikariam/icon_citizen.gif"/></td>	                
+	        <td name="Wood" ><img src="images/ikariam/icon_wood.gif" /></td>	                
+	        <td name="Wine" ><img src="images/ikariam/icon_wine.gif" /></td>	                
+	        <td name="Marble" ><img src="images/ikariam/icon_marble.gif" /></td>	                
+	        <td name="Crystal" ><img src="images/ikariam/icon_glass.gif" /></td>	                
+	        <td name="Sulphur" ><img src="images/ikariam/icon_sulfur.gif" /></td>	                
+	        <td name="ResearchPointPerHour" ><img src="images/ikariam/icon_research.gif" /></td>	                
+	        <td name="GoldPerHour"><img src="images/ikariam/icon_gold.gif" /></td>                
+        </tr>
+        <tr valign="bottom">	                        
+	        <td><div style="width:80px;"><b>City1</b>(1,1)</div></td>	                        
+	        <td>1</td>	                        
+	        <td>200</td>	                        
+	        <td>1000 (+3600)</td>	                        
+	        <td>1000 (+3600)</td>	                        
+	        <td>1000 (+3600)</td>	                        
+	        <td>1000 (+3600)</td>	                        
+	        <td>1000 (+3600)</td>	                        
+	        <td>+3600</td>
+	        <td>+3600</td>                    
+        </tr>
+        <tr valign="bottom" style="" >	                        
+	        <td><div style="width:80px;"><b>City2</b>(2,2)</div></td>	                        
+	        <td>2</td>	                        
+	        <td>200</td>	                        
+	        <td>2000 (+3600)</td>	                        
+	        <td>2000 (+3600)</td>	                        
+	        <td>2000 (+3600)</td>	                        
+	        <td>2000 (+3600)</td>	                        
+	        <td>2000 (+3600)</td>	                        
+	        <td>+3600</td>	                        
+	        <td>+3600</td>                    
+        </tr>
+        <tr valign="bottom">	                        
+	        <td><div style="width:80px;"><b>City3</b>(3,3)</div></td>	                        
+	        <td>3</td>	                        
+	        <td>300</td>	                        
+	        <td>3000 (+3600)</td>	                        
+	        <td>3000 (+3600)</td>	                        
+	        <td>3000 (+3600)</td>	                        
+	        <td>3000 (+3600)</td>	                        
+	        <td>3000 (+3600)</td>	                        
+	        <td>+3600</td>	                        
+	        <td>+3600</td>                    
+        </tr>
+        <tr valign="bottom" style="background-color:#ddae61;">	                        
+	        <td><div style="width:80px;"><b>Total</b></div></td>	                        
+	        <td> - </td>	                        
+	        <td>700</td>	                        
+	        <td>6000 (+10800)</td>	                        
+	        <td>6000 (+10800)</td>	                        
+	        <td>6000 (+10800)</td>	                        
+	        <td>6000 (+10800)</td>	                        
+	        <td>6000 (+10800)</td>	                        
+	        <td>+10800</td>	                        
+	        <td>+10800</td>                        
+        </tr>
+    </table>
+</div>
 	<!--
 	<table class="empireOverview" style="width:716px;border-spacing: 2px 2px;">
         <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">	                
@@ -154,23 +161,5 @@
         </tr>
         </table>
 	-->
-
-	</td>	                
-	<td name="wd_r" style="background-image:url(images/note/notes_right.gif);width:17px"></td>	                
-</tr>
-</table>
-<table class="" style="width:744px;
-    border-bottom: 3px solid #D2A860;
-    border-left: 3px solid #D2A860;
-    border-right: 3px solid #D2A860;
-    background-color: #F7E7C5;
-    padding: 25px 0 0 0;
-    margin: 0 2px 0 2px;
-">
-<tr valign="bottom" style="background-image:url(images/note/notes_right.gif);">
-	<td name="wd_b"></td>	                
-</tr>
-</table>
-
 </body>
 </html>
