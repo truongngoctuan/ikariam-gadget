@@ -160,6 +160,8 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 BUSTroops.ForceUpdateShips(i);
             }
+
+            Gloval.bTroopsOverviewIsNewData = true;
         }
 
         public static void AutoRequestResearch()
@@ -211,6 +213,28 @@ namespace IkariamFramework.BUSIkariamFramework
                 //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
                 //return "new data";
                 return Gadget.GetTownOverviewUnits();
+            //}
+
+            //return "";
+        }
+
+        public static string requestTroopsFromGadget()
+        {
+            //if (Gloval.bBuildingsOverviewIsNewData)
+            //{
+            ////cap nhat thong tin dang luu tru phu` hop voi thoi diem hien tai
+            //hien gio chua xay dung colddown cho các nhà đang xây dựng
+            //nen khong co lam phan nay
+            //BUSCity.CalculateFromLocalData();
+
+            //cap nhat lai thanh du lieu cu
+            //de gadget khong lay lai lan nua
+            Gloval.bTroopsOverviewIsNewData = false;
+
+            //lay du lieu moi update cho gadget
+            //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
+            //return "new data";
+            return Gadget.GetTroopOverviewUnits();
             //}
 
             //return "";
