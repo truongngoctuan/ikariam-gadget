@@ -7,6 +7,7 @@ using IkariamFramework.DAOIkariamFramework;
 using HtmlAgilityPack;
 using IkariamFramework.DTOIkariamFramework;
 using IkariamFramework.PresentationUnit;
+using Newtonsoft.Json;
 
 namespace IkariamFramework.BUSIkariamFramework
 {
@@ -185,8 +186,9 @@ namespace IkariamFramework.BUSIkariamFramework
                 Gloval.bEmpireOverviewIsNewData = false;
 
                 //lay du lieu moi update cho gadget
-                return JSONConverter.toEmpireOverviewUnitJSON();
+                //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
                 //return "new data";
+                return JsonConvert.SerializeObject(Gadget.CityToEmpire(Gloval.Database.Account.Cities));
             }
 
             return "";

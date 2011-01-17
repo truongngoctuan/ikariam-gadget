@@ -59,7 +59,7 @@ namespace IkariamFramework.DAOIkariamFramework
 
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[1], DTOTroops.TYPE.Catapult_Ship, false));
             list.Add(GetUnitAndTroop(SecondLine.ChildNodes[2], DTOTroops.TYPE.Mortar_Ship, false));
-            list.Add(GetUnitAndTroop(SecondLine.ChildNodes[3], DTOTroops.TYPE.Diving_boat, false));
+            list.Add(GetUnitAndTroop(SecondLine.ChildNodes[3], DTOTroops.TYPE.Diving_Boat, false));
 
             Gloval.Database.Account.Cities[iIndexCity].ListTroopsShips = list.ToArray();
         }
