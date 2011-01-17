@@ -39,5 +39,44 @@ namespace IkariamFramework.DTOIkariamFramework
                 }
             }
         }
+
+        private static bool _BuildingsOverviewIsNewData;
+        public static bool bBuildingsOverviewIsNewData
+        {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _BuildingsOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _BuildingsOverviewIsNewData = value;
+                }
+            }
+        }
+
+        private static bool _TroopsOverviewIsNewData;
+        public static bool bTroopsOverviewIsNewData
+        {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _TroopsOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _TroopsOverviewIsNewData = value;
+                }
+            }
+        }
+
     }
 }

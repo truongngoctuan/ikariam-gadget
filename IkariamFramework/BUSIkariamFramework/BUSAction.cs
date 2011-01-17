@@ -143,7 +143,7 @@ namespace IkariamFramework.BUSIkariamFramework
                 BUSBuilding.ForceUpdate(i);
             }
 
-            //Gloval.bEmpireOverviewIsNewData = true;
+            Gloval.bBuildingsOverviewIsNewData = true;
         }
 
         public static void AutoRequestTroops()
@@ -176,8 +176,8 @@ namespace IkariamFramework.BUSIkariamFramework
         #region gadget request data
         public static string requestTownsFromGadget()
         {
-            if (Gloval.bEmpireOverviewIsNewData)
-            {
+            //if (Gloval.bEmpireOverviewIsNewData)
+            //{
                 ////cap nhat thong tin dang luu tru phu` hop voi thoi diem hien ta
                 BUSCity.CalculateFromLocalData();
 
@@ -189,9 +189,31 @@ namespace IkariamFramework.BUSIkariamFramework
                 //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
                 //return "new data";
                 return JsonConvert.SerializeObject(Gadget.CityToEmpire(Gloval.Database.Account.Cities));
-            }
+            //}
 
-            return "";
+            //return "";
+        }
+
+        public static string requestBuildingsFromGadget()
+        {
+            //if (Gloval.bBuildingsOverviewIsNewData)
+            //{
+                ////cap nhat thong tin dang luu tru phu` hop voi thoi diem hien tai
+                //hien gio chua xay dung colddown cho các nhà đang xây dựng
+                //nen khong co lam phan nay
+                //BUSCity.CalculateFromLocalData();
+
+                //cap nhat lai thanh du lieu cu
+                //de gadget khong lay lai lan nua
+                Gloval.bBuildingsOverviewIsNewData = false;
+
+                //lay du lieu moi update cho gadget
+                //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
+                //return "new data";
+                return Gadget.GetTownOverviewUnits();
+            //}
+
+            //return "";
         }
         #endregion
     }
