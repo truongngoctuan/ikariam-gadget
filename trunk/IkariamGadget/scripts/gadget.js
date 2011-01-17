@@ -203,13 +203,13 @@ function Login() {
         errorMessageCode = -1;
     }
     else {
-        errorMessageCode = 0; //Framework.Login(username, password, /*"s5.vn.ikariam.com"*/ displayname);
+        errorMessageCode = Framework.Login(username, password, /*"s5.vn.ikariam.com"*/ displayname);
     }
         
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        SetState(States.Overview);           
+        SetState(States.Loading);           
     }
     else {
         // Fail
@@ -497,7 +497,8 @@ function SetTroopOverviewGUI() {
 			        <td name="Doctor"><img src="images/troopOverview/Doctor.gif" /></td>\
 		        </tr>';
 
-    var troopOverviewUnits = JSON.parse(Framework.GetTroopOverviewUnits(), function(key, value) {
+    //var troopOverviewUnits = JSON.parse(Framework.GetTroopOverviewUnits(), function(key, value) {
+    var troopOverviewUnits = JSON.parse(Framework.requestTroopsOverview(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;
@@ -594,25 +595,25 @@ function shipUnitToHTML(shipUnit, isOdd) {
     if (isOdd == 0) {
         return '<tr valign="bottom">\
 	                        <td><div style="width:80px;"><b>' + shipUnit.TownName + '</b>' + '(' + shipUnit.X + ',' + shipUnit.Y + ')</div></td>\
-	                        <td>' + (shipUnit.Ships.Ram_Ship ? shipUnit.Ships.Ram_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Fire_Ship ? shipUnit.Ships.Fire_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Paddle_Wheel_Ram ? shipUnit.Ships.Paddle_Wheel_Ram.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Ballista_Ship ? shipUnit.Ships.Ballista_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Catapult_Ship? shipUnit.Ships.Catapult_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Mortar_Ship ? shipUnit.Ships.Mortar_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Diving_Boat ? shipUnit.Ships.Diving_Boat.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Ram_Ship ? shipUnit.Troops.Ram_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Fire_Ship ? shipUnit.Troops.Fire_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Paddle_Wheel_Ram ? shipUnit.Troops.Paddle_Wheel_Ram.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Ballista_Ship ? shipUnit.Troops.Ballista_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Catapult_Ship? shipUnit.Troops.Catapult_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Mortar_Ship ? shipUnit.Troops.Mortar_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Diving_Boat ? shipUnit.Troops.Diving_Boat.Quality : '-') + '</td>\
                     </tr>';
     }
     else
         return '<tr valign="bottom" style="background-color:#FDF7DD">\
 	                        <td><div style="width:80px;"><b>' + shipUnit.TownName + '</b>' + '(' + shipUnit.X + ',' + shipUnit.Y + ')</div></td>\
-	                        <td>' + (shipUnit.Ships.Ram_Ship ? shipUnit.Ships.Ram_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Fire_Ship ? shipUnit.Ships.Fire_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Paddle_Wheel_Ram ? shipUnit.Ships.Paddle_Wheel_Ram.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Ballista_Ship ? shipUnit.Ships.Ballista_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Catapult_Ship ? shipUnit.Ships.Catapult_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Mortar_Ship ? shipUnit.Ships.Mortar_Ship.Quality : '-') + '</td>\
-	                        <td>' + (shipUnit.Ships.Diving_Boat ? shipUnit.Ships.Diving_Boat.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Ram_Ship ? shipUnit.Troops.Ram_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Fire_Ship ? shipUnit.Troops.Fire_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Paddle_Wheel_Ram ? shipUnit.Troops.Paddle_Wheel_Ram.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Ballista_Ship ? shipUnit.Troops.Ballista_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Catapult_Ship ? shipUnit.Troops.Catapult_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Mortar_Ship ? shipUnit.Troops.Mortar_Ship.Quality : '-') + '</td>\
+	                        <td>' + (shipUnit.Troops.Diving_Boat ? shipUnit.Troops.Diving_Boat.Quality : '-') + '</td>\
                     </tr>';
 }
 
@@ -655,7 +656,8 @@ function SetTownOverviewGUI() {
 			        <td name="Winegrower"><img src="images/townOverview/winegrower.gif" /></td>\
                 </tr>';
 
-    var townOverviewUnits = JSON.parse(Framework.GetTownOverviewUnits(), function(key, value) {
+    //var townOverviewUnits = JSON.parse(Framework.GetTownOverviewUnits(), function(key, value) {
+    var townOverviewUnits = JSON.parse(Framework.requestBuildingsOverview(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;
@@ -774,8 +776,8 @@ function SetEmpireOverviewGUI() {
                 </tr>';
 
     //var citiesCount = Framework.GetEmpireOverviewUnitNum();
-    //var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
-    var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
+    var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
+    //var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;

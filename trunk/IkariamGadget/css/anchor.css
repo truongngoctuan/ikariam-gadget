@@ -31,6 +31,7 @@
 .gadgetGUI_docked #state
 {
 	font-size : small;
+	color : Blue;
 }
 
 .gadgetGUI_undocked
@@ -68,5 +69,6 @@
 .gadgetGUI_undocked #state
 {
 	font-size : normal;
+	color : Blue;
 }
 
