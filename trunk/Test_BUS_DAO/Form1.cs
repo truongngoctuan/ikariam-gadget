@@ -636,9 +636,14 @@ namespace Test_BUS_DAO
         void tm_Tick(object sender, EventArgs e)
         {
             int iCode = gg2.requestCode();
-
-            if ((iCode & (int)1) != 0) tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
-            //if if if...
+            if (iCode != -1)
+            {
+                if ((iCode & (int)1) != 0)
+                    tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
+                if ((iCode & (int)2) != 0)
+                    tbResult.Text = gg2.requestBuildingsOverview() + tbResult.Text;
+                //if if if...
+            }
 
             tbThreaddebug.Text = gg2.requestDEBUGString();
         }

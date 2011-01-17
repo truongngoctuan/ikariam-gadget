@@ -178,8 +178,8 @@ namespace IkariamFramework
                     {"Museum", new DTOBuilding{Lvl = 1, Type = DTOBuilding.TYPE.Museum}}
                 }},
         };
-        /*
-        public string GetTownOverviewUnits()
+
+        public static string GetTownOverviewUnits()
         {
             // Tham khao ham` nay` de convert tu` dang list sang Dictionary
             List<TownOverviewUnit> townOverviewUnitsTemp = new List<TownOverviewUnit>();
@@ -191,16 +191,21 @@ namespace IkariamFramework
                 townOverviewUnit.Y = dtoCity.Y;
                 foreach (DTOBuilding building in dtoCity.ListBuilding)
                 {
-                    townOverviewUnit.Buildings.Add(building.Type.ToString(), building);
-                }                
+                    try
+                    {
+                        townOverviewUnit.Buildings.Add(building.Type.ToString(), building);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+
+                townOverviewUnitsTemp.Add(townOverviewUnit);
             }
-            return JsonConvert.SerializeObject(townOverviewUnitsTemp);
+            string str = JsonConvert.SerializeObject(townOverviewUnitsTemp);
+            return str;
         }
-        */
-        public string GetTownOverviewUnits()
-        {
-            return JsonConvert.SerializeObject(townOverviewUnits);
-        }
+
         #endregion
 
         #region TroopOverview
@@ -394,7 +399,14 @@ namespace IkariamFramework
             bStopAutoRequest = true;
             // ===============================
             // tack cuc nay` ra ham` cua mai` ben lop' nao` do'
-            requestTarget = (RequestTarget)1;
+            requestTarget = 0;
+            requestTarget |= RequestTarget.Towns;
+            requestTarget |= RequestTarget.Building;
+            requestTarget |= RequestTarget.Troops;
+
+            requestTarget |= RequestTarget.Diplomacy;
+            requestTarget |= RequestTarget.Research;
+
             makeRequest();
             //dang starting nen ko cho client tiep can
             //xem nhu server down
@@ -435,61 +447,65 @@ namespace IkariamFramework
 
         void makeRequest()
         {
-            //go to gold_page 
-            if ((requestTarget & RequestTarget.Gold_page) != 0)
+            try
             {
-                //kiem tra xem co adv nao active hay ko, 
-                //neu co bo sung vao requestTarget de cap nhat
-                //ngay lap tuc, khong doi lan request sau
-                BUSAction.AutoLoadDefaultPage();
-            }
+                //go to gold_page 
+                if ((requestTarget & RequestTarget.Gold_page) != 0)
+                {
+                    //kiem tra xem co adv nao active hay ko, 
+                    //neu co bo sung vao requestTarget de cap nhat
+                    //ngay lap tuc, khong doi lan request sau
+                    BUSAction.AutoLoadDefaultPage();
+                }
 
-            int iAdvstatus = BUSAction.CheckAdvStatus();
-            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
-            {
-                requestTarget |= RequestTarget.Towns;
-            }
-            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
-            {
-                requestTarget |= RequestTarget.Troops;
-                //check thêm move
-            }
-            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.SCIENTIST) != 0)
-            {
-                requestTarget |= RequestTarget.Research;
-            }
-            if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.DIPLOMAT) != 0)
-            {
-                requestTarget |= RequestTarget.Diplomacy;
-            }
-            
-            //if then else request tung cai' trong request target
+                int iAdvstatus = BUSAction.CheckAdvStatus();
+                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
+                {
+                    requestTarget |= RequestTarget.Towns;
+                    requestTarget |= RequestTarget.Building;
+                }
+                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
+                {
+                    requestTarget |= RequestTarget.Troops;
+                    //check thêm move
+                }
+                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.SCIENTIST) != 0)
+                {
+                    requestTarget |= RequestTarget.Research;
+                }
+                if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.DIPLOMAT) != 0)
+                {
+                    requestTarget |= RequestTarget.Diplomacy;
+                }
 
-            if ((requestTarget & RequestTarget.Towns) != 0)
-            {//res + town hall
-                BUSAction.AutoRequestEmpireOverview();
-                Gloval.bEmpireOverviewIsNewData = true;
-            }
-            if ((requestTarget & RequestTarget.Building) != 0)
-            {
-                //BUSAction.AutoRequestBuildings();
-                //Gloval.bEmpireOverviewIsNewData = true;
-            }
-            if ((requestTarget & RequestTarget.Research) != 0)
-            {
-            }
-            if ((requestTarget & RequestTarget.Troops) != 0)
-            {
-            }
-            if ((requestTarget & RequestTarget.Diplomacy) != 0)
-            {
-            }
+                //if then else request tung cai' trong request target
+                //hakuna
+                if ((requestTarget & RequestTarget.Towns) != 0)
+                {//res + town hall
+                    //BUSAction.AutoRequestEmpireOverview();
+                }
+                if ((requestTarget & RequestTarget.Building) != 0)
+                {
+                    BUSAction.AutoRequestBuildings();
+                }
+                if ((requestTarget & RequestTarget.Research) != 0)
+                {
+                }
+                if ((requestTarget & RequestTarget.Troops) != 0)
+                {
+                }
+                if ((requestTarget & RequestTarget.Diplomacy) != 0)
+                {
+                }
 
-            //-----------------------------------------
-            //debug
-            DBnRequestServer++;
-            DEBUG("request server: " + DBnRequestServer.ToString() + " " + requestTarget.ToString());
-            //-----------------------------------------
+                //-----------------------------------------
+                //debug
+                DBnRequestServer++;
+                DEBUG("request server: " + DBnRequestServer.ToString() + " " + requestTarget.ToString());
+                //-----------------------------------------
+            }
+            catch (Exception ex)
+            {}
         }
         #endregion
 
@@ -531,8 +547,6 @@ namespace IkariamFramework
 
         public int requestCode()
         {
-            
-
             //debug
             DBnRequestClient++;
 
@@ -545,8 +559,7 @@ namespace IkariamFramework
 
             int iCode = 0;
             if (Gloval.bEmpireOverviewIsNewData) iCode |= 1;
-
-
+            if (Gloval.bBuildingsOverviewIsNewData) iCode |= 2;
 
             DEBUG("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
             return iCode;
@@ -559,7 +572,24 @@ namespace IkariamFramework
 
         public string requestEmpireOverview()
         {
-             return BUSAction.requestTownsFromGadget();
+            try
+            {
+                return BUSAction.requestTownsFromGadget();
+            }
+            catch (Exception ex)
+            { return ""; }
+        }
+
+        public string requestBuildingsOverview()
+        {
+            try{
+            return BUSAction.requestBuildingsFromGadget();
+            }
+                catch (Exception ex)
+            { 
+                    return "";
+                
+                }
         }
         #endregion
 
@@ -574,5 +604,7 @@ namespace IkariamFramework
             DBcmd.Insert(0, str + "\r\n");
         }
         #endregion
+
+        
     }
 }
