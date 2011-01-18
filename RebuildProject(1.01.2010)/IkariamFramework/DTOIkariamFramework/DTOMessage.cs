@@ -11,5 +11,6 @@ namespace IkariamFramework.DTOIkariamFramework
     public class DTOMessage 
     {
         public string Message { get; set; }
+        public string Sender { get; set; }
     }
 }

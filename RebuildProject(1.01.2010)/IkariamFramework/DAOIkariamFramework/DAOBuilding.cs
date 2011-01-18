@@ -10,7 +10,8 @@ namespace IkariamFramework.DAOIkariamFramework
 {
     public class DAOBuilding
     {
-        public static void GetBuildingCity(int iIndexCity)
+        #region ParserData
+        public static DTOBuilding[] GetBuildingCity()
         {//xem nhu da vao duoc view thanh pho
             HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(
                     XPathManager.XPathCity.ListBuilding);
@@ -111,7 +112,7 @@ namespace IkariamFramework.DAOIkariamFramework
                         break;
                     case "workshop":
                         building.Type = DTOBuilding.TYPE.Workshop;
-                        break;  
+                        break;
                     default:
                         building.Type = DTOBuilding.TYPE.Unknown;
                         break;
@@ -133,11 +134,12 @@ namespace IkariamFramework.DAOIkariamFramework
                 //strTemp = node.ChildNodes[3].GetAttributeValue("title", "err");
                 //strTemp = strTemp.Substring(strTemp.LastIndexOf(' '));
                 building.Lvl = NodeParser.toInt(node.ChildNodes[3].GetAttributeValue("title", "err"));
-                
+
                 list.Add(building);
             }
 
-            Gloval.Database.Account.Cities[iIndexCity].ListBuilding = list.ToArray();
+            return list.ToArray();
         }
+        #endregion
     }
 }

@@ -78,5 +78,43 @@ namespace IkariamFramework.DTOIkariamFramework
             }
         }
 
+        private static bool _ResearchOverviewIsNewData;
+        public static bool bResearchOverviewIsNewData
+        {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _ResearchOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _ResearchOverviewIsNewData = value;
+                }
+            }
+        }
+
+        private static bool _DiplomatOverviewIsNewData;
+        public static bool bDiplomatOverviewIsNewData
+        {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _DiplomatOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _DiplomatOverviewIsNewData = value;
+                }
+            }
+        }
+
     }
 }

@@ -77,6 +77,7 @@ namespace IkariamFramework.DAOIkariamFramework
         public class XPathMessage
         {
             public static string MessageEntry = "//td[@class='msgText']";
+            public static string MessageSender = "//tr[contains(@id,'message')]/td[3]";
         }
 
 

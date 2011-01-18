@@ -43,10 +43,10 @@ namespace IkariamFramework
                 path = Path.GetDirectoryName(path);
                 Gloval.Dict = XmlHelper.LoadFile(string.Format(path + "\\Lang\\{0}.xml", split[1]));
                 Authenticated = true;
-                bStopAutoRequest = false;
+                
                 InitAutoRequest();
 
-                Gloval.bEmpireOverviewIsNewData = false;
+                //Gloval.bEmpireOverviewIsNewData = false;
                 return 0;
             }
 
@@ -336,26 +336,26 @@ namespace IkariamFramework
         #endregion
 
         #region Research
-        DTOResearch researchOverviewUnit = new DTOResearch
+        DTOResearch EmptyresearchOverviewUnit = new DTOResearch
         {
             Scientists = 100,
             ResearchPoints = 10000,
             ResearchPointsPerHour = 3600,
-            Seafaring = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000},
+            Seafaring = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
             Economic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
             Scientific = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
-            Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 }            
+            Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 }
         };
-        /*
-        public string GetResearchOverviewUnit()
+
+        public static string GetResearchOverviewUnit()
         {
             return JsonConvert.SerializeObject(Gloval.Database.Account.Research);
         }
-        */
-        public string GetResearchOverviewUnit()
-        {
-            return JsonConvert.SerializeObject(researchOverviewUnit);
-        }
+
+        //public string GetResearchOverviewUnit()
+        //{
+        //    return JsonConvert.SerializeObject(researchOverviewUnit);
+        //}
         #endregion
 
         #region Events
@@ -385,7 +385,13 @@ namespace IkariamFramework
         #endregion
 
         #region Messages
-        public string GetMessageOverviewUnits()
+        List<DTOMessage> EmptyDiplomatOverviewUnit = new List<DTOMessage> {
+            new DTOMessage{
+                Message = "alo, are you ready? "},
+                new DTOMessage{
+                Message = "fighting... "}};
+
+        public static string GetMessageOverviewUnits()
         {
             return JsonConvert.SerializeObject(Gloval.Database.Account.Message);
         }
@@ -397,7 +403,8 @@ namespace IkariamFramework
         public volatile bool bStopAutoRequest = true;
         public void InitAutoRequest()
         {
-            if (autoRequestThread == null || bStopAutoRequest == true)
+            bStopAutoRequest = true;
+            if (autoRequestThread == null)
             {
                 autoRequestThread = new Thread(new ThreadStart(ThreadWorker));
                 autoRequestThread.Start();
@@ -408,7 +415,14 @@ namespace IkariamFramework
             if (autoRequestThread != null)
             {
                 bStopAutoRequest = true;
-                autoRequestThread.Abort();
+                try
+                {
+                    autoRequestThread.Abort();
+                }
+                catch (Exception ex)
+                {
+                    Debug.ErrorLogging(ex.Message);
+                }
                 autoRequestThread = null;
             }
         }
@@ -431,9 +445,10 @@ namespace IkariamFramework
         {
             try
             {
-                bStopAutoRequest = true;
-                // ===============================
-                // tack cuc nay` ra ham` cua mai` ben lop' nao` do'
+                //init vai ham truoc khi khoi tao
+                BUSCity.requestCities();
+                //cap nhat danh sach
+
                 requestTarget = 0;
                 requestTarget |= RequestTarget.Towns;
                 requestTarget |= RequestTarget.Building;
@@ -458,9 +473,9 @@ namespace IkariamFramework
 
                     makeRequest();
 
-                    requestTarget = (RequestTarget)GetNextRequest(out DefaultAutoRequestTime);
+                    requestTarget = (RequestTarget)GetNextRequest();
                     //DEBUG("done request...");
-                    Thread.Sleep(DefaultAutoRequestTime); //Sua thanh wait de
+                    Thread.Sleep(RequestTime); //Sua thanh wait de
                 }
             }
             catch (Exception ex)
@@ -468,10 +483,10 @@ namespace IkariamFramework
                 Debug.ErrorLogging(ex.Message);
             }
         }
-
-        int GetNextRequest(out int tNextRequest)
+        int RequestTime = 15000;
+        int GetNextRequest()
         {
-            tNextRequest = DefaultAutoRequestTime;
+            RequestTime = DefaultAutoRequestTime; //
             int iNextRequest = (int)RequestTarget.Gold_page;
 
             //kiem tra adv xem co can request trong lan tiep theo hay khong
@@ -529,6 +544,7 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
+                    BUSAction.AutoRequestResearch();
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
@@ -536,6 +552,7 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
+                    BUSAction.AutoRequestDiplomat();
                 }
 
                 //-----------------------------------------
@@ -604,6 +621,8 @@ namespace IkariamFramework
             if (Gloval.bEmpireOverviewIsNewData) iCode |= 1;
             if (Gloval.bBuildingsOverviewIsNewData) iCode |= 2;
             if (Gloval.bTroopsOverviewIsNewData) iCode |= 4;
+            if (Gloval.bResearchOverviewIsNewData) iCode |= 8;
+            if (Gloval.bDiplomatOverviewIsNewData) iCode |= 16;
 
             DEBUG("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
             Debug.Logging("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
@@ -651,6 +670,32 @@ namespace IkariamFramework
             {
                 Debug.ErrorLogging(ex.Message);
                 return JsonConvert.SerializeObject(emptyTroopOverviewUnits);
+            }
+        }
+
+        public string requestResearchOverview()
+        {
+            try
+            {
+                return BUSAction.requestResearchFromGadget();
+            }
+            catch (Exception ex)
+            {
+                Debug.ErrorLogging(ex.Message);
+                return JsonConvert.SerializeObject(EmptyresearchOverviewUnit);
+            }
+        }
+
+        public string requestDiplomatOverview()
+        {
+            try
+            {
+                return BUSAction.requestDiplomatFromGadget();
+            }
+            catch (Exception ex)
+            {
+                Debug.ErrorLogging(ex.Message);
+                return JsonConvert.SerializeObject(EmptyDiplomatOverviewUnit);
             }
         }
         #endregion

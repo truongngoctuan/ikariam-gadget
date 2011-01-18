@@ -16,6 +16,8 @@ namespace IkariamFramework.DAOIkariamFramework
         static String CONTENT_TYPE = "application/x-www-form-urlencoded";
         static String ACCEPT = "application/xml,application/xhtml+xml,text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5";
 
+        public static string OldView { get; private set; }
+
         public static Stream GetHtmlSite(string url)
         {//http://htmlagilitypack.codeplex.com/Thread/View.aspx?ThreadId=14255
             Gloval.NRequestPerTask++;
@@ -107,11 +109,11 @@ namespace IkariamFramework.DAOIkariamFramework
 
             if (strhref.IndexOf("oldView=") != -1)
             {
-                Gloval.Database.strOldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
+                OldView = strhref.Substring(strhref.IndexOf("oldView=") + 8);
             }
             else
             {
-                Gloval.Database.strOldView = "";
+                OldView = "";
             }
             //MessageBox.Show(GloVal.strOldView);
         }
@@ -128,6 +130,18 @@ namespace IkariamFramework.DAOIkariamFramework
             }
             //MessageBox.Show(node.GetAttributeValue("value", "err"));
             return node.GetAttributeValue("value", "err");
+        }
+
+
+        public static float updateValueHaveLimit(float fValue, float fValueLimit, float fValuePerHour, float fDelta)
+        {
+            fValue += updateValue(fValuePerHour, fDelta);
+            if (fValue > fValueLimit) fValue = fValueLimit;
+            return fValue;
+        }
+        public static float updateValue(float fValuePerHour, float fDelta)
+        {
+            return fValuePerHour / 3600f * (float)fDelta;
         }
     }
 }
