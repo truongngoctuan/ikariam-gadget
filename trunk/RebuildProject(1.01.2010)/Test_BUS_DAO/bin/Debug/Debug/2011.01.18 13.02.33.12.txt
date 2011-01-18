@@ -1,0 +1,1724 @@
+﻿TRACK: Login >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php?action=loginAvatar&function=login
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 5 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 6 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 7 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 8 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 9 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 10 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 11 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 12 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 13 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 14 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 15 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 16 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 17 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 18 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=townHall&id=19763&position=0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 19 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 20 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 21 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 22 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 23 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 24 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 25 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 26 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 27 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 28 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 29 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 30 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=tradeAdvisor&oldView=townHall&id=77675
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 31 result: 1
+---------------------------
+TRACK: requestEmpireOverview >> requestTownsFromGadget, Message: [{"TownName":"hakWine",
+"ID":19763,
+"X":37,
+"Y":73,
+"ActionPoint":8,
+"FreePopulation":2284,
+"Population":2284,
+"PopulationLimit":2284,
+"Wood":7259,
+"WoodPerHour":1120,
+"WoodLimit":225500,
+"Wine":32250,
+"WinePerHour":762,
+"WineLimit":225500,
+"Marble":0,
+"MarblePerHour":0,
+"MarbleLimit":225500,
+"Crystal":11362,
+"CrystalPerHour":0,
+"CrystalLimit":225500,
+"Sulphur":37534,
+"SulphurPerHour":0,
+"SulphurLimit":225500,
+"ResearchPointPerHour":181,
+"GoldPerHour":1692},{"TownName":"hakMarble001",
+"ID":23432,
+"X":37,
+"Y":74,
+"ActionPoint":8,
+"FreePopulation":1911,
+"Population":2034,
+"PopulationLimit":2034,
+"Wood":43096,
+"WoodPerHour":939,
+"WoodLimit":193500,
+"Wine":15107,
+"WinePerHour":0,
+"WineLimit":193500,
+"Marble":44177,
+"MarblePerHour":803,
+"MarbleLimit":193500,
+"Crystal":8210,
+"CrystalPerHour":0,
+"CrystalLimit":193500,
+"Sulphur":32918,
+"SulphurPerHour":0,
+"SulphurLimit":193500,
+"ResearchPointPerHour":181,
+"GoldPerHour":856},{"TownName":"hakMarble002",
+"ID":27916,
+"X":37,
+"Y":74,
+"ActionPoint":8,
+"FreePopulation":2136,
+"Population":2172,
+"PopulationLimit":2172,
+"Wood":1189,
+"WoodPerHour":941,
+"WoodLimit":201500,
+"Wine":18485,
+"WinePerHour":0,
+"WineLimit":201500,
+"Marble":1111,
+"MarblePerHour":828,
+"MarbleLimit":201500,
+"Crystal":11222,
+"CrystalPerHour":0,
+"CrystalLimit":201500,
+"Sulphur":14188,
+"SulphurPerHour":0,
+"SulphurLimit":201500,
+"ResearchPointPerHour":181,
+"GoldPerHour":1525},{"TownName":"hakSulphur001",
+"ID":36493,
+"X":36,
+"Y":73,
+"ActionPoint":8,
+"FreePopulation":1782,
+"Population":2034,
+"PopulationLimit":2034,
+"Wood":563,
+"WoodPerHour":448,
+"WoodLimit":193500,
+"Wine":28104,
+"WinePerHour":0,
+"WineLimit":193500,
+"Marble":715,
+"MarblePerHour":0,
+"MarbleLimit":193500,
+"Crystal":8974,
+"CrystalPerHour":0,
+"CrystalLimit":193500,
+"Sulphur":44638,
+"SulphurPerHour":608,
+"SulphurLimit":193500,
+"ResearchPointPerHour":181,
+"GoldPerHour":1646},{"TownName":"hakCrystal002",
+"ID":64517,
+"X":38,
+"Y":71,
+"ActionPoint":7,
+"FreePopulation":2034,
+"Population":2034,
+"PopulationLimit":2034,
+"Wood":596,
+"WoodPerHour":478,
+"WoodLimit":193500,
+"Wine":17216,
+"WinePerHour":0,
+"WineLimit":193500,
+"Marble":263,
+"MarblePerHour":0,
+"MarbleLimit":193500,
+"Crystal":46601,
+"CrystalPerHour":599,
+"CrystalLimit":193500,
+"Sulphur":9260,
+"SulphurPerHour":0,
+"SulphurLimit":193500,
+"ResearchPointPerHour":210,
+"GoldPerHour":1464},{"TownName":"hakSulphur002",
+"ID":67971,
+"X":36,
+"Y":73,
+"ActionPoint":8,
+"FreePopulation":2034,
+"Population":2034,
+"PopulationLimit":2034,
+"Wood":560,
+"WoodPerHour":448,
+"WoodLimit":193500,
+"Wine":20670,
+"WinePerHour":0,
+"WineLimit":193500,
+"Marble":0,
+"MarblePerHour":0,
+"MarbleLimit":193500,
+"Crystal":5072,
+"CrystalPerHour":0,
+"CrystalLimit":193500,
+"Sulphur":30017,
+"SulphurPerHour":0,
+"SulphurLimit":193500,
+"ResearchPointPerHour":181,
+"GoldPerHour":2943},{"TownName":"hakMarble003",
+"ID":73546,
+"X":37,
+"Y":74,
+"ActionPoint":8,
+"FreePopulation":2034,
+"Population":2034,
+"PopulationLimit":2034,
+"Wood":1795,
+"WoodPerHour":913,
+"WoodLimit":193500,
+"Wine":18241,
+"WinePerHour":0,
+"WineLimit":193500,
+"Marble":1004,
+"MarblePerHour":803,
+"MarbleLimit":193500,
+"Crystal":1984,
+"CrystalPerHour":0,
+"CrystalLimit":193500,
+"Sulphur":8750,
+"SulphurPerHour":0,
+"SulphurLimit":193500,
+"ResearchPointPerHour":152,
+"GoldPerHour":1369},{"TownName":"Polis",
+"ID":77675,
+"X":37,
+"Y":73,
+"ActionPoint":4,
+"FreePopulation":77,
+"Population":402,
+"PopulationLimit":402,
+"Wood":6769,
+"WoodPerHour":0,
+"WoodLimit":17500,
+"Wine":2958,
+"WinePerHour":0,
+"WineLimit":17500,
+"Marble":7311,
+"MarblePerHour":0,
+"MarbleLimit":17500,
+"Crystal":5000,
+"CrystalPerHour":0,
+"CrystalLimit":17500,
+"Sulphur":6271,
+"SulphurPerHour":0,
+"SulphurLimit":17500,
+"ResearchPointPerHour":0,
+"GoldPerHour":233}]
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 32 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 33 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=city&id=19763
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 34 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 35 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 36 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 37 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 38 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 39 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 40 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 41 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 42 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 43 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 44 result: 2
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+ERR: requestBuildingsFromGadget >> GetTownOverviewUnits, Message: An item with the same key has already been added.
+---------------------------
+TRACK: requestBuildingsOverview >> requestBuildingsFromGadget, Message: [{"TownName":"hakWine",
+"X":37,
+"Y":73,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":14,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Palace":{"IsBuilding":false,
+"Type":3,
+"Lvl":7,
+"Time":null},
+"Winepress":{"IsBuilding":false,
+"Type":4,
+"Lvl":26,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":18,
+"Time":null},
+"Hideout":{"IsBuilding":false,
+"Type":6,
+"Lvl":32,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":30,
+"Time":null},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":7,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":18,
+"Time":null},
+"Forester":{"IsBuilding":false,
+"Type":10,
+"Lvl":18,
+"Time":null},
+"Winegrower":{"IsBuilding":false,
+"Type":11,
+"Lvl":16,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":8,
+"Time":null}}},{"TownName":"hakMarble001",
+"X":37,
+"Y":74,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"Shipyard":{"IsBuilding":false,
+"Type":15,
+"Lvl":11,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":15,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Forester":{"IsBuilding":false,
+"Type":10,
+"Lvl":18,
+"Time":null},
+"Stonemason":{"IsBuilding":false,
+"Type":17,
+"Lvl":15,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":6,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":30,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":20,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":18,
+"Time":null},
+"Barracks":{"IsBuilding":false,
+"Type":18,
+"Lvl":22,
+"Time":null},
+"Firework":{"IsBuilding":false,
+"Type":19,
+"Lvl":24,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":11,
+"Time":null}}},{"TownName":"hakMarble002",
+"X":37,
+"Y":74,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":22,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":16,
+"Time":null},
+"Shipyard":{"IsBuilding":false,
+"Type":15,
+"Lvl":10,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":30,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":20,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Forester":{"IsBuilding":false,
+"Type":10,
+"Lvl":18,
+"Time":null},
+"Stonemason":{"IsBuilding":false,
+"Type":17,
+"Lvl":17,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":18,
+"Time":null},
+"Warehouse":{"IsBuilding":false,
+"Type":20,
+"Lvl":12,
+"Time":null},
+"Winepress":{"IsBuilding":false,
+"Type":4,
+"Lvl":28,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":10,
+"Time":null}}},{"TownName":"hakSulphur001",
+"X":36,
+"Y":73,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"Shipyard":{"IsBuilding":false,
+"Type":15,
+"Lvl":12,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":14,
+"Time":null},
+"Barracks":{"IsBuilding":false,
+"Type":18,
+"Lvl":19,
+"Time":null},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":6,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":27,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":20,
+"Time":null},
+"Winepress":{"IsBuilding":false,
+"Type":4,
+"Lvl":23,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":18,
+"Time":null},
+"Alchemist":{"IsBuilding":false,
+"Type":24,
+"Lvl":15,
+"Time":null},
+"Firework":{"IsBuilding":false,
+"Type":19,
+"Lvl":22,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":8,
+"Time":null}}},{"TownName":"hakCrystal002",
+"X":38,
+"Y":71,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":13,
+"Time":null},
+"Shipyard":{"IsBuilding":false,
+"Type":15,
+"Lvl":9,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":19,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"GlassBlower":{"IsBuilding":false,
+"Type":22,
+"Lvl":14,
+"Time":null},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":6,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":29,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":20,
+"Time":null},
+"Hideout":{"IsBuilding":false,
+"Type":6,
+"Lvl":16,
+"Time":null},
+"Temple":{"IsBuilding":false,
+"Type":21,
+"Lvl":12,
+"Time":null},
+"Optician":{"IsBuilding":false,
+"Type":23,
+"Lvl":25,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":8,
+"Time":null}}},{"TownName":"hakSulphur002",
+"X":36,
+"Y":73,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":14,
+"Time":null},
+"Shipyard":{"IsBuilding":false,
+"Type":15,
+"Lvl":3,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":18,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":19,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":29,
+"Time":null},
+"Winepress":{"IsBuilding":false,
+"Type":4,
+"Lvl":20,
+"Time":null},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":6,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Alchemist":{"IsBuilding":false,
+"Type":24,
+"Lvl":14,
+"Time":null},
+"Temple":{"IsBuilding":false,
+"Type":21,
+"Lvl":13,
+"Time":null},
+"Embassy":{"IsBuilding":false,
+"Type":25,
+"Lvl":1,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":4,
+"Time":null}}},{"TownName":"hakMarble003",
+"X":37,
+"Y":74,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":21,
+"Time":null},
+"TradingPort":{"IsBuilding":false,
+"Type":14,
+"Lvl":9,
+"Time":null},
+"Forester":{"IsBuilding":false,
+"Type":10,
+"Lvl":16,
+"Time":null},
+"Academy":{"IsBuilding":false,
+"Type":9,
+"Lvl":16,
+"Time":null},
+"Tavern":{"IsBuilding":false,
+"Type":5,
+"Lvl":18,
+"Time":null},
+"Hideout":{"IsBuilding":false,
+"Type":6,
+"Lvl":8,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":30,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":30,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":8,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":7,
+"Time":null},
+"Stonemason":{"IsBuilding":true,
+"Type":17,
+"Lvl":15,
+"Time":"1h 42m"},
+"Dump":{"IsBuilding":false,
+"Type":8,
+"Lvl":6,
+"Time":null},
+"Winepress":{"IsBuilding":false,
+"Type":4,
+"Lvl":24,
+"Time":null},
+"Townwall":{"IsBuilding":false,
+"Type":13,
+"Lvl":4,
+"Time":null}}},{"TownName":"Polis",
+"X":37,
+"Y":73,
+"Buildings":{"Townhall":{"IsBuilding":false,
+"Type":1,
+"Lvl":6,
+"Time":null},
+"Flag":{"IsBuilding":false,
+"Type":28,
+"Lvl":0,
+"Time":null},
+"Museum":{"IsBuilding":false,
+"Type":2,
+"Lvl":2,
+"Time":null},
+"Architect":{"IsBuilding":false,
+"Type":7,
+"Lvl":5,
+"Time":null},
+"Carpenter":{"IsBuilding":false,
+"Type":12,
+"Lvl":8,
+"Time":null},
+"PalaceColony":{"IsBuilding":false,
+"Type":16,
+"Lvl":2,
+"Time":null},
+"Warehouse":{"IsBuilding":false,
+"Type":20,
+"Lvl":1,
+"Time":null},
+"Unknown":{"IsBuilding":false,
+"Type":0,
+"Lvl":0,
+"Time":null}}}]
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 45 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=cityMilitary-army&id=19763
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 46 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 47 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 48 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 49 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 50 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 51 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 52 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 53 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 54 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 55 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 56 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 57 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 58 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=cityMilitary-fleet&id=19763
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 59 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 60 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 61 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 62 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 63 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 64 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 65 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 66 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 67 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 0 client request: 68 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 1 79
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 2 None
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 69 result: 4
+---------------------------
+TRACK: requestTroopsOverview >> requestTroopsFromGadget, Message: [{"TownName":"hakWine",
+"X":37,
+"Y":73,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":13},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":6},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakMarble001",
+"X":37,
+"Y":74,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":471},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":216},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":679},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":147},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":18},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":36},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":120},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":45},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":35},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":11},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":6},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakMarble002",
+"X":37,
+"Y":74,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":26},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakSulphur001",
+"X":36,
+"Y":73,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakCrystal002",
+"X":38,
+"Y":71,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakSulphur002",
+"X":36,
+"Y":73,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":2},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"hakMarble003",
+"X":37,
+"Y":74,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null},{"TownName":"Polis",
+"X":37,
+"Y":73,
+"Troops":{"Hoplite":{"IsUnits":true,
+"Type":1,
+"Quality":0},
+"Steam_Giant":{"IsUnits":true,
+"Type":2,
+"Quality":0},
+"Spearman":{"IsUnits":true,
+"Type":3,
+"Quality":0},
+"Swordsman":{"IsUnits":true,
+"Type":4,
+"Quality":0},
+"Slinger":{"IsUnits":true,
+"Type":5,
+"Quality":0},
+"Archer":{"IsUnits":true,
+"Type":6,
+"Quality":0},
+"Sulphur_Carabineer":{"IsUnits":true,
+"Type":7,
+"Quality":0},
+"Ram":{"IsUnits":true,
+"Type":8,
+"Quality":0},
+"Catapult":{"IsUnits":true,
+"Type":9,
+"Quality":0},
+"Mortar":{"IsUnits":true,
+"Type":10,
+"Quality":0},
+"Gyrocopter":{"IsUnits":true,
+"Type":11,
+"Quality":0},
+"Balloon_Bombardier":{"IsUnits":true,
+"Type":12,
+"Quality":0},
+"Cook":{"IsUnits":true,
+"Type":13,
+"Quality":0},
+"Doctor":{"IsUnits":true,
+"Type":14,
+"Quality":0},
+"Ram_Ship":{"IsUnits":false,
+"Type":15,
+"Quality":1},
+"Fire_Ship":{"IsUnits":false,
+"Type":16,
+"Quality":0},
+"Paddle_Wheel_Ram":{"IsUnits":false,
+"Type":17,
+"Quality":0},
+"Ballista_Ship":{"IsUnits":false,
+"Type":18,
+"Quality":0},
+"Catapult_Ship":{"IsUnits":false,
+"Type":19,
+"Quality":0},
+"Mortar_Ship":{"IsUnits":false,
+"Type":20,
+"Quality":0},
+"Diving_Boat":{"IsUnits":false,
+"Type":21,
+"Quality":0}},
+"Ships":null}]
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 70 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 71 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 72 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 73 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 74 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 75 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 76 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 2 client request: 77 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 3 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 78 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 79 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 80 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 81 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 82 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 83 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 84 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 85 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 3 client request: 86 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 4 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 87 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 88 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 89 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 90 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 91 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 92 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 93 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 94 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 4 client request: 95 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 5 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 96 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 97 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 98 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 99 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 100 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 101 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 102 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 5 client request: 103 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 6 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 104 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 105 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 106 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 107 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 108 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 109 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 110 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 111 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 6 client request: 112 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 7 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 113 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 114 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 115 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 116 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 117 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 118 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 119 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 120 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 7 client request: 121 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 8 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 122 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 123 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 124 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 125 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 126 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 127 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 128 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 129 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 8 client request: 130 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 9 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 131 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 132 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 133 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 134 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 135 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 136 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 137 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 138 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 9 client request: 139 result: 0
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 10 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 140 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 141 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 142 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 143 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 144 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 145 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 146 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 10 client request: 147 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 11 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 148 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 149 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 150 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 151 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 152 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 153 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 154 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 155 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 11 client request: 156 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: ThreadWorker >> makeRequest, Message: request server: 12 Gold_page
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 157 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 158 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 159 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 160 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 161 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 162 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 163 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 164 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 165 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=finances
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 166 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 167 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 168 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 169 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 170 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 171 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 172 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 173 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 174 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 175 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 176 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 177 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 178 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 179 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=city&id=19763
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 180 result: 0
+---------------------------
+TRACK: GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=townHall&id=19763&position=0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 181 result: 0
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 182 result: 0
+---------------------------
+TRACK: ChangeCity >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php
+---------------------------
+TRACK: tm_Tick >> requestCode, Message: request server: 12 client request: 183 result: 0
+---------------------------
+ERR: ThreadWorker >> makeRequest, Message: Thread was being aborted.
+---------------------------
+ERR: ThreadStart_Context >> ThreadWorker, Message: Thread was being aborted.
+---------------------------
