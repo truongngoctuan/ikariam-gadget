@@ -105,8 +105,8 @@ namespace IkariamFramework
                 empireOverviewUnit.X = city.X;
                 empireOverviewUnit.Y = city.Y;
                 empireOverviewUnit.ActionPoint = city.ActionPoint;
-                empireOverviewUnit.FreePopulation = (int)city.Population;
-                empireOverviewUnit.Population = (int)city.PopulationLimit;
+                empireOverviewUnit.FreePopulation = (int)city.FreePopulation;
+                empireOverviewUnit.Population = (int)city.Population;
                 empireOverviewUnit.PopulationLimit = (int)city.PopulationLimit;
                 empireOverviewUnit.Wood = (int)city.Wood;
                 empireOverviewUnit.WoodPerHour = city.WoodPerHour; 
@@ -359,22 +359,21 @@ namespace IkariamFramework
         #endregion
 
         #region Events
-        DTOEvent[] eventOverviewUnits = new DTOEvent[]
+        DTOEvent[] EmptyEventOverviewUnits = new DTOEvent[]
         {
             new DTOEvent{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.NEW},
             new DTOEvent{Town = "City2", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.ALL},
             new DTOEvent{Town = "City3", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.OLD}
         };
-        public string GetEventOverviewUnits()
-        {
-            return JsonConvert.SerializeObject(eventOverviewUnits);
-        }
-        /*
-        public string GetEventOverviewUnits()
+        //public static string GetEventOverviewUnits()
+        //{
+        //    return JsonConvert.SerializeObject(eventOverviewUnits);
+        //}
+
+        public static string GetEventOverviewUnits()
         {
             return JsonConvert.SerializeObject(Gloval.Database.Account.Event);
         }
-        */
         #endregion
 
         #region Movements
@@ -434,9 +433,9 @@ namespace IkariamFramework
             Troops = 2, 
             Research = 4, 
             Diplomacy = 8, 
-            //All = 16,
+            Event = 16,
             Gold_page = 32,
-            Building = 64
+            Building = 64,
             };
         RequestTarget requestTarget = RequestTarget.None;
         int DefaultAutoRequestTime = 15000; //1 minutes
@@ -456,6 +455,7 @@ namespace IkariamFramework
 
                 requestTarget |= RequestTarget.Diplomacy;
                 requestTarget |= RequestTarget.Research;
+                requestTarget |= RequestTarget.Event;
 
                 makeRequest();
                 //dang starting nen ko cho client tiep can
@@ -487,6 +487,8 @@ namespace IkariamFramework
         int GetNextRequest()
         {
             RequestTime = DefaultAutoRequestTime; //
+            //binh thuong se la trang vang
+            //neu de goto city se dc loi 1 lan request khi can vao townhall
             int iNextRequest = (int)RequestTarget.Gold_page;
 
             //kiem tra adv xem co can request trong lan tiep theo hay khong
@@ -542,17 +544,21 @@ namespace IkariamFramework
                 {
                     BUSAction.AutoRequestBuildings();
                 }
-                if ((requestTarget & RequestTarget.Research) != 0)
-                {
-                    BUSAction.AutoRequestResearch();
-                }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
                     BUSAction.AutoRequestTroops();
                 }
+                if ((requestTarget & RequestTarget.Research) != 0)
+                {
+                    BUSAction.AutoRequestResearch();
+                }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
                     BUSAction.AutoRequestDiplomat();
+                }
+                if ((requestTarget & RequestTarget.Event) != 0)
+                {
+                    BUSAction.AutoRequestEvent();
                 }
 
                 //-----------------------------------------
@@ -623,6 +629,7 @@ namespace IkariamFramework
             if (Gloval.bTroopsOverviewIsNewData) iCode |= 4;
             if (Gloval.bResearchOverviewIsNewData) iCode |= 8;
             if (Gloval.bDiplomatOverviewIsNewData) iCode |= 16;
+            if (Gloval.bEventOverviewIsNewData) iCode |= 32;
 
             DEBUG("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
             Debug.Logging("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: " + iCode.ToString());
@@ -696,6 +703,19 @@ namespace IkariamFramework
             {
                 Debug.ErrorLogging(ex.Message);
                 return JsonConvert.SerializeObject(EmptyDiplomatOverviewUnit);
+            }
+        }
+
+        public string requestEventOverview()
+        {
+            try
+            {
+                return BUSAction.requestEventFromGadget();
+            }
+            catch (Exception ex)
+            {
+                Debug.ErrorLogging(ex.Message);
+                return JsonConvert.SerializeObject(EmptyEventOverviewUnits);
             }
         }
         #endregion

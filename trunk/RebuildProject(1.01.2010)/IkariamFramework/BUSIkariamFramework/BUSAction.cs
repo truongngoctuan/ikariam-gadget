@@ -95,9 +95,21 @@ namespace IkariamFramework.BUSIkariamFramework
             DebuggingAndTracking.Debug.Logging("AutoRequestBuildings start");
             //force update building
             int nCities = Gloval.Database.Account.Cities.Count();
-            for (int i = 0; i < nCities; i++)
+
+            //giảm dc 1 request
+            if (Gloval.Database.CurrentCity == 0)
             {
-                BUSBuilding.requestBuilding(i);
+                for (int i = 0; i < nCities; i++)
+                {
+                    BUSBuilding.requestBuilding(i);
+                }
+            }
+            else
+            {
+                for (int i = nCities - 1; i >= 0; i--)
+                {
+                    BUSBuilding.requestBuilding(i);
+                }
             }
 
             Gloval.bBuildingsOverviewIsNewData = true;
@@ -109,18 +121,39 @@ namespace IkariamFramework.BUSIkariamFramework
             DebuggingAndTracking.Debug.Logging("AutoRequestTroops - Units start");
             //force unit
             int nCities = Gloval.Database.Account.Cities.Count();
-            for (int i = 0; i < nCities; i++)
+            //giảm dc 1 request
+            if (Gloval.Database.CurrentCity == 0)
             {
-                BUSTroops.requestUnits(i);
+                for (int i = 0; i < nCities; i++)
+                {
+                    BUSTroops.requestUnits(i);
+                }
+            }
+            else
+            {
+                for (int i = nCities - 1; i >= 0; i--)
+                {
+                    BUSTroops.requestUnits(i);
+                }
             }
 
             DebuggingAndTracking.Debug.Logging("AutoRequestTroops - Units done");
             DebuggingAndTracking.Debug.Logging("AutoRequestTroops - Ships start");
 
-            //force update ships
-            for (int i = 0; i < nCities; i++)
+            //giảm dc 1 request
+            if (Gloval.Database.CurrentCity == 0)
             {
-                BUSTroops.requestShips(i);
+                for (int i = 0; i < nCities; i++)
+                {
+                    BUSTroops.requestShips(i);
+                }
+            }
+            else
+            {
+                for (int i = nCities - 1; i >= 0; i--)
+                {
+                    BUSTroops.requestShips(i);
+                }
             }
 
             Gloval.bTroopsOverviewIsNewData = true;
@@ -129,18 +162,26 @@ namespace IkariamFramework.BUSIkariamFramework
 
         public static void AutoRequestResearch()
         {
-            DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview start");
+            DebuggingAndTracking.Debug.Logging("AutoRequestResearch start");
             BUSResearch.requestResearch();
             Gloval.bResearchOverviewIsNewData = true;
-            DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview start");
+            DebuggingAndTracking.Debug.Logging("AutoRequestResearch done");
         }
 
         public static void AutoRequestDiplomat()
         {
-            DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview start");
+            DebuggingAndTracking.Debug.Logging("AutoRequestDiplomat start");
             BUSMessage.requestMessage();
             Gloval.bDiplomatOverviewIsNewData = true;
-            DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview start");
+            DebuggingAndTracking.Debug.Logging("AutoRequestDiplomat done");
+        }
+
+        public static void AutoRequestEvent()
+        {
+            DebuggingAndTracking.Debug.Logging("AutoRequestEvent start");
+            BUSEvent.requestEvent();
+            Gloval.bEventOverviewIsNewData = true;
+            DebuggingAndTracking.Debug.Logging("AutoRequestEvent done");
         }
         #endregion 
 
@@ -256,6 +297,30 @@ namespace IkariamFramework.BUSIkariamFramework
             //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
             //return "new data";
             string str = Gadget.GetMessageOverviewUnits();
+            DebuggingAndTracking.Debug.Logging(str);
+            return str;
+            //}
+
+            //return "";
+        }
+
+        public static string requestEventFromGadget()
+        {
+            //if (Gloval.bBuildingsOverviewIsNewData)
+            //{
+            ////cap nhat thong tin dang luu tru phu` hop voi thoi diem hien tai
+            //hien gio chua xay dung colddown cho các nhà đang xây dựng
+            //nen khong co lam phan nay
+            //BUSResearch.CalculateFromLocalData();
+
+            //cap nhat lai thanh du lieu cu
+            //de gadget khong lay lai lan nua
+            Gloval.bEventOverviewIsNewData = false;
+
+            //lay du lieu moi update cho gadget
+            //return JsonConvert.SerializeObject(Gloval.Database.Account.Cities);
+            //return "new data";
+            string str = Gadget.GetEventOverviewUnits();
             DebuggingAndTracking.Debug.Logging(str);
             return str;
             //}
