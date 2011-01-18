@@ -13,6 +13,7 @@ namespace IkariamFramework.DTOIkariamFramework
     [Serializable, ComVisible(true)]
     public class DTOCity 
     {
+
         public DTOBuilding[] ListBuilding { get; set; }
         public DTOTroops[] ListTroopsUnits { get; set; }//quan bo
         public DTOTroops[] ListTroopsShips { get; set; }//quan thuy
@@ -34,7 +35,7 @@ namespace IkariamFramework.DTOIkariamFramework
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public bool IsUpdatedResource = false;
+        //public bool IsUpdatedResource = false;
 
         public float Wood { get; set; }
         public float Wine { get; set; }

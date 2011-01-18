@@ -11,39 +11,46 @@ namespace IkariamFramework.BUSIkariamFramework
     [ComVisible(true)]
     public class BUSEvent
     {
-        public static int Count()
+        public static void requestEvent()
         {
-            if (Gloval.Database.Account.Event == null)
-            {
-                DAOEvent.GetEventEntry();
-                Gloval.Database.Account.DTEvent = DateTime.Now;
-            }
-
-            return Gloval.Database.Account.Event.Count();
+            DAOAdvisor.GoToadvCities();
+            //Gloval.Database.Account.DTEvent = DateTime.Now;
+            Gloval.Database.Account.Event = DAOEvent.GetEventEntry();
         }
 
-        public static DTOEvent Get(int iIndex)
-        {
-            //tu dong cap nhat danh sach neu chua co
-            if (Gloval.Database.Account.Event == null)
-            {
-                DAOEvent.GetEventEntry();
-                Gloval.Database.Account.DTEvent = DateTime.Now;
-            }
+        #region old code
+        //public static int Count()
+        //{
+        //    if (Gloval.Database.Account.Event == null)
+        //    {
+        //        DAOAdvisor.GoToadvCities();
+        //        Gloval.Database.Account.Event = DAOEvent.GetEventEntry();
+        //        Gloval.Database.Account.DTEvent = DateTime.Now;
+        //    }
 
-            if (0 <= iIndex && iIndex < Gloval.Database.Account.Event.Count())
-            {
-                return Gloval.Database.Account.Event[iIndex];
-            }
+        //    return Gloval.Database.Account.Event.Count();
+        //}
 
-            //thong bao loi~
-            return null;
-        }
+        //public static DTOEvent Get(int iIndex)
+        //{
+        //    //tu dong cap nhat danh sach neu chua co
+        //    if (Gloval.Database.Account.Event == null)
+        //    {
+        //        DAOAdvisor.GoToadvCities();
+        //        Gloval.Database.Account.Event = DAOEvent.GetEventEntry();
+        //        Gloval.Database.Account.DTEvent = DateTime.Now;
+        //    }
 
-        public static void ForceUpdate()
-        {
-            DAOEvent.GetEventEntry();
-            Gloval.Database.Account.DTEvent = DateTime.Now;
-        }
+        //    if (0 <= iIndex && iIndex < Gloval.Database.Account.Event.Count())
+        //    {
+        //        return Gloval.Database.Account.Event[iIndex];
+        //    }
+
+        //    //thong bao loi~
+        //    return null;
+        //}
+
+        #endregion
+
     }
 }

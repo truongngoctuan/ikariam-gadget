@@ -10,22 +10,26 @@ namespace IkariamFramework.DAOIkariamFramework
 {
     public class DAOMessage
     {
+        #region ParserData
         public static DTOMessage[] Get10LastMessage()
         {//xem nhu chuyen trang roi`
 
-            HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageEntry);
+            HtmlNodeCollection nodeColMessage = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageEntry);
+            HtmlNodeCollection nodeColSender = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageSender);
 
-            List<DTOMessage> list = new List<DTOMessage>();
-            foreach (HtmlNode node in nodeCol)
+            DTOMessage[] list = new DTOMessage[nodeColSender.Count];
+
+            for (int i = nodeColSender.Count - 1; i >= 0 ; i--)
             {
-                DTOMessage mess = new DTOMessage();
-                mess.Message = node.ChildNodes[1].InnerText;
-                list.Add(mess);
+                DTOMessage mes = new DTOMessage();
+                mes.Message = nodeColMessage[i].InnerText;
+                mes.Sender = nodeColSender[i].InnerText;
+
+                list[i] = mes;
             }
 
-            Gloval.Database.Account.Message = list.ToArray();
-
-            return Gloval.Database.Account.Message;
+            return list;
         }
+        #endregion
     }
 }

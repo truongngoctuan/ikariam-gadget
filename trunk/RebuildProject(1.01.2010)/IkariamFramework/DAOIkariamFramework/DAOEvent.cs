@@ -10,40 +10,42 @@ namespace IkariamFramework.DAOIkariamFramework
 {
     public class DAOEvent
     {
+        #region goToPage
+        //cai cua advisor
+        #endregion
+
+        #region ParserData
         public static DTOEvent[] GetEventEntry()
         {
-            DAOAdvisor.GoToadvCities();
             //tradeAdvisor
             HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathEvent.EventsEntry);
-            //HtmlNodeCollection nodeCol = Gloval.Database.DocumentNode.SelectNodes("//table[@id='inboxCity']/tr");
             List<DTOEvent> events = new List<DTOEvent>();
 
             //bo cai node cuoi do no la cai chuyen trang
-            for (int i = 0; i < nodeCol.Count - 1; i++ )
-                //foreach (HtmlNode node in nodeCol)
+            for (int i = 0; i < nodeCol.Count - 1; i++)
+            //foreach (HtmlNode node in nodeCol)
+            {
+                DTOEvent ev = new DTOEvent();
+
+                if (nodeCol[i].ChildNodes[1].GetAttributeValue("class", "err") == "wichtig")
                 {
-                    DTOEvent ev = new DTOEvent();
-
-                    if (nodeCol[i].ChildNodes[1].GetAttributeValue("class", "err") == "wichtig")
-                    {
-                        ev.Type = DTOEvent.TYPE.NEW;
-                    }
-                    else
-                    {
-                        ev.Type = DTOEvent.TYPE.OLD;
-                    }
-
-                    ev.Town = nodeCol[i].ChildNodes[5].ChildNodes[1].InnerText;
-                    ev.Town = ev.Town.Replace("\r\n", " ").Trim();
-
-                    ev.Date = nodeCol[i].ChildNodes[7].InnerText;
-                    ev.Message = nodeCol[i].ChildNodes[9].InnerText;
-
-                    events.Add(ev);
+                    ev.Type = DTOEvent.TYPE.NEW;
                 }
-            Gloval.Database.Account.Event = events.ToArray();
+                else
+                {
+                    ev.Type = DTOEvent.TYPE.OLD;
+                }
 
-            return Gloval.Database.Account.Event;
+                ev.Town = nodeCol[i].ChildNodes[5].ChildNodes[1].InnerText;
+                ev.Town = ev.Town.Replace("\r\n", " ").Trim();
+
+                ev.Date = nodeCol[i].ChildNodes[7].InnerText;
+                ev.Message = nodeCol[i].ChildNodes[9].InnerText;
+
+                events.Add(ev);
+            }
+            return events.ToArray();
         }
+        #endregion        
     }
 }

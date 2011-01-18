@@ -37,8 +37,10 @@ namespace IkariamFramework.DebuggingAndTracking
 
             if (stackFrames.Count() >= 2)
             {
-                StringBuilder strMsg = new StringBuilder(100);
+                StringBuilder strMsg = new StringBuilder(200);
                 strMsg.Append(strBeforeFunction);
+                strMsg.Append(stackFrames[4].GetMethod().Name);
+                strMsg.Append(" >> ");
                 strMsg.Append(stackFrames[3].GetMethod().Name);
                 strMsg.Append(" >> ");
                 strMsg.Append(stackFrames[2].GetMethod().Name);

@@ -41,13 +41,13 @@ namespace IkariamFramework.DTOIkariamFramework
         public DateTime DTGold { get; set; }
 
         // - event
-        public DateTime DTEvent { get; set; }
+        //public DateTime DTEvent { get; set; }
 
         // - research
         public DateTime DTResearch { get; set; }
 
         // - message
-        public DateTime DTMessage { get; set; }
+        //public DateTime DTMessage { get; set; }
     }
 }
 

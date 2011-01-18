@@ -9,6 +9,7 @@ namespace IkariamFramework.DAOIkariamFramework
 {
     public class DAOAdvisor
     {
+        #region goToPage
         public static void GoToadvCities()
         {
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advCities);
@@ -32,20 +33,10 @@ namespace IkariamFramework.DAOIkariamFramework
             BaseFunction.GoToLink(XPathManager.XPathAdvisor.advDiplomacy);
             Gloval.Database.CurrentView = Data.SITE_VIEW.ADVISOR_DIPLOMACY;
         }
+        #endregion
 
-        public static void CheckAdvActive()
-        {
-            //go to goldpage
-            //check mayor
-            //check general
-            //check scientist
-            //check diplomat
-        }
-
-        public static bool CheckOneAdvisor(string strXPath)
-        {
-            //BaseFunction.GoToLink(XPathManager.XPathAdvisor.advDiplomacy);
-            return true;
-        }
+        #region ParserData
+        //can day parser tu BUS ve DAO (ham nam 2 lop)
+        #endregion
     }
 }

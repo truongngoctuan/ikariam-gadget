@@ -41,7 +41,7 @@ namespace IkariamFramework.DTOIkariamFramework
 
         public string WebUrl = "http://s15.en.ikariam.com/index.php";
 
-        public string strOldView = "";
+        
 
         //quản lý hiện đang ở thành phố nào
         public int CurrentCity { get; set; }

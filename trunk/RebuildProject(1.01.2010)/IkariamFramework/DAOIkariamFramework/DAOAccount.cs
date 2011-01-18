@@ -9,6 +9,15 @@ namespace IkariamFramework.DAOIkariamFramework
 {
     public class DAOAccount
     {
+        #region request
+        #endregion
+
+        #region goToPage
+        #endregion
+
+        #region ParserData
+        #endregion
+
         //chưa kiểm tra có login thành công hay không
         public static bool Login(string strUsername, 
             string strPassword,
@@ -49,22 +58,22 @@ namespace IkariamFramework.DAOIkariamFramework
         public static void GoToGoldPage()
         {
             BaseFunction.GoToLink(XPathManager.XPathAccount.GoldPage);
-            Gloval.Database.CurrentView = Data.SITE_VIEW.GOLD_PAGE;
+//            Gloval.Database.CurrentView = Data.SITE_VIEW.GOLD_PAGE;
         }
 
-        public static void GetTotalGold()
-        {//total gold and total gold per hour
-            HtmlNode node1 = Gloval.Database.DocumentNode.SelectSingleNode(
-                    XPathManager.XPathAccount.GoldTotal);
+        //public static void GetTotalGold()
+        //{//total gold and total gold per hour
+        //    HtmlNode node1 = Gloval.Database.DocumentNode.SelectSingleNode(
+        //            XPathManager.XPathAccount.GoldTotal);
 
-            Gloval.Database.Account.TotalGold = NodeParser.toUnsignedLong(node1.InnerText);
+        //    Gloval.Database.Account.TotalGold = NodeParser.toUnsignedLong(node1.InnerText);
 
-            //----------------
-            HtmlNode node2 = Gloval.Database.DocumentNode.SelectNodes(
-                    XPathManager.XPathAccount.GoldTotalPerHour).Last();
+        //    //----------------
+        //    HtmlNode node2 = Gloval.Database.DocumentNode.SelectNodes(
+        //            XPathManager.XPathAccount.GoldTotalPerHour).Last();
 
-            Gloval.Database.Account.TotalGoldPerHour = NodeParser.toUnsignedLong(node2.InnerText);
-        }
+        //    Gloval.Database.Account.TotalGoldPerHour = NodeParser.toUnsignedLong(node2.InnerText);
+        //}
 
         //adv check
         public static int CheckAdvStatus()
