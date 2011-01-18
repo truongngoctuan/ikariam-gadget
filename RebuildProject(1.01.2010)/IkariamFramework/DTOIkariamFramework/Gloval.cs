@@ -116,5 +116,23 @@ namespace IkariamFramework.DTOIkariamFramework
             }
         }
 
+        private static bool _EventOverviewIsNewData;
+        public static bool bEventOverviewIsNewData
+        {
+            get
+            {
+                lock (lockThis)
+                {
+                    return _EventOverviewIsNewData;
+                }
+            }
+            set
+            {
+                lock (lockThis)
+                {
+                    _EventOverviewIsNewData = value;
+                }
+            }
+        }
     }
 }
