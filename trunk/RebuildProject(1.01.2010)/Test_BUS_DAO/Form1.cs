@@ -552,19 +552,36 @@ namespace Test_BUS_DAO
 
         private void button25_Click(object sender, EventArgs e)
         {
-            if (gg.Login("green",
-                "22551325",
+            if (gg2.Login("megamind",
+                "minh1989",
+                //"s15.en.ikariam.com") == 0)
                 "s5.vn.ikariam.com") == 0)
+                //tbServer.Text) == 0)
             {
-                gg2.bStopAutoRequest = false;
-                gg2.InitAutoRequest();
+                //gg2.bStopAutoRequest = false;
+                //gg2.InitAutoRequest();
 
-                tbResult.Text = BUSAction.InnerHTML();
+                tbResult.Text = "login successful";
+                Debug.Logging("login successful");
             }
             else
             {
                 MessageBox.Show("đăng nhập thất bại!");
-            }
+            } 
+
+            //if (gg.Login("green",
+            //    "22551325",
+            //    "s5.vn.ikariam.com") == 0)
+            //{
+            //    gg2.bStopAutoRequest = false;
+            //    gg2.InitAutoRequest();
+
+            //    tbResult.Text = BUSAction.InnerHTML();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("đăng nhập thất bại!");
+            //}
         }
 
         private void button27_Click(object sender, EventArgs e)
@@ -698,7 +715,17 @@ namespace Test_BUS_DAO
             {
                 System.Threading.Thread.Sleep(1000);
             }
-            MessageBox.Show("ac");
+            tbResult.Text = gg2.requestEventOverview() + tbResult.Text;
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            while (!(gg2.requestCode() > 0))
+            {
+                System.Threading.Thread.Sleep(1000);
+            }
+            tbResult.Text = gg2.requestEventOverview() + tbResult.Text;
+            tbResult.Text = gg2.requestResearchOverview() + tbResult.Text;
         }
     }
 }

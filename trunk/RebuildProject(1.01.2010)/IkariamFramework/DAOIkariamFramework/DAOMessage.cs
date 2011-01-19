@@ -17,7 +17,15 @@ namespace IkariamFramework.DAOIkariamFramework
             HtmlNodeCollection nodeColMessage = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageEntry);
             HtmlNodeCollection nodeColSender = Gloval.Database.DocumentNode.SelectNodes(XPathManager.XPathMessage.MessageSender);
 
-            DTOMessage[] list = new DTOMessage[nodeColSender.Count];
+            DTOMessage[] list;
+            if (nodeColMessage == null)
+            {
+                //khong co tin nhan nao
+                list = new DTOMessage[1] {new DTOMessage{Message = "don't have any message", Sender = ""}};
+                return list;
+            }
+
+            list = new DTOMessage[nodeColSender.Count];
 
             for (int i = nodeColSender.Count - 1; i >= 0 ; i--)
             {

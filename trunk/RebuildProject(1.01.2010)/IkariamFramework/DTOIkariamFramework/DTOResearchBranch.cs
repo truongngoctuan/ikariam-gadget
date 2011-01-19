@@ -13,5 +13,6 @@ namespace IkariamFramework.DTOIkariamFramework
         public string Name { get; set; }
         public string Description { get; set; }
         public long Need { get; set; }
+        public string NeedDescription { get; set; }
     }
 }

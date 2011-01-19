@@ -80,10 +80,11 @@ namespace IkariamFramework.DAOIkariamFramework
             DTOTroops troop = new DTOTroops();
             troop.Type = type;
             troop.IsUnits = bIsUnits;
-            string strTemp = node.InnerText;
-            strTemp = strTemp.Replace(",", "");
-            strTemp = strTemp.Replace("-", "");
-            troop.Quality = int.Parse(strTemp);
+            //string strTemp = node.InnerText;
+            //strTemp = strTemp.Replace(",", "");
+            //strTemp = strTemp.Replace("-", "");
+            //troop.Quality = int.Parse(strTemp);
+            troop.Quality = NodeParser.toInt(node.InnerText);
             
             return troop;
         }

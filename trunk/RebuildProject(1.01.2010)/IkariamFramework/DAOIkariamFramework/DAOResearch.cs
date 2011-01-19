@@ -17,8 +17,19 @@ namespace IkariamFramework.DAOIkariamFramework
 
             rb.Name = node.ChildNodes[1].ChildNodes[0].InnerText.Trim(new char[] { '\r', '\n', '\t' });
             rb.Description = node.ChildNodes[5].InnerText;
-            rb.Need = NodeParser.toInt(node.ChildNodes[9].ChildNodes[3].ChildNodes[1].ChildNodes[0].InnerText);
-
+            //HtmlNode nodeNeed = node.ChildNodes[9].ChildNodes[3].ChildNodes[1].ChildNodes[0];
+            HtmlNode nodeNeed = node.SelectSingleNode("./div[@class='costs']/ul/li");
+            if (nodeNeed != null)
+            {
+                rb.Need = NodeParser.toInt(nodeNeed.InnerText);
+                rb.NeedDescription = "";
+            }
+            else
+            {
+                rb.Need = 0;
+                rb.NeedDescription = node.SelectSingleNode("./div[2]").InnerText.Trim(new char[] {'\r', '\n', '\t'});
+            }
+            
             return rb;
         }
 
