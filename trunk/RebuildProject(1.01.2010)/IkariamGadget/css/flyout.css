@@ -147,3 +147,27 @@ td,tr,table,img, h1, h2, h3, h4, h5, h6 {
 	top : 40; 
 	left : 822;
 }
+
+/* StatisticsOverview */
+.statisticsOverview {
+	width: 100%;
+	background-color : #FFEECA
+}
+
+.statisticsOverview .statisticHolder
+{
+	width : 785px;
+	border: #cacaca 1px solid;
+}
+
+/* DiplomacyOverview */
+.map {
+	width: 100%;
+	background-color : #FFEECA
+}
+
+.map .mapHolder
+{
+	width : 785px;
+	border: #cacaca 1px solid;
+}
