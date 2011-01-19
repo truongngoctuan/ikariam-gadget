@@ -2,7 +2,7 @@ body
 {
 	/*padding: 0px; 
 	margin: 0px;*/
-	height: 400px;
+	height: 700px;
 }
 
 /*
@@ -17,7 +17,7 @@ table {
 	background-color:#F7E7C5;
 }
 
-td,tr,table,img {
+td,tr,table,img, h1, h2, h3, h4, h5, h6 {
 	padding : 0 0;	
 	margin:0 0;
 	border-style:none;
@@ -70,5 +70,39 @@ td,tr,table,img {
 	height: 30px;
 	width: 35px;
 	margin: 2px;
+}
+
+/* ResearchOverview */
+.researchOverview {
+	background-color : #FFEECA
+}
+.researchOverview td {
+	text-align : left; 	
+	border : 1px solid #7E4A21;
+	padding : 10px;
+}
+.researchOverview img {
+	border : none;
+	width : auto;
+	height : auto;
+}
+.researchOverview .countdown {
+	text-align : center;
+}
+
+/* EventOverview */
+.eventOverview {
+	background-color : #FFEECA
+}
+.eventOverview td {
+	text-align : left; 	
+	border : 1px solid #7E4A21;
+	padding : 0 5px;
+}
+.eventOverview img {
+	border : none;
+}
+.eventOverview .newImg {
+	float : left;
 }
 

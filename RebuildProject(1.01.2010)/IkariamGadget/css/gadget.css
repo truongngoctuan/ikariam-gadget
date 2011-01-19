@@ -80,7 +80,7 @@ a:hover
 {
 	position : absolute;
     left : 10;
-    top : 40;
+    top : 15;
 	width : 30;
 	height : 36;
 }
@@ -88,7 +88,7 @@ a:hover
 {
 	position : absolute;
     left : 50;
-    top : 40;
+    top : 15;
 	width : 30;
 	height : 36;
 }
@@ -96,7 +96,7 @@ a:hover
 {
 	position : absolute;
     left : 90;
-    top : 40;
+    top : 15;
 	width : 30;
 	height : 36;
 }
@@ -104,7 +104,7 @@ a:hover
 {
 	position : absolute;
     left : 10;
-    top : 50;
+    top : 55;
 	width : 25;
 	height : 30;
 }
@@ -112,7 +112,7 @@ a:hover
 {
 	position : absolute;
     left : 50;
-    top : 50;
+    top : 55;
 	width : 25;
 	height : 30;
 }
@@ -120,7 +120,7 @@ a:hover
 {
 	position : absolute;
     left : 90;
-    top : 50;
+    top : 55;
 	width : 25;
 	height : 30;
 }
@@ -144,7 +144,7 @@ a:hover
 {
 	position : absolute;
     left : 50;
-    top : 100;
+    top : 40;
 	width : 75;
 	height : 90;
 }
@@ -152,7 +152,7 @@ a:hover
 {
 	position : absolute;
     left : 150;
-    top : 100;
+    top : 40;
 	width : 75;
 	height : 90;
 }
@@ -160,14 +160,14 @@ a:hover
 {
 	position : absolute;
     left : 250;
-    top : 100;
+    top : 40;
 	width : 75;
 	height : 90;
 }
 .gadgetGUI_undocked .overviewItem4
 {
 	position : absolute;
-    left : 10;
+    left : 50;
     top : 150;
 	width : 75;
 	height : 90;
@@ -183,7 +183,7 @@ a:hover
 .gadgetGUI_undocked .overviewItem6
 {
 	position : absolute;
-    left : 190;
+    left : 150;
     top : 150;
 	width : 75;
 	height : 90;

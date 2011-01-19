@@ -336,7 +336,7 @@ namespace IkariamFramework
         #endregion
 
         #region Research
-        DTOResearch EmptyresearchOverviewUnit = new DTOResearch
+        static DTOResearch EmptyresearchOverviewUnit = new DTOResearch
         {
             Scientists = 100,
             ResearchPoints = 10000,
@@ -349,6 +349,7 @@ namespace IkariamFramework
 
         public static string GetResearchOverviewUnit()
         {
+            //return JsonConvert.SerializeObject(EmptyresearchOverviewUnit);
             return JsonConvert.SerializeObject(Gloval.Database.Account.Research);
         }
 
@@ -359,20 +360,26 @@ namespace IkariamFramework
         #endregion
 
         #region Events
-        DTOEvent[] EmptyEventOverviewUnits = new DTOEvent[]
+        static EventOverviewUnit[] emptyEventOverviewUnits = new EventOverviewUnit[]
         {
-            new DTOEvent{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.NEW},
-            new DTOEvent{Town = "City2", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.ALL},
-            new DTOEvent{Town = "City3", Date = "5/5/2008", Message = "Please help me!!!", Type = DTOEvent.TYPE.OLD}
+            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "New"},
+            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "All"}
         };
-        //public static string GetEventOverviewUnits()
-        //{
-        //    return JsonConvert.SerializeObject(eventOverviewUnits);
-        //}
 
         public static string GetEventOverviewUnits()
         {
-            return JsonConvert.SerializeObject(Gloval.Database.Account.Event);
+            List<EventOverviewUnit> eventOverviewUnits = new List<EventOverviewUnit>();
+            foreach(DTOEvent eventT in Gloval.Database.Account.Event)
+            {
+                EventOverviewUnit eventOverview = new EventOverviewUnit();
+                eventOverview.Town = eventT.Town;
+                eventOverview.Date = eventT.Date;
+                eventOverview.Message = eventT.Message;
+                eventOverview.Type = eventT.Type.ToString();
+
+                eventOverviewUnits.Add(eventOverview);
+            }
+            return JsonConvert.SerializeObject(eventOverviewUnits);
         }
         #endregion
 
@@ -542,11 +549,11 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    BUSAction.AutoRequestBuildings();
+                    //BUSAction.AutoRequestBuildings();
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
-                    BUSAction.AutoRequestTroops();
+                    //BUSAction.AutoRequestTroops();
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
@@ -554,7 +561,7 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
-                    BUSAction.AutoRequestDiplomat();
+                    //BUSAction.AutoRequestDiplomat();
                 }
                 if ((requestTarget & RequestTarget.Event) != 0)
                 {
@@ -715,7 +722,7 @@ namespace IkariamFramework
             catch (Exception ex)
             {
                 Debug.ErrorLogging(ex.Message);
-                return JsonConvert.SerializeObject(EmptyEventOverviewUnits);
+                return JsonConvert.SerializeObject(emptyEventOverviewUnits);
             }
         }
         #endregion

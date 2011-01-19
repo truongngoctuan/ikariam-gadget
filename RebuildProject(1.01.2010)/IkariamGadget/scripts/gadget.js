@@ -62,11 +62,11 @@ function GetLoadingGUI(gadgetContent, gadgetBackgroundImage) {
 function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     var content = "";
     content += '<img id="town" class="overviewItem1" src="images/buildings.png" onmousedown="javascript:onOverview(' + "'town'" + ');"/>';
-    //content += '<img id="military" class="overviewItem4" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
-    //content += '<img id="research" class="overviewItem5" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
-    //content += '<img id="diplomacy" class="overviewItem6" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
+    //content += '<img id="military" class="overviewItem7" src="images/general.gif" onmousedown="javascript:onOverview(' + "'military'" + ');"/>';
+    content += '<img id="research" class="overviewItem5" src="images/scientist.gif" onmousedown="javascript:onOverview(' + "'research'" + ');"/>';
+    content += '<img id="diplomacy" class="overviewItem6" src="images/diplomat.gif" onmousedown="javascript:onOverview(' + "'diplomacy'" + ');"/>';
     content += '<img id="empire" class="overviewItem2" src="images/empire.png" onmousedown="javascript:onOverview(' + "'empire'" + ');"/>';
-    //content += '<img id="event" class="overviewItem7" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
+    content += '<img id="event" class="overviewItem4" src="images/mayor.gif" onmousedown="javascript:onOverview(' + "'event'" + ');"/>';
     content += '<img id="troop" class="overviewItem3" src="images/troops.png" onmousedown="javascript:onOverview(' + "'troop'" + ');"/>';
 
     gadgetContent.innerHTML = content;
@@ -209,7 +209,7 @@ function Login() {
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
-        SetState(States.Loading);           
+        SetState(States.Loading);
     }
     else {
         // Fail
@@ -456,15 +456,19 @@ function OnShowFlyout() {
         SetTownOverviewGUI();
     }
     else if (overviewState == OverviewStates.Military) {
+        SetMilitaryOverviewGUI();
     }
     else if (overviewState == OverviewStates.Research) {
+        SetResearchOverviewGUI();
     }
     else if (overviewState == OverviewStates.Diplomacy) {
+        SetDiplomacyOverviewGUI();
     }
     else if (overviewState == OverviewStates.Empire) {
         SetEmpireOverviewGUI();
     }
     else if (overviewState == OverviewStates.Event) {
+        SetEventOverviewGUI();
     }
     else if (overviewState == OverviewStates.Troop) {
         SetTroopOverviewGUI();
@@ -862,4 +866,194 @@ function empireUnitToHTML(empireUnit, isOdd) {
 	                        <td>' + '+' + empireUnit.ResearchPointPerHour + '</td>\
 	                        <td>' + '+' + empireUnit.GoldPerHour + '</td>\
                     </tr>';                    
+}
+
+
+function SetResearchOverviewGUI() {
+    if (!System.Gadget.Flyout.document)
+        return;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+
+    oFlyoutContent.className = "researchOverview";
+    flyoutContent = ""; 
+    
+    var researchOverviewUnits = JSON.parse(Framework.requestResearchOverview(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+
+    flyoutContent += '<table>\
+					<tr>\
+						<td width="160">\
+							<h4>\
+								<img src="images/researchOverview/Scientists.gif" />\
+							    Scientists: ' + researchOverviewUnits.Scientists + '\
+							</h4>\
+						</td>\
+						<td>\
+							<h4>\
+								<img src="images/researchOverview/ResearchPoint.gif" />\
+								Research Points: ' + researchOverviewUnits.ResearchPoints + '\
+							</h4>\
+						</td>\
+						<td width="150">\
+							<h4>\
+								<img src="images/researchOverview/ResearchPointPerHour.gif" />\
+								Per Hour: ' + researchOverviewUnits.ResearchPointsPerHour + '\
+							</h4>\
+						</td>\
+					</tr>';
+    flyoutContent += researchUnitToHTML(researchOverviewUnits.ResearchPoints, researchOverviewUnits.ResearchPointsPerHour, researchOverviewUnits.Seafaring, "Seafaring", 1, false);
+    flyoutContent += researchUnitToHTML(researchOverviewUnits.ResearchPoints, researchOverviewUnits.ResearchPointsPerHour, researchOverviewUnits.Economic, "Economic", 2, true);
+    flyoutContent += researchUnitToHTML(researchOverviewUnits.ResearchPoints, researchOverviewUnits.ResearchPointsPerHour, researchOverviewUnits.Scientific, "Scientific", 3, false);
+    flyoutContent += researchUnitToHTML(researchOverviewUnits.ResearchPoints, researchOverviewUnits.ResearchPointsPerHour, researchOverviewUnits.Militaristic, "Militaristic", 4, true);
+	flyoutContent += '</table>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function researchUnitToHTML(researchPoint, researchPointPerHour, researchUnit, field, num, isOdd) {
+    var html = "";
+    if (!isOdd)
+        html += '<tr valign="bottom">';
+    else
+        html += '<tr valign="bottom" style="background-color:#FDF7DD">';
+    if (researchPoint >= researchUnit.Need)
+        html += '<td width="160">\
+					<img src="images/researchOverview/' + field + '.png" />\
+				</td>\
+				<td>\
+					<h4> ' + researchUnit.Name + '</h4>'
+					 + researchUnit.Description + '\
+				</td>\
+				<td width="100">\
+				    <h4>\
+						    <img src="images/researchOverview/ResearchPoint.gif" />'
+						    + researchUnit.Need + '\
+				    </h4>\
+				    <p style="color : red"><strong> You can buy this research now !!! </strong></p>\
+				</td>';			
+    else
+        html += '<td width="160">\
+					<img src="images/researchOverview/' + field + '.png" />\
+				</td>\
+				<td>\
+					<h4> ' + researchUnit.Name + '</h4>'
+					 + researchUnit.Description + '\
+				</td>\
+				<td width="100">\
+				    <h4>\
+						    <img src="images/researchOverview/ResearchPoint.gif" />'
+						    + researchUnit.Need + '\
+				    </h4>\
+				    <p>Not enough research points. </p>\
+                    <h4 class="countdown">\
+                        <span id="count' + num + '"> Time left : </span>\
+                        <script>\
+	                        timercountdown("count' + num + '", ' + ((researchUnit.Need - researchPoint) / researchPointPerHour) * 3600 + ');\
+                        </script>\
+                    </h4>\
+				</td>';
+				
+    html += '</tr>';
+    return html;
+}
+
+function timercountdown(controlId, timeInSeconds){ 
+	timeInSeconds--;
+	if(timeInSeconds < 0)
+		return;
+	var k = timeInSeconds / 86400;
+	day = Math.floor(timeInSeconds / 86400);
+	hour = Math.floor((timeInSeconds / 86400 - day) * 24);
+	min = Math.floor((((timeInSeconds / 86400 - day) * 24) - hour) * 60);
+	second = Math.round((((((timeInSeconds / 86400 - day) * 24) - hour) * 60) - min) * 60);
+	
+	count = "";
+	if(day > 0)
+		count += day + "d";
+	if(hour > 0)
+		count += hour + "h";
+	if(min > 0)
+		count += min + "m";
+	if(second > 0)
+		count += second + "s";	
+	if(count == "")
+		count = "-";
+
+    var control = document.getElementById(controlId);
+    if (!control)
+	    control.innerHTML = count;
+
+	setTimeout(function() {
+	    timercountdown(controlId, timeInSeconds);
+	}, 1000);
+}
+
+function SetEventOverviewGUI() {
+    //debugger;
+    if (!System.Gadget.Flyout.document)
+        return;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+
+    oFlyoutContent.className = "eventOverview";
+    flyoutContent = "";
+    flyoutContent += '<table>\
+				<tr valign="bottom" style="background-image:url(images/eventOverview/button.gif);">\
+					<td name="Location" width="100" style="padding:10px"><h3>Location</h3></td>\
+					<td name="Date" width="125" style="padding:10px"><h3>Date</h3></td>\
+					<td name="Subject" width="600" style="padding:10px"><h3>Subject</h3></td>\
+				</tr>';
+
+    var eventOverviewUnits = JSON.parse(Framework.requestEventOverview(), function(key, value) {        
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+
+    var eventsCount = 0;
+    for (var k in eventOverviewUnits) {
+        if (eventOverviewUnits.hasOwnProperty(k))
+            eventsCount++;
+    }
+
+    if (eventsCount > 0) {        
+        var eventUnit;
+        for (var i = 0; i < eventsCount; i++) {
+            eventUnit = eventOverviewUnits[i];
+            flyoutContent += eventUnitToHTML(eventUnit, i % 2);
+        }
+    }
+    flyoutContent += '</table>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function eventUnitToHTML(eventUnit, isOdd) {
+    var html = "";
+    if (!isOdd)
+        html += '<tr valign="bottom">';
+    else
+        html += '<tr valign="bottom" style="background-color:#FDF7DD">';
+    if (eventUnit.Type == "New")
+        html += '<td><h4><img src="images/eventOverview/new.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h4></td>\
+					<td>' + eventUnit.Date + '</td>\
+					<td>' + eventUnit.Message +'</td>';
+    else
+        html += '<td><h4><img src="images/eventOverview/old.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h4></td>\
+					<td>' + eventUnit.Date + '</td>\
+					<td>' + eventUnit.Message + '</td>';
+    html += '</tr>';
+    return html;
 }
