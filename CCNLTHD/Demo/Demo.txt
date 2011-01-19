@@ -1,0 +1,20 @@
+﻿Project : Ikariam Gadget
+
+Sinh viên thực hiện :
+	0712281 : Nguyễn Hoàng Minh
+	0712494 : Trương Ngọc Tuấn
+ 
+Thông tin liên lạc :
+	Tên : Nguyễn Hoàng Minh
+		MSSV : 0712281
+		Phone : 01663484091
+		Email : hoangminh89@gmail.com - snake8xo2@yahoo.com
+		Skype : snake8xo2 
+		
+	Tên : Trương Ngọc Tuấn
+		MSSV : 0712494
+		Phone : 0987133189
+		Email : tntuan0712494@gmail.com - hakunamakata1811@yahoo.com
+		
+Thư mục bài làm  + demo :
+	http://www.mediafire.com/?3fcgzweht8d0h

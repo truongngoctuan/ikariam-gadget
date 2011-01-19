@@ -1,0 +1,134 @@
+﻿TRACK: Login >> Login >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php?action=loginAvatar&function=login
+---------------------------
+TRACK: OnClick >> OnClick >> button1_Click, Message: login successful
+---------------------------
+ERR: Run >> ThreadStart_Context >> ThreadWorker, Message: Object reference not set to an instance of an object.
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 1 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 2 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 3 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 4 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 5 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 6 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 7 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 8 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 9 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 10 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 11 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 12 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 13 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 14 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 15 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 16 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 17 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 18 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 19 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 20 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 21 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 22 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 23 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 24 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 25 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 26 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 27 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 28 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 29 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 30 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 31 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 32 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 33 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 34 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 35 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 36 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 37 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 38 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 39 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 40 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 41 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 42 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 43 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 44 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 45 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 46 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 47 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 48 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 49 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 50 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 51 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 52 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 53 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 54 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 55 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 56 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 57 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 58 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 59 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 60 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 61 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 62 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 63 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 64 result: -1
+---------------------------

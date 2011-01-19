@@ -1,0 +1,66 @@
+﻿TRACK: Login >> Login >> PostGetHtmlSite, Message: http://s15.en.ikariam.com/index.php?action=loginAvatar&function=login
+---------------------------
+TRACK: OnClick >> OnClick >> button1_Click, Message: login successful
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestResearch, Message: AutoRequestResearch start
+---------------------------
+TRACK: GoToadvResearch >> GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=researchAdvisor&oldView=city&popupMessages=Array&id=18553
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestResearch, Message: AutoRequestResearch done
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestDiplomat, Message: AutoRequestDiplomat start
+---------------------------
+TRACK: GoToadvDiplomacy >> GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=diplomacyAdvisor&oldView=researchAdvisor
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestDiplomat, Message: AutoRequestDiplomat done
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestEvent, Message: AutoRequestEvent start
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 0 client request: 1 result: -1
+---------------------------
+TRACK: GoToadvCities >> GoToLink >> GetHtmlSite, Message: http://s15.en.ikariam.com/index.php?view=tradeAdvisor&oldView=diplomacyAdvisor
+---------------------------
+TRACK: ThreadWorker >> makeRequest >> AutoRequestEvent, Message: AutoRequestEvent done
+---------------------------
+TRACK: ThreadStart_Context >> ThreadWorker >> makeRequest, Message: request server: 1 95
+---------------------------
+TRACK: ThreadStart_Context >> ThreadWorker >> makeRequest, Message: request server: 2 None
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 2 result: 56
+---------------------------
+TRACK: tm_Tick >> requestResearchOverview >> requestResearchFromGadget, Message: {"Scientists":1246,"ResearchPoints":453399,"ResearchPointsPerHour":1445,"Seafaring":{"Name":"Seafaring Future","Description":"The secrets of the oceans are finally ours! Our ships are constantly becoming tougher and faster! There are almost no ships on this ocean capable of competing with ours.\n\nEffect: 2% less upkeep for ships","Need":532800,"NeedDescription":""},"Economic":{"Name":"Economic Future (Level 2)","Description":"Our citizens live in wealth and the marketplace is spilling over with delicacies from all over the world! The streets are clean and developed, this way the building material reaches the building site quicker.\n\nEffect: +10 Satisfaction and +20 max citizen number in every town.\nMultiplied with the level of this research","Need":1065600,"NeedDescription":""},"Scientific":{"Name":"Scientific Future (Level 2)","Description":"The smartest brains in the world are working to answer the big question: Why are we here? Why is everything the way it is? And once again we are one step closer to enlightenment.\n\nEffect: 2% more research points","Need":1221120,"NeedDescription":""},"Militaristic":{"Name":"Militaristic Future","Description":"Our war machines are stronger and mightier than ever before and our armies are perfectly organised! Our civil servants managing the military have everything under control and thus the upkeep costs can be lowered.\n\nEffect: 2% less upkeep for units","Need":532800,"NeedDescription":""}}
+---------------------------
+TRACK: tm_Tick >> requestDiplomatOverview >> requestDiplomatFromGadget, Message: [{"Message":"                                    Dear Community ,<br/>Following a serious issue with certain Grease Monkey scripts , your password may have been compromised if you use these scripts.<br/>-----------------------<br/>In the Interest of your account security , please change your password IMMEDIATELY !! <br/>------------------------<br/>During the fix we have had to roll back MOST servers to 4PM game time yesterday , this means any events that were in progress after 4pm will have been restored to this point.<br/>Your Ikariam.org Team<br/>","Sender":"Ikariam"},{"Message":"huvh day.........................<br/>","Sender":"vn_dauhu_mamtom"},{"Message":"het HUVH rui nha may po teo :)<br/>","Sender":"Mr D"},{"Message":"Battle for Coldsnap <br/>( 19.01.2011 2:11:35 )<br/>VN-familyheo from Marble III<br/>vs<br/>Ptrack from Sunset, leong from ccRock, LongLibPinoy from Coldsnap<br/>-------------------------------------------------------------------<br/>Swordsman............530(-120).. - Swordsman............745(-120)..<br/>Hoplite..............857(-175).. - Hoplite..............140(-171)..<br/>Sulphur Carabineer...240(-0).... - Sulphur Carabineer...297(-0)....<br/>Gyrocopter............34(-27)... - Gyrocopter............58(-0)....<br/>................................ - Steam Giant..........601(-0)....<br/>................................ - Balloon-Bombardier.....6(-22)...<br/>Catapult..............36(-0).... - ................................<br/>Mortar................10(-8).... - Mortar................36(-0)....<br/>Cook..................30(-0).... - Cook..................30(-0)....<br/>................................ - Spearmen.............411(-0)....<br/>-------------------------------------------------------------------<br/>Generals....................-704 - Generals....................-511<br/>Damage Received...........35,225 - Damage Received...........25,550<br/>-------------------------------------------------------------------<br/>","Sender":"VN-familyheo"},{"Message":"Victory has accepted your cultural goods treaty and sends the following message: <br/>","Sender":"Victory"},{"Message":"57/59 can giup do, dich coquan kha kha o day, chac quan minh se die het :D<br/>","Sender":"VN-familyheo"},{"Message":"1 HUVH tuoi roi roi giay danh` da.ch :D<br/>","Sender":"Mr D"},{"Message":"Anh em co dao S nao ngon co lo ren khong cho tui cam mab voi nhe!<br/>","Sender":"Victory"},{"Message":"Sau 2 tuan tiep nhan acc thi bi gio minh da dung thu 16 diem Offence<br/>Co gang mai vao top 10 :D<br/>","Sender":"Mr D"},{"Message":"erika from the alliance Lords_VN sends the following message:<br/>chao nguoi anh/em<br/>minh la erika den tu Lords_VN<br/>hien minh dang co 7 HUVH<br/>ban co the nhan voi LM cua ban duoc ko<br/>cam on<br/>erika 71:53<br/>","Sender":"Ikariamdl"},{"Message":"khu V cần anh em phối hợp kiếm và xúc res.<br/>","Sender":"VN-familyheo"}]
+---------------------------
+TRACK: tm_Tick >> requestEventOverview >> requestEventFromGadget, Message: [{"Town":"Wine I","Date":"19.01.2011 3:23","Message":"Your trade fleet from Wine I has arrived in Wine II and has brought the following goods:\nBuilding material: 4000","Type":"OLD"},{"Town":"Marble I","Date":"19.01.2011 3:23","Message":"Your trade fleet from Marble I has arrived in Marble III and has brought the following goods:\nBuilding material: 14660Marble: 5813","Type":"OLD"},{"Town":"Marble I","Date":"19.01.2011 3:10","Message":"Your trade fleet from Marble I has arrived in Marble II and has brought the following goods:\nBuilding material: 5000Marble: 12000","Type":"OLD"},{"Town":"Wine I","Date":"19.01.2011 3:03","Message":"Your trade fleet from Wine I has arrived in Wine II and has brought the following goods:\nBuilding material: 4000","Type":"OLD"},{"Town":"Marble III","Date":"19.01.2011 2:58","Message":"1 units are being moved from Marble III to VN_Nước ngầm","Type":"OLD"},{"Town":"Polis","Date":"19.01.2011 2:07","Message":"The new culture goods have arrived from Victory and have been put into Polis's museum.","Type":"OLD"},{"Town":"Polis","Date":"18.01.2011 23:40","Message":"Your building Tavern has been expanded to level 15!","Type":"OLD"},{"Town":"VN_Nước ngầm","Date":"18.01.2011 23:09","Message":"The town VN_Nước ngầm, that is on your island, has been occupied by troops from Coma-City.","Type":"OLD"},{"Town":"Polis","Date":"18.01.2011 20:53","Message":"Your trade fleet from Polis has arrived in Marble II and has brought the following goods:\nCrystal glass: 12000","Type":"OLD"},{"Town":"Marble II","Date":"18.01.2011 20:38","Message":"Your trade fleet from Marble II has arrived in Polis and has brought the following goods:\nBuilding material: 7500Marble: 10000","Type":"OLD"}]
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 3 result: 0
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 4 result: 0
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 5 result: 0
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 6 result: 0
+---------------------------
+ERR: Run >> ThreadStart_Context >> ThreadWorker, Message: Thread was being aborted.
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 7 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 8 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 9 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 10 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 11 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 12 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 13 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 14 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 15 result: -1
+---------------------------
+TRACK: OnTick >> tm_Tick >> requestCode, Message: request server: 2 client request: 16 result: -1
+---------------------------

@@ -1,0 +1,39 @@
+﻿2 account được dùng để test ứng dụng :
+Server s15.en.ikariam.com
+
+Username : snake8xo2
+Password : minh1989
+
+Username : hakuna1811
+Password : 741369456
+
+Lưu ý :
+- Gadget sẽ bị lỗi khi account này đang được người khác truy cập vào
+
+- Để sử dụng Contact List khác :
+	+ Cách 1 : mở tập tin map.html trong thư mục Release, chỉnh sửa rồi nén lại tập tin .gadget mới
+	+ Cách 2 : vào thư mục chứa tập tin cài đặt của Ikariam_Gadget :
+C:\Users\Username\AppData\Local\Microsoft\Windows Sidebar\Gadgets\Ikariam_Gadget.gadget\map.html
+	Dòng code thứ 20 : 
+		- Thay 'https://spreadsheets.google.com/ccc?key=0Asgd3G9CdKnbdEYxRHRLRVRtY1FyUnBaWXpfR0Uya1E&hl=en'
+		bằng link tới Google Spreadsheets của người dùng.
+
+- Thông tin liên hệ :
+	Sinh viên thực hiện :
+		0712281 : Nguyễn Hoàng Minh
+		0712494 : Trương Ngọc Tuấn
+	 
+	Thông tin liên lạc :
+		Tên : Nguyễn Hoàng Minh
+			MSSV : 0712281
+			Phone : 01663484091
+			Email : hoangminh89@gmail.com - snake8xo2@yahoo.com
+			Skype : snake8xo2 
+			
+		Tên : Trương Ngọc Tuấn
+			MSSV : 0712494
+			Phone : 0987133189
+			Email : tntuan0712494@gmail.com - hakunamakata1811@yahoo.com
+			
+	Thư mục bài làm  + demo :
+		http://www.mediafire.com/?3fcgzweht8d0h
