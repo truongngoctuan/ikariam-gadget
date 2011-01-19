@@ -391,36 +391,36 @@ namespace Test_BUS_DAO
 
         private void button19_Click(object sender, EventArgs e)
         {
-            string strResult = "";
+            //string strResult = "";
 
-            int nCities = Gloval.Database.Account.Cities.Count();
-            for (int i = 0; i < nCities; i++)
-            {
-                DTOCity city = BUSCity.GetResourceCity(i);
-                strResult += " X: " + city.X;
-                strResult += " Y: " + city.Y;
-                strResult += " ID: " + city.ID;
-                strResult += " Name: " + city.Name;
-                strResult += " Type: " + city.TypeTradeGood;
+            //int nCities = Gloval.Database.Account.Cities.Count();
+            //for (int i = 0; i < nCities; i++)
+            //{
+            //    DTOCity city = BUSCity.requestResourceCity(i);
+            //    strResult += " X: " + city.X;
+            //    strResult += " Y: " + city.Y;
+            //    strResult += " ID: " + city.ID;
+            //    strResult += " Name: " + city.Name;
+            //    strResult += " Type: " + city.TypeTradeGood;
 
-                strResult += " po: " + city.Population;
-                strResult += "(" + city.PopulationLimit + ")";
-                strResult += " action: " + city.ActionPoint;
+            //    strResult += " po: " + city.Population;
+            //    strResult += "(" + city.PopulationLimit + ")";
+            //    strResult += " action: " + city.ActionPoint;
 
-                strResult += " wood: " + city.Wood;
-                strResult += "+" + city.WoodPerHour;
-                strResult += " wine: " + city.Wine;
-                strResult += "+" + city.WinePerHour;
-                strResult += " mar: " + city.Marble;
-                strResult += "+" + city.MarblePerHour;
-                strResult += " crys: " + city.Crystal;
-                strResult += "+" + city.CrystalPerHour;
-                strResult += " sul: " + city.Sulphur;
-                strResult += "+" + city.SulphurPerHour;
-                strResult += "\r\n";
-            }
+            //    strResult += " wood: " + city.Wood;
+            //    strResult += "+" + city.WoodPerHour;
+            //    strResult += " wine: " + city.Wine;
+            //    strResult += "+" + city.WinePerHour;
+            //    strResult += " mar: " + city.Marble;
+            //    strResult += "+" + city.MarblePerHour;
+            //    strResult += " crys: " + city.Crystal;
+            //    strResult += "+" + city.CrystalPerHour;
+            //    strResult += " sul: " + city.Sulphur;
+            //    strResult += "+" + city.SulphurPerHour;
+            //    strResult += "\r\n";
+            //}
 
-            tbResult.Text = strResult;
+            //tbResult.Text = strResult;
         }
 
         private void button20_Click(object sender, EventArgs e)
@@ -647,6 +647,7 @@ namespace Test_BUS_DAO
                 if ((iCode & (int)4) != 0) tbResult.Text = gg2.requestTroopsOverview() + tbResult.Text;
                 if ((iCode & (int)8) != 0) tbResult.Text = gg2.requestResearchOverview() + tbResult.Text;
                 if ((iCode & (int)16) != 0) tbResult.Text = gg2.requestDiplomatOverview() + tbResult.Text;
+                if ((iCode & (int)32) != 0) tbResult.Text = gg2.requestEventOverview() + tbResult.Text;
                 //if if if...
             }
 
@@ -656,7 +657,7 @@ namespace Test_BUS_DAO
         private void button31_Click(object sender, EventArgs e)
         {
             tm = new Timer();
-            tm.Interval = 1000;
+            tm.Interval = 500;
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }
