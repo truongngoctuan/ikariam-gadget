@@ -227,6 +227,7 @@
     <Compile Include="JSON.net\Utilities\StringUtils.cs" />
     <Compile Include="JSON.net\Utilities\ThreadSafeStore.cs" />
     <Compile Include="JSON.net\Utilities\ValidationUtils.cs" />
+    <Compile Include="PresentationUnit\EventOverviewUnit.cs" />
     <Compile Include="PresentationUnit\TroopOverviewUnit.cs" />
     <Compile Include="PresentationUnit\EmpireOverviewUnit.cs" />
     <Compile Include="HtmlAgilityPack\crc32.cs" />

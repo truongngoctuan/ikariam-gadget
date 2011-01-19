@@ -13,3 +13,8 @@ D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\Gadget.Interop\bin\Debug\Ga
 D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\ResolveAssemblyReference.cache
 D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\Gadget.Interop.dll
 D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\Gadget.Interop.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\Gadget.Interop\bin\Debug\Gadget.Interop.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\Gadget.Interop\bin\Debug\Gadget.Interop.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\ResolveAssemblyReference.cache
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\Gadget.Interop.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\Gadget.Interop\obj\Debug\Gadget.Interop.pdb
