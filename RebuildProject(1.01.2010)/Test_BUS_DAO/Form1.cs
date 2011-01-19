@@ -656,7 +656,7 @@ namespace Test_BUS_DAO
         void tm_Tick(object sender, EventArgs e)
         {
             int iCode = gg2.requestCode();
-            if (iCode != -1)
+            if (iCode != -1 && iCode != -2)
             {
                 if ((iCode & (int)1) != 0) tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
                 if ((iCode & (int)2) != 0) 
@@ -694,13 +694,19 @@ namespace Test_BUS_DAO
         {
             if (tm != null)
             {
-                button32_Click(null, null);
+                tm.Stop();
             }
         }
 
         private void button32_Click_1(object sender, EventArgs e)
         {
-            gg2.StopAutoRequest();
+
+            if (gg2 != null)
+            {
+                gg2.StopAutoRequest();
+                MessageBox.Show("logout thanh cong!");
+            }
+            
         }
 
         private void button33_Click(object sender, EventArgs e)

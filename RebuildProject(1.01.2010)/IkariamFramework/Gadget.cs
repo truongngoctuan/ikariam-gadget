@@ -33,6 +33,7 @@ namespace IkariamFramework
         #region Login
         public int Login(string username, string password, string server)
         {
+            if (Authenticated) return - 1;
             // Login : trả về bool, thành công - thất bại
             // Hoặc tra về errorCode
             int errMsg = -1;
@@ -417,9 +418,12 @@ namespace IkariamFramework
         Thread autoRequestThread = null;
         // nen de bien' nay` len GlobarVar luon cho tien
         public volatile bool bStopAutoRequest = true;
+        public bool bLoadingData = false;
         public void InitAutoRequest()
-        {
-            bStopAutoRequest = true;
+        {//http://www.codeproject.com/KB/cs/workerthread.aspx
+            //bStopAutoRequest = true;
+            bLoadingData = true;
+            bStopAutoRequest = false;
             if (autoRequestThread == null)
             {
                 autoRequestThread = new Thread(new ThreadStart(ThreadWorker));
@@ -433,10 +437,27 @@ namespace IkariamFramework
                 bStopAutoRequest = true;
                 try
                 {
-                    autoRequestThread.Abort();
+                    //autoRequestThread.Abort();
+
+                    autoRequestThread.Interrupt();
+                    autoRequestThread.Join();
+
+                    //don dep rac o day
+                    Gloval.Database.ResetData();
+                    Gloval.Dict = new Dictionary<string,string>();
+                    Gloval.bBuildingsOverviewIsNewData = false;
+                    Gloval.bEmpireOverviewIsNewData = false;
+                    Gloval.bTroopsOverviewIsNewData = false;
+                    Gloval.bResearchOverviewIsNewData = false;
+                    Gloval.bEventOverviewIsNewData = false;
+                    Gloval.bDiplomatOverviewIsNewData = false;
+                    Gloval.NRequestPerTask = 0;
+
+                    Authenticated = false;
                 }
                 catch (Exception ex)
                 {
+                    autoRequestThread = null;
                     Debug.ErrorLogging(ex.Message);
                 }
                 autoRequestThread = null;
@@ -478,7 +499,8 @@ namespace IkariamFramework
                 //dang starting nen ko cho client tiep can
                 //xem nhu server down
 
-                bStopAutoRequest = false;
+                bLoadingData = false;
+                //bStopAutoRequest = false;
                 requestTarget = 0;
                 while (!bStopAutoRequest)
                 {
@@ -492,6 +514,8 @@ namespace IkariamFramework
 
                     requestTarget = (RequestTarget)GetNextRequest();
                     //DEBUG("done request...");
+
+                    if (bStopAutoRequest) return;
                     Thread.Sleep(RequestTime); //Sua thanh wait de
                 }
             }
@@ -528,6 +552,8 @@ namespace IkariamFramework
                     //kiem tra xem co adv nao active hay ko, 
                     //neu co bo sung vao requestTarget de cap nhat
                     //ngay lap tuc, khong doi lan request sau
+
+                    if (bStopAutoRequest) return;
                     BUSAction.AutoLoadDefaultPage();
                 }
 
@@ -557,27 +583,27 @@ namespace IkariamFramework
                 //hakuna
                 if ((requestTarget & RequestTarget.Towns) != 0)
                 {//res + town hall
-                    BUSAction.AutoRequestEmpireOverview();
+                    BUSAction.AutoRequestEmpireOverview(this);
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    BUSAction.AutoRequestBuildings();
+                    BUSAction.AutoRequestBuildings(this);
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
-                    BUSAction.AutoRequestTroops();
+                    BUSAction.AutoRequestTroops(this);
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
-                    BUSAction.AutoRequestResearch();
+                    BUSAction.AutoRequestResearch(this);
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
-                    BUSAction.AutoRequestDiplomat();
+                    BUSAction.AutoRequestDiplomat(this);
                 }
                 if ((requestTarget & RequestTarget.Event) != 0)
                 {
-                    BUSAction.AutoRequestEvent();
+                    BUSAction.AutoRequestEvent(this);
                 }
 
                 //-----------------------------------------
@@ -635,12 +661,18 @@ namespace IkariamFramework
             //debug
             DBnRequestClient++;
 
+            if (bLoadingData)
+            {
+                DEBUG("loading data !!!");
+                Debug.Logging("loading data !!!");
+                return -1;
+            }
             //server down !!!
             if (bStopAutoRequest)
             {
                 DEBUG("server down !!!");
                 Debug.Logging("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: -1");
-                return -1;
+                return -2;
             }
 
             int iCode = 0;
