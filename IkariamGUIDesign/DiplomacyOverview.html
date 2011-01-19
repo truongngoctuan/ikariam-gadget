@@ -1,0 +1,157 @@
+<html>
+<head>
+<style type="text/css">
+	.diplomacyOverview {
+		width: 100%;
+		background-color : #FFEECA
+	}
+	
+	.diplomacyOverview .messageHolder
+	{
+		width : 785px;
+		border: #cacaca 1px solid;
+	}
+	.diplomacyOverview .message
+	{
+		text-align : left; 	
+		border : 1px solid #FDF7DD;
+	}
+	.diplomacyOverview .messageHeader
+	{		
+		background-image:url(images/eventOverview/button.gif);
+		font: normal 14px Verdana,Arial,Helvetica,sans-serif;
+		padding : 5px 10px;
+	}
+	.diplomacyOverview .messageBody
+	{
+		display: none;		
+		margin: 0px 10px 0px 10px;
+		padding: 5px;
+	}
+
+	body,td {
+		font: normal 10px Verdana,Arial,Helvetica,sans-serif;
+		color: #542C0F;
+		padding : 0 0;	
+		margin: 0 0;
+	}
+	table {
+		cellpadding:0;
+		cellspacing:0;
+	}
+	td,tr,td,table,img, h1, h2, h3, h4, h5, h6 {
+		border-style:none;
+		border-width:0;
+		padding : 0 0;	
+		margin: 0 0;
+		border-spacing: 0px 0px;
+		vertical-align: middle;
+	}
+</style>
+
+<script>
+	function timercountdown(controlId, timeInSeconds){ 
+		timeInSeconds--;
+		if(timeInSeconds < 0)
+			return;
+		var k = timeInSeconds / 86400;
+		day = Math.floor(timeInSeconds / 86400);
+		hour = Math.floor((timeInSeconds / 86400 - day) * 24);
+		min = Math.floor((((timeInSeconds / 86400 - day) * 24) - hour) * 60);
+		second = Math.round((((((timeInSeconds / 86400 - day) * 24) - hour) * 60) - min) * 60);
+		
+		count = "";
+		if(day > 0)
+			count += day + "d";
+		if(hour > 0)
+			count += hour + "h";
+		if(min > 0)
+			count += min + "m";
+		if(second > 0)
+			count += second + "s";	
+		if(count == "")
+			count = "-";
+		
+		document.getElementById(controlId).innerHTML = count;
+		
+		setTimeout(function () {
+			timercountdown(controlId, timeInSeconds);
+		},1000)
+	} 
+</script>
+
+</head>
+<body style="width:850px">
+<div id="gadgetGUI" style="text-align:center">
+<div style="position:absolute;top:0px;left:0px;
+width:850px; height:39px;
+margin-left:10px;">
+	<div style="float:left;
+	background-image:url(images/note/notes_top_left.gif); width:39px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top.gif); width:770px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top_right.gif); width:39px; height:39px;"></div>
+</div>
+<div style="position:absolute; top:39px; left:10px;
+    width:838px;    
+    background-color:#F6E9C6;
+    border-bottom: 3px solid #D2A860;
+    border-left: 3px solid #D2A860;
+    border-right: 3px solid #D2A860;
+    padding: 5px 0 0 0;
+    margin: 0 2px 0 2px;">
+    <table style="position:relative; left:0px; top:5px;
+    display:block; padding:0; margin: 0px 20px 10px 20px; border-style:none;">   
+        <tr valign="bottom" style="background-image: url()">
+            <!--<td name="wd_l" style="background-image: url(images/note/notes_left.gif); width: 17px">
+            </td>-->
+            <td name="wd_m" class="diplomacyOverview">
+				<div class="researchOverview">				
+					<div id='messageHolder' class='messageHolder'>
+						<div class='message'>
+							<div id='messageHeader' class='messageHeader' onclick='ShowHide(0)'>
+								Sender
+							</div>
+							<div id='messageBody0' class='messageBody'>
+								Message
+							</div>
+						</div>
+						<div class='message'>
+						<div id='messageHeader' class='messageHeader' onclick='ShowHide(1)'>
+							Sender
+						</div>
+						<div id='messageBody1' class='messageBody'>
+							Message
+						</div>
+						</div>
+					</div>				
+				</div>
+			</td>
+            <!--<td name="wd_r" style="background-image: url(images/note/notes_right.gif); width: 17px">
+            </td>-->
+        </tr>
+    </table>    
+	<script type="text/javascript" language="javascript">
+    
+    function ShowHide(index)
+    {
+        var div = document.getElementById('messageBody' + index);
+        
+        if(div.style.display == 'none' || div.style.display == '')
+        {
+            div.style.display = 'block';
+        }
+        else
+        {
+            div.style.display = 'none';
+        }
+    }
+    </script>
+	
+    <input type="button" onclick="javascript:ShowHideFlyout()" value="Close" />
+</div>
+</div>
+</body>
+</html>
+

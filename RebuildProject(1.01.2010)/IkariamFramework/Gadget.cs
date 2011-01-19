@@ -35,19 +35,30 @@ namespace IkariamFramework
         {
             // Login : trả về bool, thành công - thất bại
             // Hoặc tra về errorCode
-            if (BUSAction.Login(username, password, server) == 0)
+            int errMsg = -1;
+            try
             {
-                //xac dinh lang dua vao server
-                string[] split = server.Split('.');
-                string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
-                path = Path.GetDirectoryName(path);
-                Gloval.Dict = XmlHelper.LoadFile(string.Format(path + "\\Lang\\{0}.xml", split[1]));
-                Authenticated = true;
-                
-                InitAutoRequest();
+                errMsg = BUSAction.Login(username, password, server);
+                if (errMsg == 0)
+                {
+                    string[] split = server.Split('.');
+                    string path = System.Reflection.Assembly.GetExecutingAssembly().Location;
+                    path = Path.GetDirectoryName(path);
+                    Gloval.Dict = XmlHelper.LoadFile(string.Format(path + "\\Lang\\{0}.xml", split[1]));
+                    Authenticated = true;
 
-                //Gloval.bEmpireOverviewIsNewData = false;
-                return 0;
+                    InitAutoRequest();
+
+                    //Gloval.bEmpireOverviewIsNewData = false;
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+            if (errMsg == 0)
+            {
+                //xac dinh lang dua vao server                
             }
 
             Authenticated = false;
@@ -362,8 +373,8 @@ namespace IkariamFramework
         #region Events
         static EventOverviewUnit[] emptyEventOverviewUnits = new EventOverviewUnit[]
         {
-            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "New"},
-            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "All"}
+            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "NEW"},
+            new EventOverviewUnit{Town = "City1", Date = "5/5/2008", Message = "Please help me!!!", Type = "OLD"}
         };
 
         public static string GetEventOverviewUnits()
@@ -392,12 +403,12 @@ namespace IkariamFramework
 
         #region Messages
         List<DTOMessage> EmptyDiplomatOverviewUnit = new List<DTOMessage> {
-            new DTOMessage{
-                Message = "alo, are you ready? ",
-            Sender = "TNT"},
-                new DTOMessage{
-                Message = "fighting... ",
-                Sender = "NHM"}};
+            new DTOMessage{Message = "hey, are you ready? ", Sender = "Ikariam Gadget"},
+            new DTOMessage{Message = "fighting ...? ", Sender = "Ikariam Gadget"}};
+
+
+
+
 
         public static string GetMessageOverviewUnits()
         {
@@ -549,7 +560,7 @@ namespace IkariamFramework
                 //hakuna
                 if ((requestTarget & RequestTarget.Towns) != 0)
                 {//res + town hall
-                    BUSAction.AutoRequestEmpireOverview();
+                    //BUSAction.AutoRequestEmpireOverview();
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {

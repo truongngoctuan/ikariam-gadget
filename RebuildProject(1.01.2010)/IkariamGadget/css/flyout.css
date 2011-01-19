@@ -11,6 +11,8 @@ body
 body,td {
 	font: normal 10px Verdana,Arial,Helvetica,sans-serif;
 	color: #542C0F;
+	padding : 0 0;	
+	margin: 0 0;
 }
 
 table {
@@ -79,14 +81,22 @@ td,tr,table,img, h1, h2, h3, h4, h5, h6 {
 .researchOverview td {
 	text-align : left; 	
 	border : 1px solid #7E4A21;
-	padding : 10px;
+	padding : 5px;
 }
 .researchOverview img {
 	border : none;
 	width : auto;
 	height : auto;
+	padding : 0px;
+	margin : 0px;
 }
 .researchOverview .countdown {
+	text-align : center;
+}
+.researchOverview .countdown {
+	text-align : center;
+}
+.researchOverview .need {
 	text-align : center;
 }
 
@@ -101,8 +111,34 @@ td,tr,table,img, h1, h2, h3, h4, h5, h6 {
 }
 .eventOverview img {
 	border : none;
-}
-.eventOverview .newImg {
-	float : left;
+	margin : 0px;
 }
 
+/* DiplomacyOverview */
+.diplomacyOverview {
+	width: 100%;
+	background-color : #FFEECA
+}
+
+.diplomacyOverview .messageHolder
+{
+	width : 785px;
+	border: #cacaca 1px solid;
+}
+.diplomacyOverview .message
+{
+	text-align : left; 	
+	border : 1px solid #FDF7DD;
+}
+.diplomacyOverview .messageHeader
+{		
+	background-image:url(images/eventOverview/button.gif);
+	font: normal 14px Verdana,Arial,Helvetica,sans-serif;
+	padding : 5px 10px;
+}
+.diplomacyOverview .messageBody
+{
+	display: none;		
+	margin: 0px 10px 0px 10px;
+	padding: 5px;
+}

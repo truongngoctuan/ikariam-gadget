@@ -779,9 +779,7 @@ function SetEmpireOverviewGUI() {
 	                <td name="GoldPerHour"><img src="images/empireOverview/icon_gold.gif" /></td>\
                 </tr>';
 
-    //var citiesCount = Framework.GetEmpireOverviewUnitNum();
     var empireOverviewUnits = JSON.parse(Framework.requestEmpireOverview(), function(key, value) {
-    //var empireOverviewUnits = JSON.parse(Framework.GetEmpireOverviewUnits(), function(key, value) {
         var type;
         if (value && typeof value === 'object') {
             type = value.type;
@@ -892,22 +890,22 @@ function SetResearchOverviewGUI() {
     flyoutContent += '<table>\
 					<tr>\
 						<td width="160">\
-							<h4>\
+							<h5>\
 								<img src="images/researchOverview/Scientists.gif" />\
 							    Scientists: ' + researchOverviewUnits.Scientists + '\
-							</h4>\
+							</h5>\
 						</td>\
 						<td>\
-							<h4>\
+							<h5>\
 								<img src="images/researchOverview/ResearchPoint.gif" />\
 								Research Points: ' + researchOverviewUnits.ResearchPoints + '\
-							</h4>\
+							</h5>\
 						</td>\
 						<td width="150">\
-							<h4>\
+							<h5>\
 								<img src="images/researchOverview/ResearchPointPerHour.gif" />\
 								Per Hour: ' + researchOverviewUnits.ResearchPointsPerHour + '\
-							</h4>\
+							</h5>\
 						</td>\
 					</tr>';
     flyoutContent += researchUnitToHTML(researchOverviewUnits.ResearchPoints, researchOverviewUnits.ResearchPointsPerHour, researchOverviewUnits.Seafaring, "Seafaring", 1, false);
@@ -933,10 +931,10 @@ function researchUnitToHTML(researchPoint, researchPointPerHour, researchUnit, f
 					 + researchUnit.Description + '\
 				</td>\
 				<td width="100">\
-				    <h4>\
+				    <h5 class="need">\
 						    <img src="images/researchOverview/ResearchPoint.gif" />'
 						    + researchUnit.Need + '\
-				    </h4>\
+				    </h5>\
 				    <p style="color : red"><strong> You can buy this research now !!! </strong></p>\
 				</td>';			
     else
@@ -948,17 +946,17 @@ function researchUnitToHTML(researchPoint, researchPointPerHour, researchUnit, f
 					 + researchUnit.Description + '\
 				</td>\
 				<td width="100">\
-				    <h4>\
+				    <h5 class="need">\
 						    <img src="images/researchOverview/ResearchPoint.gif" />'
 						    + researchUnit.Need + '\
-				    </h4>\
+				    </h5>\
 				    <p>Not enough research points. </p>\
-                    <h4 class="countdown">\
+                    <h5 class="countdown">\
                         <span id="count' + num + '"> Time left : </span>\
                         <script>\
 	                        timercountdown("count' + num + '", ' + ((researchUnit.Need - researchPoint) / researchPointPerHour) * 3600 + ');\
                         </script>\
-                    </h4>\
+                    </h5>\
 				</td>';
 				
     html += '</tr>';
@@ -1007,9 +1005,9 @@ function SetEventOverviewGUI() {
     flyoutContent = "";
     flyoutContent += '<table>\
 				<tr valign="bottom" style="background-image:url(images/eventOverview/button.gif);">\
-					<td name="Location" width="100" style="padding:10px"><h3>Location</h3></td>\
-					<td name="Date" width="125" style="padding:10px"><h3>Date</h3></td>\
-					<td name="Subject" width="600" style="padding:10px"><h3>Subject</h3></td>\
+					<td name="Location" width="150" style="padding:10px"><h4>Location</h4></td>\
+					<td name="Date" width="175" style="padding:10px"><h4>Date</h4></td>\
+					<td name="Subject" width="475" style="padding:10px"><h4>Subject</h4></td>\
 				</tr>';
 
     var eventOverviewUnits = JSON.parse(Framework.requestEventOverview(), function(key, value) {        
@@ -1046,14 +1044,77 @@ function eventUnitToHTML(eventUnit, isOdd) {
         html += '<tr valign="bottom">';
     else
         html += '<tr valign="bottom" style="background-color:#FDF7DD">';
-    if (eventUnit.Type == "New")
-        html += '<td><h4><img src="images/eventOverview/new.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h4></td>\
+    if (eventUnit.Type == "NEW")
+        html += '<td><h5><img src="images/eventOverview/new.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h5></td>\
 					<td>' + eventUnit.Date + '</td>\
 					<td>' + eventUnit.Message +'</td>';
     else
-        html += '<td><h4><img src="images/eventOverview/old.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h4></td>\
+        html += '<td><h5><img src="images/eventOverview/old.gif" /><img src="images/eventOverview/town.gif" />' + eventUnit.Town + '</h5></td>\
 					<td>' + eventUnit.Date + '</td>\
 					<td>' + eventUnit.Message + '</td>';
     html += '</tr>';
     return html;
+}
+
+
+function SetDiplomacyOverviewGUI() {
+    //debugger;
+    if (!System.Gadget.Flyout.document)
+        return;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+
+    oFlyoutContent.className = "diplomacyOverview";
+    flyoutContent = "";
+    flyoutContent += '<div class="researchOverview">\
+					<div id="messageHolder" class="messageHolder">';
+
+    var diplomacyOverviewUnits = JSON.parse(Framework.requestDiplomatOverview(), function(key, value) {
+        var type;
+        if (value && typeof value === 'object') {
+            type = value.type;
+            if (typeof type === 'string' && typeof window[type] === 'function') {
+                return new (window[type])(value);
+            }
+        }
+        return value;
+    });
+
+    var messagesCount = 0;
+    for (var k in diplomacyOverviewUnits) {
+        if (diplomacyOverviewUnits.hasOwnProperty(k))
+            messagesCount++;
+    }
+
+    if (messagesCount > 0) {
+        var message;
+        for (var i = 0; i < messagesCount; i++) {
+            message = diplomacyOverviewUnits[i];
+            flyoutContent += messageToHTML(message, i);
+        }
+    }
+    flyoutContent += '</div></div>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function messageToHTML(message, num) {    
+    return '<div class="message">\
+				<div id="messageHeader" class="messageHeader" onclick="ShowHideMessage(' + num + ')">\
+					' + message.Sender + '\
+				</div>\
+				<div id="messageBody' + num + '" class="messageBody">\
+					' + message.Message + '\
+				</div>\
+			</div>';
+}
+
+function ShowHideMessage(index) {
+    var div = document.getElementById('messageBody' + index);
+
+    if (div.style.display == 'none' || div.style.display == '') {
+        div.style.display = 'block';
+    }
+    else {
+        div.style.display = 'none';
+    }
 }
