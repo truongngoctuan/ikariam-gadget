@@ -75,14 +75,16 @@ namespace IkariamFramework.BUSIkariamFramework
         #endregion
 
         #region auto - scenario request
-        public static void AutoRequestEmpireOverview()
+        public static void AutoRequestEmpireOverview(Gadget gg)
         {
             DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview start");
             //get res all city
             int nCities = Gloval.Database.Account.Cities.Count();
             for (int i = 0; i < nCities; i++)
             {
+                if (gg.bStopAutoRequest) return;
                 BUSCity.requestResourceCity(i);
+                if (gg.bStopAutoRequest) return;
                 BUSCity.requestTownHall(i);
             }
 
@@ -90,7 +92,7 @@ namespace IkariamFramework.BUSIkariamFramework
             DebuggingAndTracking.Debug.Logging("AutoRequestEmpireOverview Done");
         }
 
-        public static void AutoRequestBuildings()
+        public static void AutoRequestBuildings(Gadget gg)
         {
             DebuggingAndTracking.Debug.Logging("AutoRequestBuildings start");
             //force update building
@@ -101,6 +103,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = 0; i < nCities; i++)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSBuilding.requestBuilding(i);
                 }
             }
@@ -108,6 +111,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = nCities - 1; i >= 0; i--)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSBuilding.requestBuilding(i);
                 }
             }
@@ -116,7 +120,7 @@ namespace IkariamFramework.BUSIkariamFramework
             DebuggingAndTracking.Debug.Logging("AutoRequestBuildings start");
         }
 
-        public static void AutoRequestTroops()
+        public static void AutoRequestTroops(Gadget gg)
         {
             DebuggingAndTracking.Debug.Logging("AutoRequestTroops - Units start");
             //force unit
@@ -126,6 +130,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = 0; i < nCities; i++)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSTroops.requestUnits(i);
                 }
             }
@@ -133,6 +138,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = nCities - 1; i >= 0; i--)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSTroops.requestUnits(i);
                 }
             }
@@ -145,6 +151,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = 0; i < nCities; i++)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSTroops.requestShips(i);
                 }
             }
@@ -152,6 +159,7 @@ namespace IkariamFramework.BUSIkariamFramework
             {
                 for (int i = nCities - 1; i >= 0; i--)
                 {
+                    if (gg.bStopAutoRequest) return;
                     BUSTroops.requestShips(i);
                 }
             }
@@ -160,24 +168,27 @@ namespace IkariamFramework.BUSIkariamFramework
             DebuggingAndTracking.Debug.Logging("AutoRequestTroops - Ships done");
         }
 
-        public static void AutoRequestResearch()
+        public static void AutoRequestResearch(Gadget gg)
         {
+            if (gg.bStopAutoRequest) return;
             DebuggingAndTracking.Debug.Logging("AutoRequestResearch start");
             BUSResearch.requestResearch();
             Gloval.bResearchOverviewIsNewData = true;
             DebuggingAndTracking.Debug.Logging("AutoRequestResearch done");
         }
 
-        public static void AutoRequestDiplomat()
+        public static void AutoRequestDiplomat(Gadget gg)
         {
+            if (gg.bStopAutoRequest) return;
             DebuggingAndTracking.Debug.Logging("AutoRequestDiplomat start");
             BUSMessage.requestMessage();
             Gloval.bDiplomatOverviewIsNewData = true;
             DebuggingAndTracking.Debug.Logging("AutoRequestDiplomat done");
         }
 
-        public static void AutoRequestEvent()
+        public static void AutoRequestEvent(Gadget gg)
         {
+            if (gg.bStopAutoRequest) return;
             DebuggingAndTracking.Debug.Logging("AutoRequestEvent start");
             BUSEvent.requestEvent();
             Gloval.bEventOverviewIsNewData = true;

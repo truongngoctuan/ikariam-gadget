@@ -34,11 +34,9 @@
             this.tbPassword = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.button24 = new System.Windows.Forms.Button();
             this.tbServer = new System.Windows.Forms.TextBox();
             this.button25 = new System.Windows.Forms.Button();
             this.lbNRequest = new System.Windows.Forms.Label();
-            this.button30 = new System.Windows.Forms.Button();
             this.button31 = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
             this.tbThreaddebug = new System.Windows.Forms.TextBox();
@@ -100,16 +98,6 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
-            // button24
-            // 
-            this.button24.Location = new System.Drawing.Point(188, 93);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(82, 23);
-            this.button24.TabIndex = 28;
-            this.button24.Text = "logout";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Click += new System.EventHandler(this.button24_Click);
-            // 
             // tbServer
             // 
             this.tbServer.Location = new System.Drawing.Point(103, 65);
@@ -137,16 +125,6 @@
             this.lbNRequest.TabIndex = 35;
             this.lbNRequest.Text = "0";
             // 
-            // button30
-            // 
-            this.button30.Location = new System.Drawing.Point(12, 122);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(75, 23);
-            this.button30.TabIndex = 36;
-            this.button30.Text = "run thread";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
-            // 
             // button31
             // 
             this.button31.Location = new System.Drawing.Point(188, 122);
@@ -159,11 +137,11 @@
             // 
             // button32
             // 
-            this.button32.Location = new System.Drawing.Point(103, 122);
+            this.button32.Location = new System.Drawing.Point(188, 93);
             this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(75, 23);
+            this.button32.Size = new System.Drawing.Size(82, 23);
             this.button32.TabIndex = 39;
-            this.button32.Text = "stop thread";
+            this.button32.Text = "logout";
             this.button32.UseVisualStyleBackColor = true;
             this.button32.Click += new System.EventHandler(this.button32_Click_1);
             // 
@@ -178,7 +156,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(188, 151);
+            this.button2.Location = new System.Drawing.Point(96, 150);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 41;
@@ -206,11 +184,9 @@
             this.Controls.Add(this.tbThreaddebug);
             this.Controls.Add(this.button32);
             this.Controls.Add(this.button31);
-            this.Controls.Add(this.button30);
             this.Controls.Add(this.lbNRequest);
             this.Controls.Add(this.button25);
             this.Controls.Add(this.tbServer);
-            this.Controls.Add(this.button24);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbPassword);
@@ -234,11 +210,9 @@
         private System.Windows.Forms.TextBox tbPassword;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button button24;
         private System.Windows.Forms.TextBox tbServer;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Label lbNRequest;
-        private System.Windows.Forms.Button button30;
         private System.Windows.Forms.Button button31;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.TextBox tbThreaddebug;

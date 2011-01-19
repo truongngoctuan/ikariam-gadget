@@ -26,9 +26,20 @@ namespace IkariamFramework.DTOIkariamFramework
             return INSTANCE;
         }
 
-        public static void ResetData()
+        public void ResetData()
         {
             INSTANCE = new Data();
+
+            Gloval.Database.Account = new DTOAccount();
+            Gloval.Database.Authenticated = false;
+            Gloval.Database.cookieContainer = new System.Net.CookieContainer();
+            Gloval.Database.Authenticated = false;
+            Gloval.Database.CurrentView = (int)IkariamFramework.DTOIkariamFramework.Data.SITE_VIEW.CITY;
+            Gloval.Database.CurrentCity = 0;
+            Gloval.Database.WebUrl = "";
+
+            Document = new HtmlAgilityPack.HtmlDocument();
+            DocumentNode = null;
         }
 
 
