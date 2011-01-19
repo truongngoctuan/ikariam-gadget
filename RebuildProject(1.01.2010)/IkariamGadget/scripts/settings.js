@@ -19,6 +19,7 @@ function LoadSettings() {
         username.value = System.Gadget.Settings.read("username");
         password.value = System.Gadget.Settings.read("password");
         frequency.selectedIndex = System.Gadget.Settings.read("frequency");
+        //contactList.value = System.Gadget.Settings.read("contactList");
     }
 
     self.focus;
@@ -35,6 +36,7 @@ function SettingsClosing(event) {
         System.Gadget.Settings.write("username", username.value);
         System.Gadget.Settings.write("password", password.value);
         System.Gadget.Settings.write("frequency", frequency.selectedIndex);
+        //System.Gadget.Settings.write("contactList", contactList.value);
         System.Gadget.Settings.write("SettingExist", true);
     }
 

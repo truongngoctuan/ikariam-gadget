@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style type="text/css">
+	.diplomacyOverview {
+		width: 100%;
+		background-color : #FFEECA
+	}
+	
+	.diplomacyOverview .messageHolder
+	{
+		width : 785px;
+		border: #cacaca 1px solid;
+	}
+	.diplomacyOverview .message
+	{
+		text-align : left;
+		border : 1px solid #FDF7DD;
+	}
+	.diplomacyOverview .messageHeader
+	{		
+		background-image:url(images/diplomacyOverview/button.gif);
+		font: normal 14px Verdana,Arial,Helvetica,sans-serif;
+		padding : 5px 10px;
+	}
+	.diplomacyOverview .messageBody
+	{
+		display: none;		
+		margin: 0px 10px 0px 10px;
+		padding: 5px;
+	}
+	.diplomacyOverview .refresh
+	{
+	}
+
+	body,td {
+		color: #542C0F;
+		padding : 0 0;	
+		margin: 0 0;
+	}
+	table {
+		cellpadding:0;
+		cellspacing:0;
+	}
+	td,tr,td,table,img, h1, h2, h3, h4, h5, h6 {
+		border-style:none;
+		border-width:0;
+		padding : 0 0;	
+		margin: 0 0;
+		border-spacing: 0px 0px;
+		vertical-align: middle;
+	}
+</style>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+</head>
+
+<body style="width:850px">
+<div id="gadgetGUI" style="text-align:center">
+<div style="position:absolute;top:0px;left:0px;
+width:850px; height:39px;
+margin-left:10px;">
+	<div style="float:left;
+	background-image:url(images/note/notes_top_left.gif); width:39px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top.gif); width:770px; height:39px;"></div>
+	<div style="float:left;
+	background-image:url(images/note/notes_top_right.gif); width:39px; height:39px;"></div>
+</div>
+<div style="position:absolute; top:39px; left:10px;
+    width:838px;    
+    background-color:#F6E9C6;
+    border-bottom: 3px solid #D2A860;
+    border-left: 3px solid #D2A860;
+    border-right: 3px solid #D2A860;
+    padding: 5px 0 0 0;
+    margin: 0 2px 0 2px;">
+    <table style="position:relative; left:0px; top:5px;
+    display:block; padding:0; margin: 0px 20px 10px 20px; border-style:none;">   
+        <tr valign="bottom" style="background-image: url()">
+            <!--<td name="wd_l" style="background-image: url(images/note/notes_left.gif); width: 17px">
+            </td>-->
+            <td name="wd_m">
+				<div class="diplomacyOverview">
+					<img class="refresh" src="images/diplomacyOverview/refresh.gif" style="position:absolute; top:-5px; left:786px;"/>
+					<div id='messageHolder' class='messageHolder'>
+						<script type="text/javascript">
+							google.load('visualization', '1', { 'packages': ['corechart'] });
+							google.setOnLoadCallback(drawChart);
+							function drawChart() {
+								var data = new google.visualization.DataTable();
+								data.addColumn('string', 'Công Việc');
+								data.addColumn('number', 'Giờ trên Ngày');
+								data.addRows([
+												  ['Coi Phim', 11],
+												  ['Ăn', 2],
+												  ['Sinh Hoạt', 2],
+												  ['Học', 2],
+												  ['Ngủ', { v: 7, f: '7.000'}]
+												]);
+								var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+								chart.draw(data, { width: 400, height: 240, is3D: true, title: 'Hoạt Động Trong Ngày' });
+							}
+						</script>
+						<div id="chart_div">
+						</div>
+					</div>
+				</div>				
+			</td>
+            <!--<td name="wd_r" style="background-image: url(images/note/notes_right.gif); width: 17px">
+            </td>-->
+        </tr>
+    </table>    
+	<script type="text/javascript" language="javascript">
+    
+    function ShowHide(index)
+    {
+        var div = document.getElementById('messageBody' + index);
+        
+        if(div.style.display == 'none' || div.style.display == '')
+        {
+            div.style.display = 'block';
+        }
+        else
+        {
+            div.style.display = 'none';
+        }
+    }
+    </script>
+	
+    <input type="button" onclick="javascript:ShowHideFlyout()" value="Close" />
+</div>
+</div>
+</body>
+</html>
+

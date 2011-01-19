@@ -4,7 +4,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 var OneSecond = 1000 * 60;  // Represents one second.
-var frequency = 0;  // Feed refresh rate in minutes
+var frequency = 1;  // refresh GUI rate one second
 var timeout;
 var displayname = "";
 var username = "";
@@ -23,7 +23,7 @@ var Framework;
 // State & GUI
 //
 ////////////////////////////////////////////////////////////////////////////////
-var States = { Welcome: 0, Loading : 1, Overview: 2 }
+var States = { Welcome: 0, Loading: 1, Overview: 2, Statistics: 3, Map: 4 }
 function Context() {
     this.State = States.Welcome;
 }
@@ -43,11 +43,13 @@ function isLoading()
 }
 function nextLoadingFrame()
 {
-	var loadingImage = document.getElementById('loadingImage');
-	loadingImage.src = 'images/loading/Frame' + currentImage + '.png';
-	currentImage++;
-	if(currentImage > 11)
-		currentImage = 0;
+    var loadingImage = document.getElementById('loadingImage');
+    if (loadingImage != null) {
+        loadingImage.src = 'images/loading/Frame' + currentImage + '.png';
+        currentImage++;
+        if (currentImage > 11)
+            currentImage = 0;
+    }
 	if(isLoading() == false)
 		SetState(States.Overview);
 	//else
@@ -73,6 +75,20 @@ function GetOverviewGUI(gadgetContent, gadgetBackgroundImage) {
     gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
 }
 
+function GetStatisticsGUI(gadgetContent, gadgetBackgroundImage) {
+    var content = "";
+    content += '<img id="statistics" class="statistics" src="images/statisticsOverview/statistics.png" onmousedown="javascript:onOverview(' + "'statistics'" + ');"/>';
+    gadgetContent.innerHTML = content;
+    gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
+}
+
+function GetMapGUI(gadgetContent, gadgetBackgroundImage) {
+    var content = "";
+    content += '<img id="map" class="map" src="images/map/map.png" onmousedown="javascript:onOverview(' + "'map'" + ');"/>';
+    gadgetContent.innerHTML = content;
+    gadgetBackgroundImage.src = 'url(images/Overview_undocked.png)';
+}
+
 function CreateGUI(oGadgetDocument) {
     var oGadgetContent = oGadgetDocument.getElementById("gadgetContent");
     var oGadgetBackgroundImage = oGadgetDocument.getElementById("backgroundImage");
@@ -86,6 +102,12 @@ function CreateGUI(oGadgetDocument) {
     else if (context.State == States.Overview) {
         GetOverviewGUI(oGadgetContent, oGadgetBackgroundImage);
     }
+    else if (context.State == States.Statistics) {
+        GetStatisticsGUI(oGadgetContent, oGadgetBackgroundImage);
+    }
+    else if (context.State == States.Map) {
+        GetMapGUI(oGadgetContent, oGadgetBackgroundImage);
+    }
 }
 
 function SetState(state) {
@@ -96,15 +118,23 @@ function SetState(state) {
         autoRefresh = false;
     }    
 	else if (context.State == States.Loading) {
-        oGadgetDocument.getElementById('state').innerHTML = "Loading !!!";
+        oGadgetDocument.getElementById('state').innerHTML = "Loading";
     }
     else if (context.State == States.Overview) {
-        oGadgetDocument.getElementById('state').innerHTML = "Overview !!!";
+        oGadgetDocument.getElementById('state').innerHTML = "Overview";
         autoRefresh = true;
         Refresh();
     }
+    else if (context.State == States.Statistics) {
+        oGadgetDocument.getElementById('state').innerHTML = "Statistics";
+        autoRefresh = false;
+    }
+    else if (context.State == States.Map) {
+        oGadgetDocument.getElementById('state').innerHTML = "Contacts";
+        autoRefresh = false;
+    }
     else {
-        oGadgetDocument.getElementById('state').innerHTML = "Unknown State !!!";
+        oGadgetDocument.getElementById('state').innerHTML = "Unknown State";
     }
     CreateGUI(oGadgetDocument);
 }
@@ -114,8 +144,14 @@ function StateForward() {
         if(authenticated == false)
             return;
         SetState(States.Overview);
-    } 
+    }
     else if (context.State == States.Overview) {
+        SetState(States.Statistics);
+    }
+    else if (context.State == States.Statistics) {
+        SetState(States.Map);
+    }
+    else if (context.State == States.Map) {
         return;
     }
     else {
@@ -129,6 +165,12 @@ function StateBackward() {
     }  
     else if (context.State == States.Overview) {
         SetState(States.Welcome);
+    }
+    else if (context.State == States.Statistics) {
+        SetState(States.Overview);
+    }
+    else if (context.State == States.Map) {
+        SetState(States.Statistics);
     }
     else {
         SetState(States.Welcome);
@@ -212,12 +254,14 @@ function Login() {
     }
     else {
         errorMessageCode = Framework.Login(username, password, /*"s5.vn.ikariam.com"*/ displayname);
+        //errorMessageCode = 0;
     }
         
     if (errorMessageCode == 0) {
         // Success
         authenticated = true;
         SetState(States.Loading);
+        //SetState(States.Map);
     }
     else {
         // Fail
@@ -302,10 +346,8 @@ function SettingsClosed(event) {
             displayname = System.Gadget.Settings.read("displayname");
             username = System.Gadget.Settings.read("username");
             password = System.Gadget.Settings.read("password");
-
-            var minutes = System.Gadget.Settings.read("frequency");
-            if (minutes == 0) { minutes = 0.5; }
-            frequency = (OneSecond * minutes);
+            var seconds = System.Gadget.Settings.read("frequency");
+            frequency = seconds;
 
             // Call Login since settings have been changed.
             actions.Login();                    
@@ -369,7 +411,7 @@ function GadgetDocked() {
 // Overview : open Flyout to show overview
 //
 ////////////////////////////////////////////////////////////////////////////////
-var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire : 5, Event : 6, Troop : 7 }
+var OverviewStates = { None: 0, Towns: 1, Military: 2, Research: 3, Diplomacy: 4, Empire: 5, Event: 6, Troop: 7, Statistics: 8, Map: 9 }
 var overviewState = OverviewStates.None;
 
 function onOverview(controlId) {
@@ -387,6 +429,10 @@ function onOverview(controlId) {
         showEvent();
     else if (controlId == "troop")
         showTroop();
+    else if (controlId == "statistics")
+        showStatistics();
+    else if (controlId == "map")
+        showMap();
 }
 
 function showTowns() {
@@ -417,6 +463,14 @@ function showTroop() {
     overviewState = OverviewStates.Troop;
     ShowHideFlyout();
 }
+function showStatistics() {
+    overviewState = OverviewStates.Statistics;
+    ShowHideFlyout();
+}
+function showMap() {
+    overviewState = OverviewStates.Map;
+    ShowHideFlyout();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -439,7 +493,7 @@ function Refresh() {
         }        
     }
     if (autoRefresh)
-        setTimeout(function() { Refresh(); }, 1000);
+        setTimeout(function() { Refresh(); }, frequency);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -483,6 +537,12 @@ function OnShowFlyout() {
     }
     else if (overviewState == OverviewStates.Troop) {
         SetTroopOverviewGUI();
+    }
+    else if (overviewState == OverviewStates.Statistics) {
+        SetStatisticsOverviewGUI();
+    }
+    else if (overviewState == OverviewStates.Map) {
+        SetMapGUI();
     }
 }
 
@@ -563,7 +623,11 @@ function SetTroopOverviewGUI() {
             shipUnit = troopOverviewUnits[i];
             flyoutContent += shipUnitToHTML(shipUnit, i % 2);
         }
-    }     
+    }
+
+    var oBody = System.Gadget.Flyout.document.getElementsByTagName('body')[0];
+    oBody.style.height = 200 + citiesCount * 60;
+    
     flyoutContent += '</table>';
     oFlyoutContent.innerHTML = flyoutContent;
 }
@@ -693,6 +757,9 @@ function SetTownOverviewGUI() {
             citiesCount++;
     }
 
+    var oBody = System.Gadget.Flyout.document.getElementsByTagName('body')[0];
+    oBody.style.height = 150 + citiesCount * 30;
+
     if (citiesCount > 0) {        
         var townUnit;
         for (var i = 0; i < citiesCount; i++) {
@@ -811,7 +878,10 @@ function SetEmpireOverviewGUI() {
     for (var k in empireOverviewUnits) {
         if (empireOverviewUnits.hasOwnProperty(k))
             citiesCount++;
-    }   
+    }
+
+    var oBody = System.Gadget.Flyout.document.getElementsByTagName('body')[0];
+    oBody.style.height = 150 + citiesCount * 50;
     
     if (citiesCount > 0) {
         var total = Framework.GetEmptyEmpireOverviewUnit();
@@ -941,7 +1011,19 @@ function researchUnitToHTML(researchPoint, researchPointPerHour, researchUnit, f
         html += '<tr valign="bottom">';
     else
         html += '<tr valign="bottom" style="background-color:#FDF7DD">';
-    if (researchPoint >= researchUnit.Need)
+    if (researchUnit.Need <= 0) {
+        html += '<td width="160">\
+					<img src="images/researchOverview/' + field + '.png" />\
+				</td>\
+				<td>\
+					<h4> ' + researchUnit.Name + '</h4>'
+					 + researchUnit.Description + '\
+				</td>\
+				<td width="100">\
+				    <p>' + researchUnit.NeedDescription + '</p>\
+				</td>';
+    }
+    else if (researchPoint >= researchUnit.Need)
         html += '<td width="160">\
 					<img src="images/researchOverview/' + field + '.png" />\
 				</td>\
@@ -971,15 +1053,35 @@ function researchUnitToHTML(researchPoint, researchPointPerHour, researchUnit, f
 				    </h5>\
 				    <p>Not enough research points. </p>\
                     <h5 class="countdown">\
-                        <span id="count' + num + '"> Time left : </span>\
-                        <script>\
-	                        timercountdown("count' + num + '", ' + ((researchUnit.Need - researchPoint) / researchPointPerHour) * 3600 + ');\
-                        </script>\
+                        ' + getTime(((researchUnit.Need - researchPoint) / researchPointPerHour) * 3600) + '\
                     </h5>\
 				</td>';
 				
     html += '</tr>';
     return html;
+}
+
+function getTime(timeInSeconds) {
+    if (timeInSeconds < 0)
+        return "";
+    var k = timeInSeconds / 86400;
+    day = Math.floor(timeInSeconds / 86400);
+    hour = Math.floor((timeInSeconds / 86400 - day) * 24);
+    min = Math.floor((((timeInSeconds / 86400 - day) * 24) - hour) * 60);
+    second = Math.round((((((timeInSeconds / 86400 - day) * 24) - hour) * 60) - min) * 60);
+
+    count = "";
+    if (day > 0)
+        count += day + "d";
+    if (hour > 0)
+        count += hour + "h";
+    if (min > 0)
+        count += min + "m";
+    if (second > 0)
+        count += second + "s";
+    if (count == "")
+        count = "-";
+    return count;
 }
 
 function timercountdown(controlId, timeInSeconds){ 
@@ -1145,5 +1247,59 @@ function ShowHideMessage(index) {
 function RefreshDiplomacyOverview() {
     LoadFramework();
     SetDiplomacyOverviewGUI();
+    UnloadFramework();
+}
+
+function SetStatisticsOverviewGUI() {
+    if (!System.Gadget.Flyout.document)
+        return;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Statistics Overview";
+
+    oFlyoutContent.className = "statisticsOverview";
+
+    var chartFile = "/bin/Debug/" + Framework.requestChartResource();
+    var flyoutContent = "";
+    flyoutContent += '<img class="refresh" src="images/statisticsOverview/refresh.gif" onclick="RefreshStatisticsOverview(' + "" + ')" style="position:absolute; top:-5px; left:786px;" />\
+					<div id="statisticHolder" class="statisticHolder" style="width:500px">';
+                    flyoutContent += '<iframe src="' + chartFile + '" width="750" height="550">\
+                      <p>Your browser does not support iframes.</p>\
+                    </iframe>';
+    flyoutContent += '</div>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function RefreshStatisticsOverview() {
+    LoadFramework();
+    SetStatisticsOverviewGUI();
+    UnloadFramework();
+}
+
+function SetMapGUI() {
+    if (!System.Gadget.Flyout.document)
+        return;
+    var oBody = System.Gadget.Flyout.document.getElementsByTagName('body')[0];
+    oBody.style.height = 450;
+    var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
+    var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Contact List";
+
+    oFlyoutContent.className = "map";
+    var flyoutContent = "";
+    flyoutContent += '<img class="refresh" src="images/map/refresh.gif" onclick="RefreshMap(' + "" + ')" style="position:absolute; top:-5px; left:786px;" />\
+					<div id="mapHolder" class="mapHolder">';
+    flyoutContent += '<iframe src="map.html" width="750px" height="350px">\
+                        <p>Your browser does not support iframes.</p>\
+                    </iframe>';
+    flyoutContent += '</div>';
+    oFlyoutContent.innerHTML = flyoutContent;
+}
+
+function RefreshMap() {
+    LoadFramework();
+    SetMapGUI();
     UnloadFramework();
 }

@@ -588,23 +588,23 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    //BUSAction.AutoRequestBuildings(this);
+                    BUSAction.AutoRequestBuildings(this);
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
-                    //BUSAction.AutoRequestTroops(this);
+                    BUSAction.AutoRequestTroops(this);
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
-                    //BUSAction.AutoRequestResearch(this);
+                    BUSAction.AutoRequestResearch(this);
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
-                    //BUSAction.AutoRequestDiplomat(this);
+                    BUSAction.AutoRequestDiplomat(this);
                 }
                 if ((requestTarget & RequestTarget.Event) != 0)
                 {
-                    //BUSAction.AutoRequestEvent(this);
+                    BUSAction.AutoRequestEvent(this);
                 }
 
                 //-----------------------------------------
