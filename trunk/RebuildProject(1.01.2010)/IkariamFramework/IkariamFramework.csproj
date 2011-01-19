@@ -56,6 +56,8 @@
     <Compile Include="BUSIkariamFramework\BUSMessage.cs" />
     <Compile Include="BUSIkariamFramework\BUSResearch.cs" />
     <Compile Include="BUSIkariamFramework\BUSTroops.cs" />
+    <Compile Include="Chart\ChartCreator.cs" />
+    <Compile Include="Chart\ChartResource.cs" />
     <Compile Include="DAOIkariamFramework\DAOAccount.cs" />
     <Compile Include="DAOIkariamFramework\BaseFunction.cs" />
     <Compile Include="DAOIkariamFramework\DAOAdvisor.cs" />

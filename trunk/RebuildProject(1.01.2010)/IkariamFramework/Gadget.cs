@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using System.IO;
 using IkariamFramework.InterfaceToGadget;
 using IkariamFramework.DebuggingAndTracking;
+using IkariamFramework.Chart;
 
 namespace IkariamFramework
 {
@@ -587,23 +588,23 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    BUSAction.AutoRequestBuildings(this);
+                    //BUSAction.AutoRequestBuildings(this);
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
-                    BUSAction.AutoRequestTroops(this);
+                    //BUSAction.AutoRequestTroops(this);
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
-                    BUSAction.AutoRequestResearch(this);
+                    //BUSAction.AutoRequestResearch(this);
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
-                    BUSAction.AutoRequestDiplomat(this);
+                    //BUSAction.AutoRequestDiplomat(this);
                 }
                 if ((requestTarget & RequestTarget.Event) != 0)
                 {
-                    BUSAction.AutoRequestEvent(this);
+                    //BUSAction.AutoRequestEvent(this);
                 }
 
                 //-----------------------------------------
@@ -768,6 +769,24 @@ namespace IkariamFramework
             {
                 Debug.ErrorLogging(ex.Message);
                 return JsonConvert.SerializeObject(emptyEventOverviewUnits);
+            }
+        }
+
+        public string requestChartResource()
+        {
+            try
+            {
+                ChartCreator.CreateChartResource(Gloval.Database.Account.Cities,
+                "ChartResource.html",
+                700,
+                500);
+
+                return "ChartResource.html";
+            }
+            catch (Exception ex)
+            {
+                Debug.ErrorLogging(ex.Message);
+                return "";
             }
         }
         #endregion

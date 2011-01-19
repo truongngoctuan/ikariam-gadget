@@ -11,6 +11,7 @@ using IkariamFramework.BUSIkariamFramework;
 using IkariamFramework.DTOIkariamFramework;
 using IkariamFramework.InterfaceToGadget;
 using IkariamFramework.DebuggingAndTracking;
+using IkariamFramework.Chart;
 
 
 namespace Test_BUS_DAO
@@ -737,6 +738,14 @@ namespace Test_BUS_DAO
         private void button3_Click_1(object sender, EventArgs e)
         {
             tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            ChartCreator.CreateChartResource(Gloval.Database.Account.Cities,
+                "ChartResource.html",
+                700,
+                500);
         }
     }
 }
