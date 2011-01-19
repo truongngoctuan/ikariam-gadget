@@ -1,0 +1,17 @@
+﻿==Hướng dẫn rebuild chương trình :
+Chương trình có đăng kí assembly ở Registry nên cần chạy Visual Studio với quyền Admin khi rebuild solution.
+
+==Mô tả solution :
+Gồm 4 project 
+ - Gadget.Interop : dùng để giao tiếp giữa COM object với .NET object
+ - IkariamFramework : có nhiệm vụ đăng nhập, duyệt qua các trang của WebGame để thu thập thông tin về tài khoản
+	+ Có bao gồm gói HtmlAgilityPack : tham khảo
+	+ Có bao gồm gói JSON.NET : tham khảo
+ - IkariamGadget : vista gadget, yêu cầu / nhận kết quả từ IkariamFramework và đưa lên giao diện Gadget
+ - Test_BUS_DAO : project Windows Form dùng để test chức năng của Ikariam Framework
+ 
+==Để đảm bảo Gadget hoạt động tốt :
+ - Nên tắt gadget + sidebar của Windows 7 trước khi đăng nhập một tài khoản mới
+	do sidebar không tự động nhả IkariamFramework.dll sau khi IkariamGadget đã tắt 
+	=> chỉ khi tắt sidebar thì IkariamFramework.dll mới được giải phóng
+ - Nên tắt gadget + sidebar trước khi chuyển sang tài khoản mới.

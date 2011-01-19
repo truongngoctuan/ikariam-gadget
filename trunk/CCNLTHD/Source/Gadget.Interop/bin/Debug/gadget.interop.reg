@@ -1,0 +1,29 @@
+REGEDIT4
+
+[HKEY_CLASSES_ROOT\GadgetInterop.GadgetAdapter]
+@="Gadget.Interop.GadgetAdapter"
+
+[HKEY_CLASSES_ROOT\GadgetInterop.GadgetAdapter\CLSID]
+@="{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}"
+
+[HKEY_CLASSES_ROOT\CLSID\{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}]
+@="Gadget.Interop.GadgetAdapter"
+
+[HKEY_CLASSES_ROOT\CLSID\{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}\InprocServer32]
+@="mscoree.dll"
+"ThreadingModel"="Both"
+"Class"="Gadget.Interop.GadgetAdapter"
+"Assembly"="Gadget.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9389e9f4d8844504"
+"RuntimeVersion"="v2.0.50727"
+"CodeBase"="file:///C:/GadgetInterop/Gadget.Interop/bin/Debug/gadget.interop.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}\InprocServer32\1.0.0.0]
+"Class"="Gadget.Interop.GadgetAdapter"
+"Assembly"="Gadget.Interop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=9389e9f4d8844504"
+"RuntimeVersion"="v2.0.50727"
+"CodeBase"="file:///C:/GadgetInterop/Gadget.Interop/bin/Debug/gadget.interop.dll"
+
+[HKEY_CLASSES_ROOT\CLSID\{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}\ProgId]
+@="GadgetInterop.GadgetAdapter"
+
+[HKEY_CLASSES_ROOT\CLSID\{89BB4535-5AE9-43A0-89C5-19B4697E5C5E}\Implemented Categories\{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}]

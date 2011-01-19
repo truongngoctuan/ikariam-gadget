@@ -1,0 +1,44 @@
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\obj\Debug\ResolveAssemblyReference.cache
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\Lang\en.xml
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\Lang\vn.xml
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\IkariamGadget.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\IkariamGadget.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\Gadget.Interop.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\IkariamFramework.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\IkariamFramework.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\bin\Debug\Gadget.Interop.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\obj\Debug\IkariamGadget.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\IkariamGadget\obj\Debug\IkariamGadget.pdb
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\en.xml
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\vn.xml
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.dll
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.pdb
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.dll
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.dll
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.pdb
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.pdb
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\ResolveAssemblyReference.cache
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.dll
+D:\Temp\do an cuoi ki lthd\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.pdb
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\en.xml
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\vn.xml
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.dll
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.pdb
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.dll
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.dll
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.pdb
+E:\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.pdb
+E:\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\ResolveAssemblyReference.cache
+E:\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.dll
+E:\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\en.xml
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Lang\vn.xml
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamGadget.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\IkariamFramework.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\bin\Debug\Gadget.Interop.pdb
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\ResolveAssemblyReference.cache
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.dll
+E:\My Documents\Visual Studio 2008\Projects\Semester 7\PT&PTPM\IkariamGadget\RebuildProject(1.01.2010)\IkariamGadget\obj\Debug\IkariamGadget.pdb
