@@ -47,6 +47,16 @@ namespace IkariamFramework.Chart
             //                ]);
             for (int i = 0; i < cities.Count(); i++)
             {
+                if (cities.Count() == 1)
+                {
+                    strWood.AppendFormat("['Wood', {0}], ", (int)cities[i].Wood);
+                    strWine.AppendFormat("['Wine', {0}], ", (int)cities[i].Wine);
+                    strMarble.AppendFormat("['Marble', {0}], ", (int)cities[i].Marble);
+                    strCrystalGlass.AppendFormat("['Crystal Glass', {0}], ", (int)cities[i].Crystal);
+                    strSulphur.AppendFormat("['Sulphur', {0}]", (int)cities[i].Sulphur);
+                    continue;
+                }
+
                 if (i == 0)
                 {
                     strWood.AppendFormat("['Wood', {0}, ", (int)cities[i].Wood);
