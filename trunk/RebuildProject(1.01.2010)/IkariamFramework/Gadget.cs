@@ -524,8 +524,10 @@ namespace IkariamFramework
                 int iAdvstatus = BUSAction.CheckAdvStatus();
                 if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.MAYOR) != 0)
                 {
+                    requestTarget |= RequestTarget.Event;
                     requestTarget |= RequestTarget.Towns;
-                    requestTarget |= RequestTarget.Building;
+                    
+                    //requestTarget |= RequestTarget.Building;
                 }
                 if ((iAdvstatus & (int)DTOAccount.ADV_ACTIVE.GENERAL) != 0)
                 {
@@ -549,11 +551,11 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
-                    //BUSAction.AutoRequestBuildings();
+                    BUSAction.AutoRequestBuildings();
                 }
                 if ((requestTarget & RequestTarget.Troops) != 0)
                 {
-                    //BUSAction.AutoRequestTroops();
+                    BUSAction.AutoRequestTroops();
                 }
                 if ((requestTarget & RequestTarget.Research) != 0)
                 {
@@ -561,7 +563,7 @@ namespace IkariamFramework
                 }
                 if ((requestTarget & RequestTarget.Diplomacy) != 0)
                 {
-                    //BUSAction.AutoRequestDiplomat();
+                    BUSAction.AutoRequestDiplomat();
                 }
                 if ((requestTarget & RequestTarget.Event) != 0)
                 {

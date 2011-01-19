@@ -657,7 +657,7 @@ namespace Test_BUS_DAO
         private void button31_Click(object sender, EventArgs e)
         {
             tm = new Timer();
-            tm.Interval = 500;
+            tm.Interval = 1000;
             tm.Tick += new EventHandler(tm_Tick);
             tm.Start();
         }
