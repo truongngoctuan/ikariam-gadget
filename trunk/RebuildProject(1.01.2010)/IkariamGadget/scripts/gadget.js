@@ -149,14 +149,7 @@ function LoadGadget() {
     System.Gadget.onDock = CheckDock;
     // System.Gadget.visibilityChanged = VisibilityChanged;
 
-    // Instance of the GadgetBuilder to load/unload .NET assemblies.  See GadgetInterop.js
-    builder = new GadgetBuilder();
-    // Initialize the adapter to call the .NET assembly
-    builder.Initialize();
-
-    // Load the IkariamFramework.dll assembly and create an instance of the IkariamFramework.Gadget type
-    // .NET instance of the IkariamFramework.Gadget object.
-    Framework = builder.LoadType(System.Gadget.path + "\\bin\\Debug\\IkariamFramework.dll", "IkariamFramework.Gadget");
+    LoadFramework();
     
     // Create GUI
     context = new Context();
@@ -167,9 +160,24 @@ function LoadGadget() {
     document.body.focus();
 }
 
-function UnloadGadget() {
+function LoadFramework() {
+    // Instance of the GadgetBuilder to load/unload .NET assemblies.  See GadgetInterop.js
+    builder = new GadgetBuilder();
+    // Initialize the adapter to call the .NET assembly
+    builder.Initialize();
+
+    // Load the IkariamFramework.dll assembly and create an instance of the IkariamFramework.Gadget type
+    // .NET instance of the IkariamFramework.Gadget object.
+    Framework = builder.LoadType(System.Gadget.path + "\\bin\\Debug\\IkariamFramework.dll", "IkariamFramework.Gadget");
+}
+
+function UnloadFramework() {
     builder.UnloadType(Framework);
     builder = null;
+}
+
+function UnloadGadget() {
+    UnloadFramework();   
 }
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -214,6 +222,7 @@ function Login() {
     else {
         // Fail
         SetState(States.Welcome);
+        document.getElementById('state').innerHTML = "Login Failed !!!";
     }
     return errorMessageCode;
 }
@@ -346,11 +355,11 @@ function GadgetUndocked() {
 function GadgetDocked() {
     with (document.body.style)
         width = 130,
-        height = 100;
+        height = 110;
 
     with (backgroundImage.style)
         width = 130,
-        height = 100;
+        height = 110;
 
     gadgetGUI.className = "gadgetGUI_docked";
 }
@@ -423,7 +432,9 @@ function Refresh() {
         if (updateFlyout) {
             //if (code & 1 > 0 && code > 0 /*&& overviewState == OverviewStates.Empire*/) {
             //debugger;
-            OnShowFlyout();
+            if (overviewState != OverviewStates.Diplomacy) {
+                OnShowFlyout();
+            }
             //}
         }        
     }
@@ -480,8 +491,10 @@ function SetTroopOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Troop Overview";
     oFlyoutContent.className = "troopOverview";
-    flyoutContent = "";
+    var flyoutContent = "";
     flyoutContent += '<table>\
                 <tr valign="bottom" style="background-image:url(images/ikariam/button.gif)">\
 			        <td name="Name"><div style="width:80px;"></div></td>\
@@ -627,8 +640,10 @@ function SetTownOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Town Overview";
     oFlyoutContent.className = "townOverview";
-    flyoutContent = "";
+    var flyoutContent = "";
     flyoutContent += '<table>\
                 <tr valign="bottom" style="background-image:url(images/empireOverview/button.gif)">\
 	                <td name="Name"><div style="width:80px;"></div></td>\
@@ -762,9 +777,11 @@ function SetEmpireOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Empire Overview";
 
     oFlyoutContent.className = "empireOverview";
-    flyoutContent = "";
+    var flyoutContent = "";
     flyoutContent += '<table>\
                 <tr valign="bottom" style="background-image:url(images/empireOverview/button.gif)">\
 	                <td name="Name"><div style="width:80px;"></div></td>\
@@ -872,9 +889,11 @@ function SetResearchOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Research Overview";
+    
     oFlyoutContent.className = "researchOverview";
-    flyoutContent = ""; 
+    var flyoutContent = ""; 
     
     var researchOverviewUnits = JSON.parse(Framework.requestResearchOverview(), function(key, value) {
         var type;
@@ -1000,9 +1019,11 @@ function SetEventOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Event Overview";
+    
     oFlyoutContent.className = "eventOverview";
-    flyoutContent = "";
+    var flyoutContent = "";
     flyoutContent += '<table>\
 				<tr valign="bottom" style="background-image:url(images/eventOverview/button.gif);">\
 					<td name="Location" width="150" style="padding:10px"><h4>Location</h4></td>\
@@ -1063,10 +1084,12 @@ function SetDiplomacyOverviewGUI() {
         return;
     var oBackground = System.Gadget.Flyout.document.getElementById('flyoutBackgroundImage');
     var oFlyoutContent = System.Gadget.Flyout.document.getElementById('flyoutContent');
-
+    var oSubject = System.Gadget.Flyout.document.getElementById('subject');
+    oSubject.innerHTML = "Diplomacy Overview";
+    
     oFlyoutContent.className = "diplomacyOverview";
-    flyoutContent = "";
-    flyoutContent += '<div class="researchOverview">\
+    var flyoutContent = "";
+    flyoutContent += '<img class="refresh" src="images/diplomacyOverview/refresh.gif" onclick="RefreshDiplomacyOverview(' + "" + ')" style="position:absolute; top:-5px; left:786px;" />\
 					<div id="messageHolder" class="messageHolder">';
 
     var diplomacyOverviewUnits = JSON.parse(Framework.requestDiplomatOverview(), function(key, value) {
@@ -1093,13 +1116,13 @@ function SetDiplomacyOverviewGUI() {
             flyoutContent += messageToHTML(message, i);
         }
     }
-    flyoutContent += '</div></div>';
+    flyoutContent += '</div>';
     oFlyoutContent.innerHTML = flyoutContent;
 }
 
 function messageToHTML(message, num) {    
     return '<div class="message">\
-				<div id="messageHeader" class="messageHeader" onclick="ShowHideMessage(' + num + ')">\
+				<div id="messageHeader" class="messageHeader" onclick="ShowHideMessage(' + num + ')" style="background-image:url(images/diplomacyOverview/button.gif);">\
 					' + message.Sender + '\
 				</div>\
 				<div id="messageBody' + num + '" class="messageBody">\
@@ -1117,4 +1140,10 @@ function ShowHideMessage(index) {
     else {
         div.style.display = 'none';
     }
+}
+
+function RefreshDiplomacyOverview() {
+    LoadFramework();
+    SetDiplomacyOverviewGUI();
+    UnloadFramework();
 }
