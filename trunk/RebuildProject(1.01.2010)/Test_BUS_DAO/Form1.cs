@@ -727,5 +727,10 @@ namespace Test_BUS_DAO
             tbResult.Text = gg2.requestEventOverview() + tbResult.Text;
             tbResult.Text = gg2.requestResearchOverview() + tbResult.Text;
         }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            tbResult.Text = gg2.requestEmpireOverview() + tbResult.Text;
+        }
     }
 }

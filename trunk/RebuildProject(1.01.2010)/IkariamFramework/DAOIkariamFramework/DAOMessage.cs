@@ -30,8 +30,22 @@ namespace IkariamFramework.DAOIkariamFramework
             for (int i = nodeColSender.Count - 1; i >= 0 ; i--)
             {
                 DTOMessage mes = new DTOMessage();
-                mes.Message = nodeColMessage[i].InnerText;
-                mes.Sender = nodeColSender[i].InnerText;
+
+                //khử nhiễu                
+                string[] strSplit = nodeColMessage[i].InnerText.Split(new char[] {'\r', '\n', '\t'});
+
+                StringBuilder strResultMessage = new StringBuilder(500);
+                foreach (string str in strSplit)
+                {
+                    if (str.Trim() != "")
+                    {
+                        strResultMessage.Append(str);
+                        strResultMessage.Append("<br/>");
+                    }
+                }
+
+                mes.Message = strResultMessage.ToString();
+                mes.Sender = nodeColSender[i].InnerText.Trim(new char[] {'\t', '\r', '\n', ' '});
 
                 list[i] = mes;
             }
