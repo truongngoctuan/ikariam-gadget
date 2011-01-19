@@ -175,7 +175,7 @@ a:hover
 .gadgetGUI_undocked .overviewItem5
 {
 	position : absolute;
-    left : 100;
+    left : 150;
     top : 150;
 	width : 75;
 	height : 90;
@@ -183,7 +183,7 @@ a:hover
 .gadgetGUI_undocked .overviewItem6
 {
 	position : absolute;
-    left : 150;
+    left : 250;
     top : 150;
 	width : 75;
 	height : 90;

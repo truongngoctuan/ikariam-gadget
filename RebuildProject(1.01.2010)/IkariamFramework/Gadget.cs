@@ -36,6 +36,7 @@ namespace IkariamFramework
             // Login : trả về bool, thành công - thất bại
             // Hoặc tra về errorCode
             int errMsg = -1;
+            Authenticated = false;
             try
             {
                 errMsg = BUSAction.Login(username, password, server);
@@ -405,10 +406,6 @@ namespace IkariamFramework
         List<DTOMessage> EmptyDiplomatOverviewUnit = new List<DTOMessage> {
             new DTOMessage{Message = "hey, are you ready? ", Sender = "Ikariam Gadget"},
             new DTOMessage{Message = "fighting ...? ", Sender = "Ikariam Gadget"}};
-
-
-
-
 
         public static string GetMessageOverviewUnits()
         {

@@ -13,12 +13,12 @@
 	}
 	.diplomacyOverview .message
 	{
-		text-align : left; 	
+		text-align : left;
 		border : 1px solid #FDF7DD;
 	}
 	.diplomacyOverview .messageHeader
 	{		
-		background-image:url(images/eventOverview/button.gif);
+		background-image:url(images/diplomacyOverview/button.gif);
 		font: normal 14px Verdana,Arial,Helvetica,sans-serif;
 		padding : 5px 10px;
 	}
@@ -27,6 +27,9 @@
 		display: none;		
 		margin: 0px 10px 0px 10px;
 		padding: 5px;
+	}
+	.diplomacyOverview .refresh
+	{
 	}
 
 	body,td {
@@ -106,8 +109,9 @@ margin-left:10px;">
         <tr valign="bottom" style="background-image: url()">
             <!--<td name="wd_l" style="background-image: url(images/note/notes_left.gif); width: 17px">
             </td>-->
-            <td name="wd_m" class="diplomacyOverview">
-				<div class="researchOverview">				
+            <td name="wd_m">
+				<div class="diplomacyOverview">
+					<img class="refresh" src="images/diplomacyOverview/refresh.gif" style="position:absolute; top:-5px; left:786px;"/>
 					<div id='messageHolder' class='messageHolder'>
 						<div class='message'>
 							<div id='messageHeader' class='messageHeader' onclick='ShowHide(0)'>
@@ -125,8 +129,8 @@ margin-left:10px;">
 							Message
 						</div>
 						</div>
-					</div>				
-				</div>
+					</div>
+				</div>				
 			</td>
             <!--<td name="wd_r" style="background-image: url(images/note/notes_right.gif); width: 17px">
             </td>-->

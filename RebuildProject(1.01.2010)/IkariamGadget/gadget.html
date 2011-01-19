@@ -36,14 +36,14 @@
         <g:background id='backgroundImage' src='url(images/Welcome_undocked.png)' style='position: absolute;top: 0px; left:0px; width: 130px; height: 100px;'>        
         <div id='gadgetContent' class="content_Welcome">
         </div>
-        <div id='anchor'>
-		    <img id="arrow_left" src="images/arrow_left.png" onmouseover="javascript:image_event('arrow_left', 'hover');" onmouseout="javascript:image_event('arrow_left', 'leave');" onmousedown="javascript:onNavigate('arrow_left');"  />
-		    <div id="stateBlock" >
+        <div id='anchor' style="background-image:url(images/state_undocked.png)">
+		    <img alt="previous" id="arrow_left" src="images/arrow_left.png" onmouseover="javascript:image_event('arrow_left', 'hover');" onmouseout="javascript:image_event('arrow_left', 'leave');" onmousedown="javascript:onNavigate('arrow_left');" />
+		    <div id="stateBlock">
 		        <span id="state">Welcome !!!</span>
 		    </div>
-		    <img id="arrow_right" src="images/arrow_right.png" onmouseover="javascript:image_event('arrow_right', 'hover');" onmouseout="javascript:image_event('arrow_right', 'leave');" onmousedown="javascript:onNavigate('arrow_right');" />
+		    <img alt="next" id="arrow_right" src="images/arrow_right.png" onmouseover="javascript:image_event('arrow_right', 'hover');" onmouseout="javascript:image_event('arrow_right', 'leave');" onmousedown="javascript:onNavigate('arrow_right');" />
 	    </div>
 	    </g:background> 
-    </div>    
+    </div>
 </body>
 </html>
