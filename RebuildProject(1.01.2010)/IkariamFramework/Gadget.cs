@@ -627,6 +627,7 @@ namespace IkariamFramework
             if (bStopAutoRequest)
             {
                 DEBUG("server down !!!");
+                Debug.Logging("request server: " + DBnRequestServer.ToString() + " client request: " + DBnRequestClient.ToString() + " result: -1");
                 return -1;
             }
 

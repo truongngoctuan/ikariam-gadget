@@ -59,19 +59,14 @@ namespace IkariamFramework.BUSIkariamFramework
         #endregion
 
         #region res
-        public static DTOCity GetResourceCity(int iIndex)
+        public static void requestResourceCity(int iIndex)
         {
             if (0 <= iIndex && iIndex < Gloval.Database.Account.Cities.Count())
             {
                 ChangeCityTo(iIndex);
                 Gloval.Database.Account.Cities[iIndex].DTResourceCity = DateTime.Now;
                 Gloval.Database.Account.Cities[iIndex] = DAOCity.ParseResources(Gloval.Database.Account.Cities[iIndex]);
-
-                return Gloval.Database.Account.Cities[iIndex];
             }
-
-            //thong bao loi~
-            return null;
         }
 
         public static void CalculateFromLocalData()
@@ -81,7 +76,7 @@ namespace IkariamFramework.BUSIkariamFramework
             for (int i = 0; i < nCities; i++)
             {
 
-                DTOCity ct = BUSCity.GetResourceCity(i);
+                DTOCity ct = Gloval.Database.Account.Cities[i];
                 TimeSpan tp = new TimeSpan(dtnew.Ticks - ct.DTResourceCity.Ticks);
 
                 //cap nhat dan - townhall

@@ -82,7 +82,7 @@ namespace IkariamFramework.BUSIkariamFramework
             int nCities = Gloval.Database.Account.Cities.Count();
             for (int i = 0; i < nCities; i++)
             {
-                BUSCity.GetResourceCity(i);
+                BUSCity.requestResourceCity(i);
                 BUSCity.requestTownHall(i);
             }
 
