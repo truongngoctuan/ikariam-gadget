@@ -341,10 +341,10 @@ namespace IkariamFramework
             Scientists = 100,
             ResearchPoints = 10000,
             ResearchPointsPerHour = 3600,
-            Seafaring = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
-            Economic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
-            Scientific = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 },
-            Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000 }
+            Seafaring = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000, NeedDescription = "" },
+            Economic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 0, NeedDescription = "Ít nhất một yêu cầu chưa được nghiên cứu (công trình có thể tiếp theo: Xưởng mộc)" },
+            Scientific = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000, NeedDescription = "" },
+            Militaristic = new DTOResearchBranch { Name = "GoneWithTheWind", Description = "Bay cao bay xa", Need = 5000, NeedDescription = "" }
         };
 
         public static string GetResearchOverviewUnit()
@@ -393,9 +393,11 @@ namespace IkariamFramework
         #region Messages
         List<DTOMessage> EmptyDiplomatOverviewUnit = new List<DTOMessage> {
             new DTOMessage{
-                Message = "alo, are you ready? "},
+                Message = "alo, are you ready? ",
+            Sender = "TNT"},
                 new DTOMessage{
-                Message = "fighting... "}};
+                Message = "fighting... ",
+                Sender = "NHM"}};
 
         public static string GetMessageOverviewUnits()
         {
