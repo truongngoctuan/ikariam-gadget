@@ -560,7 +560,7 @@ namespace IkariamFramework
                 //hakuna
                 if ((requestTarget & RequestTarget.Towns) != 0)
                 {//res + town hall
-                    //BUSAction.AutoRequestEmpireOverview();
+                    BUSAction.AutoRequestEmpireOverview();
                 }
                 if ((requestTarget & RequestTarget.Building) != 0)
                 {
